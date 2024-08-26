@@ -1,0 +1,3340 @@
+\documentclass[12pt]{book}
+\usepackage{ctex} % 用于处理中文文本
+\usepackage{graphicx,subfigure} % 用于插入图片
+\usepackage{amsmath, amssymb, amsfonts} % 用于插入数学公式
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+%\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{chngcntr}
+\usepackage{enumitem}
+\usepackage{appendix}
+\usepackage{cite} % 用于执行引用
+\usepackage{hyperref}
+
+\def\equationautorefname{式}
+\def\figureautorefname{图}
+\def\subfigureautorefname{图}
+\def\tableautorefname{表}
+%\def\appendixautorefname{附录}
+\def\chapterautorefname{章}
+\def\sectionautorefname{节}
+\def\subsectionautorefname{小节}
+
+\def\AA{\mathring{\rm A}}
+\def\Celcius{^{\circ}{\rm C}}
+\def\cosech{{\rm cosech}}
+%\def\sinh{{\rm sinh}}
+%\def\cosh{{\rm cosh}}
+
+\title{经典电动力学}
+\author{约翰·戴维德·杰克逊（John David Jackson）}
+\date{\today}
+\geometry{a4paper,left=2cm,right=2cm,top=2.54cm,bottom=2.54cm}
+\captionsetup{font={small},labelfont=bf}
+\fancyfoot{font={small}}
+
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{footnote}{page}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\setcounter{chapter}{-1}
+
+\begin{document}
+
+\maketitle
+
+\chapter{介绍和概论}\label{cha:I}
+
+虽然古希腊人早就知道琥珀和磁石，但电动力学作为一门定量科学发展不过百年时间。
+卡文迪许（Cavendish）在静电学方面的杰出实验进行于1771年到1773年之间；
+库仑（Coulomb）从1785年开始发表他里程碑式的研究结果；
+这些标志着世界范围内对电和磁进行定量科学研究的开始。
+五十年后法拉第（Faraday）研究了时变电流的效应和磁场；
+到1864年，麦克斯韦（Maxwell）发表了关于电磁场动力学理论的著名文章；
+20年后（1888年）赫兹（Hertz）发现了电磁横波的存在，它以光速传播，并把麦克斯韦的理论置于坚实的实验基础之上。
+
+对于电磁场和光的理解认识，其发展历史当然比仅仅提及一个世纪内的几个名字所能指代的东西要漫长和丰富得多。
+关于这段迷人历史的详尽叙述，读者可以参考\textit{惠特克（Whittaker）}
+\footnote{斜体姓氏代表的书籍在参考文献中有详细信息。}
+的权威专著。
+一个更简要的强调光学现象的概述，可以在\textit{伯恩（Born}和\textit{沃尔夫（Wolf）}的著作开头找到。
+
+自20世纪60年代，人们对于基本力和物质构成的认识发生了革命性的变化。
+现在（20世纪90年代）经典电动力学属于\textit{标准模型}的一部分，具有统一的粒子和相互作用描述。
+标准模型给出了一个关于电磁场、 弱相互作用和强相互作用的自洽量子力学描述：
+基本粒子夸克和轻子，藉由力媒光子、W和Z玻色子以及胶子，通过交换力子相互作用。
+这一统一的理论框架是由力的连续规范不变性（真相位）和粒子的离散对称性所导出的。
+
+从标准模型的观点来看，经典电动力学是量子电动力学的一个极限（对于小动量和能量交换、大真实光子或虚拟光子的平均数量的情况）。
+量子电动力学，则是在弱相互作用和电磁相互作用两者统一、力媒均无静止质量的理论框架下，发生自发对称性破缺的结果。
+对称性破缺导致电子相互作用的力媒（光子）无静止质量，从而使得库仑定律适用于无穷远的范围内；
+而弱相互作用的力媒（W和Z玻色子）则具有量级在$80-90{rm\ GeV/c^2}$的静止质量，
+从而使得低能下的弱相互作用具有极强的短程特性（$2\times 10^{-18}$米）。
+因为理论的源头是统一的，所以弱相互作用的范围和强度与电磁耦合常数（精细结构常数$\alpha\approx 1/137$）之间存在着联系。
+
+尽管仍存在相当多的需要从实验中获得的物理量，标准模型（和大尺度的广义相对论）提供了一个对于自然界的包罗万象的高精度描述，
+从核子的内部，到微电子系统，到桌子和椅子，到最遥远的星系。
+当然，许多现象可以用经典电动力学或者非相对论性的量子电动力学来准确解释，
+但标准模型与相对论量子力学所主导的原子和粒子尺度的物理实验的吻合精度才真正令人震惊。
+经典力学和经典电动力学作为我们目前理解认识的祖先，在实际生活和研究前沿中仍然扮演着重要的角色。
+
+本书自成一体，因为虽然假定了一些数学背景（矢量运算、微分方程），但作为议题的电动力学是从开头的静电学逐步推出的。
+然而，大部分读者并不是第一次碰见这个议题。
+因此，这部分的介绍内容不旨在讨论库仑定律以及其他基本定律，而是作为一个关于经典电磁学的回顾和概述。
+诸如“目前平方反比律的精度（光子静止质量）”“线性叠加原理的有效范围极限”“电荷和能量差异离散性所导致的效应”等问题也有所讨论。
+类似于“不同介质分界面和导体表面微尺度场的边界条件”这种“面包和黄油”的问题也有所涉及。
+这部分内容的目标是结合经典电磁学，确认其有效范围并辨明一些其包含的理想化假设。
+一些源自于本书后面内容的结论和一些非经典的观点也被蕴含在讨论之中。
+当然一位第一次学习电磁学的读者是无法完全理解所有的观点或是意识到它们的重要性的。
+不过，对于其他人，这一章介绍将会成为学习本书\autoref{cha:5}之后部分的跳板，并提醒他们为什么这一议题作为一门实验科学而存在。
+
+\section{真空中的麦克斯韦方程组，场和源}\label{sec:I.1}
+
+决定电磁现象的是麦克斯韦方程组，
+\begin{subequations}\label{eq:I.1}
+    \begin{equation}\label{eq:I.1a}
+        \begin{aligned}
+            \nabla\cdot\mathbf{D}                                          & = \rho      \\
+            \nabla\times\mathbf{H} - \frac{\partial\mathbf{D}}{\partial t} & =\mathbf{J} \\
+            \nabla\times\mathbf{E} + \frac{\partial\mathbf{B}}{\partial t} & =0          \\
+            \nabla\cdot\mathbf{B}                                          & = 0         \\
+        \end{aligned}
+    \end{equation}
+    对于真空中的外场，$\mathbf{D}=\epsilon_0\mathbf{E}$，$\mathbf{B}=\mu_0\mathbf{H}$。
+    因此前两个方程变成
+    \begin{equation}\label{eq:I.1b}
+        \begin{aligned}
+            \nabla\cdot\mathbf{E}                                             & = \frac{\rho}{\epsilon_0} \\
+            \nabla\times\mathbf{B} - \frac{\partial\mathbf{E}}{c^2\partial t} & =\mu_0\mathbf{J}          \\
+        \end{aligned}
+    \end{equation}
+\end{subequations}
+麦克斯韦方程组隐含了电荷密度与电流密度的连续性方程，
+\begin{equation}\label{eq:I.2}
+    \frac{\partial\rho}{\partial t}+\nabla\cdot\mathbf{J}=0
+\end{equation}
+这个式子由\autoref{eq:I.1a}中对第一式求时间导数和对第二式求散度导出。
+另一个基本方程是关于运动带电粒子的洛伦兹力方程，
+\begin{equation}\label{eq:I.3}
+    \mathbf{F}=q(\mathbf{E}+\mathbf{v}\times\mathbf{B})
+\end{equation}
+它给出了在电磁场中的点电荷$q$的受力。
+
+这些方程使用的是SI单位制，本书的前十章都采用这种电磁单位制。（单位和维度在附录中被讨论。）
+在附录的\autoref{tab:A.2}中展示了更一般单位制下的麦克斯韦方程组。
+电动力学中的基本量是真空中的光速，SI单位制下为$c=(\mu_0\epsilon_0)^{-1/2}$。
+正如附录中所讨论的那样，“米”现在已经采用“秒”（基于铯-133的超精细跃迁）和光速（$c=299792458{\rm m/s}$，准确值）来定义。
+这些定义假定了光速是常数，与实验证据（见\autoref{sec:11.2.C}）——
+从超低频到至少$\nu\approx10^{24}{\rm Hz}$（4GeV光子） ，在相当高的精度下光速不变——相符。
+对于大多数实际情况，我们可以近似光速为$c\approx 3\times10^8{\rm m/s}$，
+或者准确性大大提高的$c\approx 2.998\times10^{8}{\rm m/s}$。
+
+在\autoref{eq:I_1}中的电磁场$\mathbf{E}$和$\mathbf{B}$最初是由受力方程\autoref{eq:I.3}引入的。
+库仑实验发现了局域分布电荷之间存在相互作用力，并发现引入单位电荷受力$\mathbf{E}$是实用的。
+类似的，安培（Ampère）实验研究了电流环之间的相互作用力（见\auroref{sec:5.2}）。
+考虑到导体中的电流为$NAq\mathbf{v}$，其中$A$是横截面积，$N$是单位体积内粒子数，$\mathbf{v}$是粒子速度，
+\autoref{eq:I.3}中的$\mathbf{B}$在大小上为单位电流的受力。
+虽然$\mathbf{E}$和$\mathbf{B}$最初只是由电荷和电流分布引起的受力的方便替代品，它们拥有其他的重要属性。
+首先，它们在概念上把源和试探体分开。如果两种源分布产生的$\mathbf{E}$和$\mathbf{B}$相同，
+那么在同一点上同一个试探体受到的力也相同，不管源分布有多么不同。
+这给了\autoref{eq:I.3}中$\mathbf{E}$和$\mathbf{B}$本身的独立于源的意义。
+第二，电磁场可以在无源区域中存在。它可以携带动量、能量和角动量，从而可以完全独立于电荷和电流而存在。
+事实上，虽然有为了方便带点粒子的远距离作用描述，而去除关于场的显式依赖的反向尝试，
+电磁场仍然是经典物理和量子物理中最丰硕的成果之一。
+
+把$\mathbf{E}$和$\mathbf{B}$看成普通场是经典的说法。
+它可以被认为是量子力学描述下真实或者虚拟光子的经典极限（大量子数极限）。
+在微观尺度甚至一些原子尺度的现象中，光子的离散性一般可以被忽略或至少被近似。
+例如，一个100瓦的灯泡的1米远处，电场的方均根在$50{\rm V/m}$的量级，即约$10^{15}$个可见光子每平方厘米每秒。
+类似的，一个各向同性的100瓦，$10^8{\rm Hz}$的调频天线在100千米处只能产生方均根为$0.5{\rm mV/m}$的电场，
+但这仍对应于$10^{12}$个每平方厘米每秒的光子流，或者说成是大约$10^9$个光子在一个波长的体积（$27{\rm m^3}$）中。
+一般来说装置是无法分辨单个光子的；许多光子的发射或吸收的积累效应会表现为连续的，宏观可见的信号。
+所以由麦克斯韦方程组表示的一个完全经典的描述是可行且合适的。
+
+如何先验地知道什么时候一个关于电磁场的经典描述是足够的？偶尔我们需要一些复杂的计算，但以下是一个一般来说都足够好的标准：
+当涉及到的光子数量足够大，但单个光子所携带的动量相比于物质系统又足够小时，则这个物质系统的响应用经典电磁场理论就足够描述。
+例如，每一个由我们的调频天线所辐射出的$10^8{\rm Hz}$光子只能产生$2.2\times10^{-34}{\rm N\cdot s}$的冲量。
+一个经典的处理足够了。另一方面，低频下单一自由电子的散射光由经典汤姆孙（Thomson）公式所决定，
+但当单光子动量$\hbar \omega/c$与$mc$可比时过渡到康普顿（Compton）效应的规律。
+光电效应对于物质系统是非经典的，因为金属中的准自由电子改变的自身能量和吸收的光子相同，
+但光电流可以利用电磁场的经典描述为电子进行量子力学上的计算。
+
+另一方面，在自发辐射、原子辐射或其他任何初始缺少光子、结束时也只有少量光子存在的系统中，必须考虑到电磁场的量子本质。
+平均行为可能大体上仍能由实质经典的语句描述，主要是因为能量和动量是保守的。
+一个例子是单个带电粒子经过一个吸引势时的级联过程的经典处理（\autoref{sec:16.2}）之间存在着联系。
+在高的粒子量子数时，因为连续发射的光子能量与在轨道上运动的粒子的动能或者势能相比很小，
+所以对于粒子的经典描述是充分的，并且能量和角动量的长期变化可以通过对辐射反应进行经典计算得到。
+
+\autoref{eq:I.1}中的源项为电荷密度$\rho(\mathbf{x},t)$和电流密度$\mathbf{J}(\mathbf{x},t)$。
+在经典电磁理论中他们在空间$\mathbf{x}$上被认为是连续的，尽管我们有些时候认为局域分布可以近似为点源。
+这些点源的大小一般被认为是任意的，但实际上只能取离散值。电荷大小的基本单位是电子电荷，
+$$\begin{align}
+        |q_e| & =4.8032068(15)\times10^{-10}{\rm esu} \\
+              & = 1.60217733(49)\times10^{-19}{\rm C}
+    \end{align}$$
+小数最后两位的误差用圆括号表示。质子电荷以及所有目前已知的粒子或者粒子系统的电荷都是基本电荷单位的整数倍。
+\footnote{夸克有$2e/3$和$-e/3$的电荷，但从来（目前而言）不会单独出现。}
+电荷值为基本电荷的倍数是整数的实验精度是惊人的（超过$10^{20}$分之一）。
+\autoref{sec:11.9}中讨论了这些实验，电荷是否是洛伦兹（Lorentz）不变量的问题也有涉及。
+
+大多数宏观应用不需要考虑电荷的离散性。作为例子，一个1微法、150伏的电容器在每个电极上共有$10^{15}$个电子电荷。
+多或少几千个电子电荷并不会被注意到。1微安的电流对应于每秒通过$6.2\times 10^{12}$个电子电荷。
+当然，一些精细的宏观或准宏观实验会受电荷离散性的影响。著名的密立根（Millikan）油滴实验就是其中之一。
+他的油滴半径通常为$10^{-4}{\rm cm}$，其上有几个或几十个电子电荷。
+
+麦克斯韦方程组\autoref{eq:I.1a}中的源项似乎缺乏对称性。前两个方程包含源项；后两个不包含。
+这反映了实验上\textit{磁荷和磁荷流的缺失}。实际上，正如\autoref{sec:6.11}所示，粒子除了有电荷外还可以有磁性。
+如果自然界中的所有粒子都具有相同的磁电比，那么场和源可以被重新定义以至于导出常见的麦克斯韦方程组\autoref{eq:I.1a}。
+从这个角度来说，磁荷和磁荷流不存在只是一种习惯的说法。
+这本书的大部分都假设了只有电荷和电流在麦克斯韦方程组中产生效应，
+但如果存在一种磁电比不同的粒子，例如磁单极子，其所产生的结果在\autoref{cha:6}有所描述。
+
+\section{平方反比律或光子静止质量}\label{sec:I.2}
+
+卡文迪许和库仑发现了静电力与距离之间的平方反比的定量关系。
+通过高斯（Gauss）定理和散度定理（见\autoref{sec:1.3}和\autoref{sec:1.4}），这导出了麦克斯韦方程组\autoref{eq:I.1b}的第一个方程。
+最早的实验精度只有百分之几，即大约在实验室尺寸的精度。
+在过去的这些年，更高精度和包含了不同尺度效应的实验已经进行了。
+现在，我们一般把平方反比律的检验用以下二者之一来表示：
+
+\begin{enumerate}[label=\alph*]
+    \item 假设静电力按照$1/r^{2+\epsilon}$的规律变化，并为$\epsilon$测量一个值或者限定一个上限。
+    \item 假设静电势具有“汤川（Yukawa）势”的形式（见\autoref{sec:12.8}），即$r^{-1}e^{-\mu r}$的形式，
+          并为$\mu$或$\mu^{-1}$测量一个值或者限定一个上限。因为$\mu=m_{\gamma}c/\hbar$，其中$m_{\gamma}$
+          为光子的静止质量，所以对平方反比律的检验有些时候也说成是确定光子静止质量的上限。实验室中的实验通常给出
+          $\epsilon$，也可能给出$\mu$或者$m_{\gamma}$；地磁或天磁的观测实验给出$\mu$或者$m_{\gamma}$。
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/I.1.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{确定了静电力平方反比律的卡文迪许实验装置。上，卡文迪许本人手稿的复写；下，绘图员的线稿。
+        内部的球体直径为12.1英寸，空心的纸板制半球稍大一些。球体和半球都被锡箔包裹，为的是“让它们成为更好的良导体”。
+        （图像的重制已得到剑桥大学出版社的允许。）}
+    \label{fig:I.1}
+\end{figure}
+
+卡文迪许在1772年采用同心圆球的实验
+\footnote{H. Cavendish, Eletrical Researches, ed. J. C. Maxwell, Cambridge University Press, Cambridge (1879), pp. 104-113.}
+给出的上限为$|\epsilon|\leq 0.02$。
+他的装置见\autoref{fig:I.1}。
+大约100年后麦克斯韦在剑桥进行了一个和卡文迪许实验非常类似的实验，
+\footnote{Ibid.，见注释19}
+并把上限降低到$|\epsilon|\leq 5\times 10^{-5}$。
+另外两个值得一提的基于高斯定理的实验室实验是普林顿（Plimpton）和劳顿（Lawton）实验，
+\footnote{S. J. Plimpton and W. E. Lawton, \textit{Phys. Rev.} \textbf{50}, 1066 (1936).}
+给出了 $|\epsilon|\le 2\times 10^{-9}$，以及最近的威廉姆斯（Williams），法勒（Faller）和希尔（Hill）实验。
+\footnote{E. R. Williams, J. E. Faller, and H. A. Hill, \textit{Phys. Rev. Lett.} \textbf{26}, 721 (1971).}
+关于后续实验系统的图示见\autoref{fig:I.2}。
+虽然不是静电实验（$\nu=4\times 10^6{\rm Hz}$，基本思路和卡文迪许几乎是一致的。
+在内球体与带电外球进行电接触后，他把两者断开并测量内球体所带的电荷；他发现内球体不带电。
+威廉姆斯，法勒和希尔寻找当外球与一个对地$\pm 10{\rm kV}$的交流电压连接时，同心内外球壳之间的电势差。
+他们的实验精度高到即使电压差低于$10^{-12}{\rm V}$也能被检测到。
+他们的零结果，通过普罗卡（Proca）方程组（\autoref{sec:12.8}），给出的限制为$\epsilon=(2.7\pm 3.1)\times 10^{-16}$。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/I.2.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{威廉姆斯，法勒和希尔的“卡文迪许”实验系统示意图。球壳5和4之间有一4MHz，峰值为10kV的电压差。
+        球壳4和与它毗连的球壳2和3的直径大约都是1.5米，并在内部包含了球壳1。球壳1和2之间的电压差（如果有的话）
+        通过球壳1中8点钟方向的指示器显示出来。放大器和光学系统对于把电压信息提取到外界是必要的。
+        它们和卡文迪许的系统中自动打开铰在一起的半球并显露出用来探测内球面是否带电的木髓球的细绳，是等价的。
+        （图像的重制已得到原作者的允许。）}
+    \label{fig:I.2}
+\end{figure}
+
+对于地磁场的测量，包括地表测量和通过卫星观测进行的地外测量，给出了$\epsilon$最直接上界或者等价的光子静止质量$m_{\gamma}$。
+地球物理学和实验室观测在科布扎列夫（Kobzarev）和奥昆（Okun）的综述，以及戈尔达哈伯（Goldhaber）和涅托（Nieto）的综述中有所讨论，
+这些综述列在本章介绍的最后。
+对地球表面的磁场测量给出了略胜一筹的最好结果，即，
+$$m_{\gamma}<4\times 10^{-51} {\rm kg}$$
+或者
+$$\mu^{-1}>10^8{\rm m}$$
+作为对比，电子质量为$m_e=9.1\times 10^{-31}{\rm kg}$。
+威廉姆斯，法勒和希尔的实验室实验可以等效为给出了$m_{\gamma}<1.6\times 10^{-50}{\rm kg}$的限制，只有地磁限制的4倍。
+
+注意到地球电离层的共振腔中的超低频模式（舒曼（Schumann）共振，在\autoref{sec:8.9}中被讨论），
+可以给出关于光子静止质量的一个\textit{粗略}限制。
+爱因斯坦（Einstein）关系$h\nu=m_{\gamma}c^2$，暗示光子质量必须满足不等式$m_{\gamma}<h\nu_0/c^2$，
+其中$\nu_0$为任意电磁共振的频率。
+最低的舒曼共振频率为$\nu_0\approx 8{\rm Hz}$。
+从这里我们可以计算得到$m_{\gamma}<6\times 10^{-50}{\rm kg}$，这是一个很小的值，只比最好上界高出一个数量级。
+虽然这个论证只是粗略有效，但更细致的考究（见\autoref{sec:12.8}以及那里的参考文献）表明上限大约大$(R/H)^{1/2}\approx 10$倍，
+其中$R\approx 6400{\rm km}$为地球半径，$H\approx 60{\rm km}$为地球电离层高度。
+\footnote{基本思路是，当$H/R$可以忽略不计时，极低频（ELF）模式的传播和TEM基模的平行平面波的传输线是一样的。
+    这一传播并不受光子有限质量的影响，除非单位长度上的静电电容和电感有变化。光子质量的显示影响在$(H/R)\mu^2$的量级。}
+尽管存在这个削弱因子，仅仅靠舒曼共振的存在就确定的$10^{-48}{\rm kg}$的上限已经足够显著。
+
+实验室和地球物理检验说明在从$10^{-2}$到$10^{7}{\rm m}$的尺度上，平方反比律的精度相当好。
+在更小的尺度上我们需要转而考虑不那么直接的证据，它们常常包含附加假设。
+例如，卢瑟福（Rutherford）对薄靶散射$\alpha$粒子实验的历史分析，实质上确认了库仑定律直到$10^{-13}{\rm m}$的级别仍成立，
+前提是如果$\alpha$粒子和原子核能被看作是之间只有静电相互作用的经典点电荷并忽略电子云的话。
+当然这些假设可以被，或者已经被验证，但只有在量子力学，线性叠加原理（见下）以及其他（非常合理）的假设有效的框架下才成立。
+在更小的距离下，相对论性下的量子力学是必要的，并且强相互作用效应使得问题和答案都变得模糊起来。
+尽管如此，质心系能量高达100GeV的正负电子弹性散射实验已经表明量子电动力学
+（点电子与零质量光子的相对论性相互作用理论）在直到$10^{-18}{\rm m}$的距离上仍然可行。
+我们的结论是，在整个经典尺度范围内和深入量子领域，光子静止质量都可以处理成零（平方反比力有效）。
+平方反比律在空间尺度上的有效范围至少超过25个量级！
+
+\section{线性叠加原理}\label{sec:I.3}
+
+真空中的麦克斯韦方程组对于场$\mathbf{E}$和$\mathbf{B}$是\textit{线性的}。
+这种线性被使用得如此频繁，例如在同一个微波链接上进行几百个不同的电话通话，以至于它常被认为是理所当然。
+当然也有非线性效应发生的情况——磁性介质，对高强度激光响应的晶体，甚至是控制那些电话通话的通断的装置。
+但是在这里我们更关心真空中的场，或在原子和原子核内部的微观场。
+
+我们有什么证据支撑线性叠加原理呢？在宏观尺度，所有检验线性叠加原理的实验的精度都在0.1\%量级——
+电荷集团和电流集团产生的电场力和磁场力可以用叠加原理计算，变压器按照设计正常工作，传输线中可以观察到驻波——
+读者可以列出一个长长的清单。
+光学上，狭缝系统产生衍射图样；X射线衍射告诉我们关于晶体结构的信息；白光被棱镜折射成彩虹，又重新汇合成白光。
+在宏观甚至原子尺度上，线性叠加原理十分有效。
+
+只有在亚原子尺度上才能找到原理线性叠加原理的现象。
+当带电粒子彼此之间十分接近时，电场强度变得十分巨大。
+如果我们把带电粒子看作电荷的某种局域分布，那么它自身的电磁能量将会随着局域性的增加而逐渐增大。
+为了避免点粒子自能的无限发散，我们自然会猜测存在某种饱和机制，即场强具有某种上限。
+这种经典的非线性理论已经被研究过了。一个广为人知的例子是伯恩和英菲尔德（Infeld）的理论。
+\footnote{M. Born and L. Infeld, \textit{Proc. R. Soc. London} \textbf{A144}, 425 (1934).
+    基本的讨论见M. Born, \textit{Atomic Physics}, Blackie, London (1949), Appendix VI.}
+真空具有电导率和磁导率，
+\begin{equation}\label{eq:I.4}
+    \frac{\epsilon}{\epsilon_0}=\frac{\mu}{\mu_0}=[1+\frac{1}{b^2}(c^2B^2-E^2)]^{-1/2}
+\end{equation}
+其中$b$为最大场强。\autoref{eq:I.4}实际上是更早的由伯恩单独提出的一个简化。它已经足够阐明大致的思想。
+在短距离上，场被显著地调制；所有电磁能量都是有限的。
+但这种理论在解释非线性效应是如何产生上有一定任意性，并且在转换成量子理论的过程中遇到了问题。
+进一步说，没有证据显示这种经典非线性的存在。
+由核子与电子之间、电子与电子之间的对势（或者对于精细效应考虑慢速的相对论性相互作用）的线性叠加得到的普通的量子理论，
+可以在很高的精度上准确描述多电子原子的量子动力学过程。
+原子中电子轨道上的场强在$10^{11}-10^{17}{\rm V/m}$的量级，而重核子边缘上的电场强度在$10^{21}{\rm V/m}$的量级。
+像氦原子这样的轻原子的能级差，利用电磁相互作用的线性叠加计算出的结果，和实验结果在$10^6$分之一的精度上是一致的。
+而重核子的库仑能量和电磁效应的线性叠加的计算结果一致。
+在高于$10^{21}{\rm V/m}$的场强下非线性效应确实有可能发生。
+一个能产生如此高场强的地方是在超重核（$Z>110$）内部，包括原子能级和核库仑能。
+\footnote{一个基于超重元素的原子能级开展的对伯恩-英菲尔德非线性的研究见
+    J. Rafelski, W. Greiner, and L. P. Fulcher, \textit{Nuovo Cimento} \textbf{13B}, 135 (1973).}
+目前关于短距下真空场的经典非线性行为没有任何证据。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/I.3.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{光对光的散射。光-光散射发生过程的示意图。}
+    \label{fig:I.3}
+\end{figure}
+
+\textit{量子力学非线性}倒是\textit{确实}存在，
+因为不确定原理允许双光子暂时产生一对正负电子对，然后它们又湮灭为两个光子的过程，如\autoref{fig:I.3}所示。
+这个过程被称为光对光的散射。
+\footnote{当\autoref{fig:I.3}中的光子为代表在核静电库仑场中的二阶相互作用的虚拟光子时，这个过程被称为是德尔布鲁克（Delbrück）散射。
+    见J. M. Jauch and F. Rohrlich, \textit{The Theory of Photons and Electrons}, Addison-Wiley, Reading, MA (1955)的第15.8节。}
+两列独立的平行光波$e^{i\mathbf{k_1}\cdot\mathbf{x}-i\omega_1 t}$和$e^{i\mathbf{k_2}\cdot\mathbf{x}-i\omega_2 t}$
+不只是按照线性叠加原理简单地相干叠加，而是相互作用并（有小概率）转换成两列不同的具有波矢$\mathbf{k_3}$和$\mathbf{k_4}$的平行光波。
+这一\textit{量子}电动力学的非线性特点，至少对于缓变场来说，可以由真空中的电导率和磁导率张量描述：
+$$D_i=\epsilon_0 \sum_{k}\epsilon_{ik}E_k, \quad B_i=\mu_0 \sum_{k}\mu_{ik}H_k$$
+其中
+\begin{equation}\label{eq:I.5}
+    \begin{aligned}
+        \epsilon_{ik} & =\delta_{ik}+\frac{e_G^4\hbar}{45\pi m^4 c^7}[2(E^2-c^2B^2)\delta_{ik}+7c^2B_iB_k]+\dots \\
+        \mu_{ik}      & =\delta_{ik}+\frac{e_G^4\hbar}{45\pi m^4 c^7}[2(E^2-c^2B^2)\delta_{ik}+7E_iE_k]+\dots    \\
+    \end{aligned}
+\end{equation}
+在这里$e_G$和$m$为电子电量（高斯单位制）和电子质量。
+这些结果最早由欧拉（Euler）和柯克尔（Kockel）在1935年得出。
+\footnote{H. Euler and B. Kockel, \textit{Naturwissenschaften} \textbf{23}, 246 (1935).}
+我们发现在经典极限（$h\to 0$）下，这些非线性效应趋近于0。
+与伯恩-英菲尔德表达式\autoref{eq:I.4}比较发现，对于小的非线性，量子动力学场强
+$$b_q=\frac{\sqrt{45\pi}}{2}\sqrt{\frac{e_G^2}{\hbar c}}\frac{e_G}{r_0^2}\approx 0.51\frac{e_G}{r_0^2}$$
+扮演了一个与伯恩-英菲尔德参量$b$类似的角色。
+这里$r_0=e_G^2/mc^2\approx 2.8\times 10^{-15}{\rm m}$是电子的经典半径，
+$e_G/r_0^2=1.8\times 10^{20}{\rm V/m}$是这个经典电子表面的电场强度。
+顺便说两句：（a）\autoref{eq:I.5}中的$\epsilon_{ik}$和$\mu_{ik}$是近似值，当场强接近$b_q$或者场在时空上变化过于迅速
+（$\hbar/mc$确定了空间特征长度，$\hbar/mc^2$确定了时间特征长度）时，它们会变得不准确；
+（b）$b_q$和$e_G/2r_0^2$数值上的巧合令人联想，但可能并无显著意义，因为$b_q$包含了普朗克（Planck）常数$h$。
+
+类比极化矢量$\mathbf{P}=\mathbf{D}-\epsilon_0\mathbf{E}$，
+我们把\autoref{eq:I.5}所展现出的依赖场的行为称为\textit{真空极化}效应。
+除了光对光散射或者说德尔布鲁克散射，真空极化还会导致原子能级发生极小移动。
+主要来源涉及到一对虚拟的正负电子对，正如\autoref{fig:I.3}所示，但只会发出两条光线而不是四条。
+如果光子是真实的，这个过程导致光子获得质量从而注定消失。
+然而，如果光子是虚拟的，正如核子与轨道上的电子进行的电磁相互作用一样，
+虚拟正负电子对时不时产生和湮灭会导致可观测效应。
+
+真空极化由短距离下两个电荷之间的静电相互作用的调制体现，通过随距离的“裸”电荷屏蔽来描述，
+或者用更现代的术语来说，“运行”耦合常量。
+既然粒子的带电量是由远距离下的电磁耦合强度决定的（等价于传递的动量可忽略），
+那么在正负电子对附近的屏蔽效应，暗示了短距离下观测到的“裸”电荷大于长距离下定义的电荷量。
+定量来说，电荷$Z_1e$和$Z_2e$之间的库仑势能的最低阶真空极化修正，量子电动力学给出的结果为
+\begin{equation}\label{eq:I.6}
+    V(r)=\hbar c\frac{Z_1Z_2\alpha}{r}[1+\frac{2\alpha}{3\pi}\int_{2m}^{\infty} d\kappa \frac{\sqrt{\kappa^2-4m^2}}{\kappa^2}(1+\frac{2m^2}{\kappa^2})e^{-\kappa r} ]
+\end{equation}
+其中$\alpha$为精细结构常数（$\approx 1/137$），$m$为康普顿波长的倒数（电子质量乘以$c/\hbar$）。
+汤川势$e^{-\kappa r}/r$的叠加产生的积分，是所有虚拟正负电子对的单回路贡献。
+它提高了当距离小于电子康普顿波长（$\hbar/mc=\alpha a_0\approx 3.86\times 10^{-13}{\rm m}$）时的势能。
+
+由于它的短程性，附加的真空极化能在轻原子中是不重要的，除非是进行非常精细的测量。
+然而，它在高$Z$原子和$\mu$介子原子中十分重要，因为$\mu$介子的大质量（$m_{\mu}\approx 207m_e$）
+意味着即使是最轻的$\mu$介子原子，其玻尔（Bohr）半径也能落在修正势的范围内。
+中等质量的$\mu$介子原子的X射线测量在很高的精度下证实了\autoref{eq:I.6}中的真空极化效应。
+
+“运行”耦合常量的观点，是一个随着动量交换的尺度变化而变化的有效作用强度，
+在电磁学中对相互作用能\autoref{eq:I.6}进行空间傅里叶（Fourier）变换得到：
+\begin{equation}\label{eq:I.7}
+    \tilde{V}(Q^2)=\frac{4\pi Z_1Z_2\alpha(Q^2)}{Q^2}
+\end{equation}
+$1/Q^2$依赖是库仑势的典型特征（类似卢瑟福散射），但现在势能是由所谓的运行耦合常量$\alpha{Q^2}$所决定，
+其倒数为
+\begin{equation}\label{eq:I.8}
+    [\alpha(Q^2)]^{-1}\approx \frac{1}{\alpha(0)}-\frac{1}{3\pi}\ln(\frac{Q^2}{m^2e^{5/3}})
+\end{equation}
+其中$\alpha(0)=1/137.036\dots$是精细结构常数，$e$是自然对数的基数，$Q^2$是传递的波数（动量）的平方。
+\autoref{eq:I.8}是对大$Q^2/m^2$的近似。
+运行耦合常量$\alpha(Q^2)$随着$Q^2$的增加而缓慢增加（短距离下）；
+粒子渗透进正负电子对的屏蔽云中并感受到更大的有效电荷乘积。
+
+因为真空极化能量的最低阶正比于$\alpha$乘上外电荷，我们称其为一种线性效应，
+即使它（在$\alpha$内部）包含了正电子和负电子内电荷的平方项。
+更微弱的高阶效应，正如\autoref{fig:I.3}中三个光子对应于外场或外电荷的三次方，是真正的非线性作用。
+
+\textit{真空中的}场线性叠加原理的最终总结，是在经典空间尺度和能达到的场强范围内，
+有充分的证据证明其有效，而没有证据证明其失效。
+在原子和亚原子领域，有微弱的量子力学非线性效应，其来源为带电粒子和电磁场之间的耦合。
+它们调制了带电粒子之间的相互作用并导致了电磁场之间的作用，即使实体物质粒子并不存在。
+
+\section{宏观介质中的麦克斯韦方程组}\label{sec:I.4}
+
+到目前为止我们考虑了真空中的电磁场。
+麦克斯韦方程组\autoref{eq:I.1b}中的$\mathbf{E}$和$\mathbf{B}$
+可以是空间中任意位置处的电磁场，只要各处的源$\rho$和$\mathbf{J}$给定。
+对于少量的有限范围的场源，确定场分布是个易于处理的问题；
+但对于宏观介质的集合体，求得方程的解几乎是不可能的。
+这其中有两方面的原因。
+其一是每个单独的源，每个原子核原子核中的带电粒子，总数过大。
+另一方面是对于宏观观测来说，场在细节上的行为，包括它们在原子空间尺度上的剧烈变化，
+都是无关紧要的。
+\textit{真正}重要的是场或源在一个相较于单个原子或分子体积大得多的空间体积内的平均值。
+我们把这种平均后的值称为\textit{宏观}场和宏观源。
+在\autoref{sec:6.6}中详细介绍了\textit{宏观麦克斯韦方程组}，
+其保留有\autoref{eq:I.1a}的形式，其中$\mathbf{E}$和$\mathbf{B}$
+为微观或真空中的麦克斯韦方程组中$\mathbf{E}$和$\mathbf{B}$的宏观平均，
+而$\mathbf{D}$和$\mathbf{H}$不简单地分别是$\mathbf{E}$和$\mathbf{B}$的倍数。
+\textit{宏观}场量$\mathbf{D}$和$\mathbf{H}$，
+分别被称为电位移矢量和磁场强度（$\mathbf{B}$被称为磁感应强度），
+具有分量
+\begin{equation}\label{eq:I.9}
+\begin{aligned}
+D_{\alpha}&=\epsilon_0 E_{\alpha}+(P_{\alpha}-\sum_{\beta}\frac{\partial Q‘_{\alpha\beta}}{\partial x_{\beta}}+\dots)\\
+H_{\alpha}&=\frac{1}{\mu_0}B_{\alpha}-(M_{\alpha}+\dots)\\
+\end{aligned}
+\end{equation}
+$\mathbf{P}$，$\mathbf{M}$，$Q'_{\alpha\beta}$和其他类似的高阶项
+代表了在给定外场中介质在宏观平均下的电偶极子，磁偶极子，电四极子和其他密度高阶矩。
+类似的，电荷和电流密度$\rho$和$\mathbf{J}$为介质中的“自由”电荷和电流密度的宏观平均。
+束缚电荷和束缚电流通过$\mathbf{P}$，$\mathbf{M}$和$Q'_{\alpha\beta}$体现在方程组中。
+
+宏观麦克斯韦方程组\autoref{eq:I.1a}一共有八个方程，
+包括四种场$\mathbf{E}$，$\mathbf{B}$，$\mathbf{D}$和$\mathbf{H}$各个分量。
+四个各项同性方程可以通过用标势$\Phi$和矢势$\mathbf{A}$表示
+$\mathbf{E}$和$\mathbf{B}$得到形式解，
+但各向异性方程只有知道衍生场$\mathbf{D}$和$\mathbf{H}$
+与$\mathbf{E}$和$\mathbf{B}$的关系才能解出。
+这些关系隐含在\autoref{eq:I.9}中，被称为\textit{本构关系}，
+$$\begin{align}
+    \mathbf{D}&=\mathbf{D}[\mathbf{E},\mathbf{B}]\\
+    \mathbf{H}&=\mathbf{H}[\mathbf{E},\mathbf{B}]\\
+\end{align}$$
+另外，对于导电介质有推广后的欧姆（Ohm）定律，
+$$\mathbf{J}=\mathbf{J}[\mathbf{E},\mathbf{B}]$$
+方括号意味着这些关系不一定是简单的一一对应，可能依赖于历史（迟滞现象），可能是非线性的，等等。
+
+在大部分材料中，\autoref{eq:I,9}电四极子和更高阶项可以完全被忽略。
+只有\textit{电极化矢量和磁极化矢量}$\mathbf{P}$和$\mathbf{M}$是重要的。
+然而，这并不意味着本构关系是简单的。
+物质的电学性质和磁学性质有着惊人的多样性，特别是在晶体中，
+铁电体和铁磁体材料即使在零外场中也具有非零的$\mathbf{P}$和$\mathbf{M}$，
+以及更普通的电介质，抗磁介质和顺磁介质。
+对这些性质的研究是固体物理中很重要的一部分。
+在这本书中我们只能简单触及到一些非常基础方面的表层。
+对于块状物质电磁性质的更具系统性和扩展性的研究，
+请参阅固体物理书籍，例如基特尔（Kittel）的所著。
+
+在铁电体和铁磁体以外的物质中，对于足够弱的场，
+外电磁场的出现导致了正比于其值的电极化矢量和磁极化矢量。
+我们可以说介质的响应是线性的，并且按照以下形式写出$\mathbf{D}$和$\mathbf{H}$的笛卡尔分量，
+\footnote{先例要求写成$B_{\alpha}=\sum_{\beta}\mu_{\alpha\beta}H_{\beta}$的形式，但那样就反转了$\mathbf{B}$作为磁场的基本参数，$\mathbf{H}$作为导出量的自然地位。在\autoref{cha:5}我们会重新采用常规用法。}
+\begin{equation}\label{eq:I.10}
+    \begin{rcases*}
+    D_{\alpha}=\sum_{\beta}\epsilon_{\alpha\beta}E_{\beta}\\
+    H_{\alpha}=\sum_{\beta}\mu'_{\alpha\beta}B_{\beta}\\
+    \end{rcases*}
+\end{equation}
+张量$\epsilon_{\alpha\beta}$和$\mu'_{\alpha\beta}$被称为电介质常数或介电张量和逆磁导张量。
+它们汇总了介质的线性响应性质，可能依赖于材料分子和晶体结构，以及例如密度和温度这种体性质。
+对于简单材料，线性响应在空间中经常是各向同性的。
+从而$\epsilon_{\alpha\beta}$和$\mu'_{\alpha\beta}$只有三个相等的对角项，并且$\mathbf{D}=\epsilon\mathbf{E}$，$\mathbf{H}=\mu'\mathbf{B}=\mathbf{B}/\mu$。
+
+{\small 为了普遍正确，\autoref{eq:I.10}需要对场量在时空中的傅里叶变换都成立。这是因为$\mathbf{D}$和$\mathbf{E}$（或者$\mathbf{H}$和$\mathbf{B}$）之间的基本线性关系可能是非局域的。因此
+$$D_{\alpha}(\mathbf{x},t)=\sum_{\beta}\int d^3 x' \int dt' \epsilon_{\alpha\beta}(\mathbf{x'},t')E_{\beta}(\mathbf{x}-\mathbf{x'},t-t')$$
+其中$\epsilon_{\alpha\beta}(\mathbf{x'},t')$在$\mathbf{x'}=0,t'=0$附近可能是局域的，但在离原点一定距离处并不为零。如果我们通过下式引入傅里叶变换后的$D_{\alpha}(\mathbf{k},\omega)$，$E_{\alpha}(\mathbf{k},\omega)$和$\epsilon_{\alpha\beta}(\mathbf{k},\omega)$
+$$f(\mathbf{k},\omega)=\int d^3x \int dt f(\mathbf{x},t)e^{-i\mathbf{k}\cdot\mathbf{x}+i\omega t}$$
+\autoref{eq:I.10}可以通过傅里叶变换写成
+\begin{equation}\label{eq:I.11}
+    D_{\alpha}(\mathbf{k},\omega)=\sum_{\beta}\epsilon_{\alpha\beta}(\mathbf{k},\omega)E_{\alpha}(\mathbf{k},\omega)
+\end{equation}
+用$B_{\beta}(\mathbf{k},\omega)$表示$H_{\alpha}(\mathbf{k},\omega)$可以得到类似的方程。所以普遍来说，介电张量和磁导张量是频率和波矢的函数。
+对于可见光或波长更长的电磁波，忽略空间上的非局域性通常是可以的，从而$\epsilon_{\alpha\beta}$和$\mu'_{\alpha\beta}$只是频率的函数。
+这种情况在\autoref{cha:7}有所讨论，它给出了一个物质的高频特性的简单处理方法，并研究了其结果。
+对于导体和超导体长程效应是重要的。
+例如，当导体中的电子碰撞平均自由程大到和趋肤深度可比时，空间局域的欧姆定律就不够了。
+这时开始出现对波矢的依赖。
+通过对固体若干性质的研究，电介质常数作为波矢和频率的函数的结果是丰富的。
+一些例证类的参考在本介绍章末的推荐阅读中给出。}
+
+在低频（$\nu \lesssim 10^6 {\rm Hz}$）下所有电荷，无论惯性，都对外场有所响应。
+固体的典型电介质常量在$\epsilon_{\alpha\alpha}/\epsilon_0\sim 2-20$范围内，更大的值并不常见。
+本身具有分子磁矩的系统的电介质常量更大，对温度变化更敏感。
+例如蒸馏水，在$0\Celcius$时的静电介质常量为$\epsilon/\epsilon_0=88$，而$100\Celcius$时为$\epsilon/\epsilon_0=56$。
+在光学波段只有电子能显著响应外场。电介质常量在$\epsilon_{\alpha\alpha}/\epsilon_0\sim 1.7-10$范围内，大部分固体$\epsilon_{\alpha\alpha}/\epsilon_0\simeq 2-3$。水在可见光波段$\epsilon/\epsilon_0=1.77-1.80$，在$0$到$100\Celcius$之间基本不随温度变化。
+
+物质对外加磁场作出何种响应取决于单个原子或分子的性质，以及它们之间的相互作用。
+\textit{抗磁性}物质由净角动量为零的原子或分子构成。
+它们通过形成环状的原子电流来响应外磁场，这些原子环流形成小块磁化区，产生与外磁场反向的磁场。根据\autoref{eq:I.10}中$\mu'_{\alpha\beta}$的定义和\autoref{eq:I.9}的形式，这意味着$\mu_0\mu'_{\alpha\alpha}>1$。
+铋，已知抗磁性最强的物质，具有$(\mu_0\mu'_{\alpha\alpha}-1）\simeq 1.8\times 10^{-4}$。所以抗磁性是很微弱的性质。
+如果基本原子单元具有来自未成对电子的净角动量，物质会具有\textit{顺磁性}。
+未成对电子的磁矩会与外磁场平行，从而$\mu_0\mu'_{\alpha\alpha}<1$。
+室温下的典型值在$(1-\mu_0\mu'_{\alpha\alpha}）\simeq 10^{-2}-10^{-5}$范围内，
+但因为热激发产生的随机效应而随着温度的升高而降低。
+
+铁磁性物质是顺磁的，但由于原子间的相互作用，体现出来完全不同的行为模式。
+在居里（Curie）点（铁为1040K，镍为630K）以下，铁磁性物质会自发磁化；
+即位于一个叫做磁畴的宏观空间范围内的所有磁矩都排列整齐。
+外场的出现倾向于导致磁畴的变化以及不同磁畴内的磁矩排列整齐，
+使得体磁化出现饱和。
+撤去外磁场后仍有相当一部分的磁矩整齐排列，导致一个永久性的磁化，其值可以达到$B_r=\mu_0 M_r\gtrsim 1 {\rm T}$。
+
+关于材料的电学和磁学性质，读者可以参阅一些基本物理学手册，
+\footnote{\textit{CRC Handbook of Chemistry and Physics}, ed. D. R. Lide, 78th ed., CRC Press, Boca Raton, FL (1997-98).
+
+\textit{American Institute of Physics Handbood}, ed. D. E. Gray, McGraw Hill, New York, 3rd edition (1972), Sections 5.d and 5.f.}
+从中他能得到更具体和细节的汇总信息。
+
+对弱场线性响应的物质在足够强的场中，其电子和离子振荡幅度过大，最终发展出\textit{非线性行为}。线性关系\autoref{eq:I.10}被修正，作为例子，
+\begin{equation}\label{eq:I.12}
+D_{\alpha}=\sum_{\beta}\epsilon_{\alpha\beta}^{(1)}E_{\beta}+\sum_{\beta,\gamma}\epsilon_{\alpha\beta\gamma}^{(2)}E_{\beta}E_{\gamma}+\dots
+\end{equation}
+对于静电场结果并不是特别显著，但对于时变场就是另一回事了。
+一个包含有$\omega_1$和$\omega_2$两种频率成分的高幅值波在介质中能产生频率为零，$2\omega_1$，$2\omega_2$，$\omega_1+\omega_2$，$\omega_1-\omega_2$的波，以及原始频率$\omega_1$和$\omega_2$的波。
+立方项和更高阶非线性项能产生更丰富的频谱。
+随着激光的发展，这种非线性行为已经成为了一个研究领域，被称为\textit{非线性光学}，以及一种实验室工具。
+目前，激光能产生峰值电场强度接近$10^{12}$甚至$10^{13}{\rm V/m}$的光脉冲。
+氢原子内部的轨道电子所感受到的静电场为$e_G/a_0^2 \simeq 5\times 10^{11}{\rm V/m}$。
+因此这种激光场可以驱使原子谐振子进入非线性机制中，足以摧毁研究样品！
+一些关于这种特别的场的参考文献在本介绍章末的推荐阅读中给出。
+这本书的读者只能先满足于基本的线性现象了。
+
+\section{不同介质分界面上的边界条件}\label{sec:I.5}
+
+\autoref{eq:I.1}的麦克斯韦方程组是针对时空中的每一点$(\mathbf{x},t)$的微分方程组。
+通过散度定理和斯托克斯（Stokes）定理，它们可以被写成积分形式。
+令$V$为空间中一有限体元，$S$为包围它的闭合表面（或者许多面），$da$为表面上的面元，$\mathbf{n}$为在面元$da$处的表面外法向单位矢量。
+对\autoref{eq:I.1a}的第一个和最后一个方程应用散度定理得到积分形式
+\begin{equation}\label{eq:I.13}
+    \oint_S \mathbf{D}\cdot\mathbf{n} da=\int_V \rho d^3x
+\end{equation}
+\begin{equation}\label{eq:I.14}
+    \oint_S \mathbf{B}\cdot\mathbf{n} da=0
+\end{equation}
+第一个关系为高斯定理，$\mathbf{D}$通过表面的总通量等于其所包含的电荷数。
+第二个关系是磁场的类比，闭合表面的$\mathbf{B}$的净通量为零，因为不存在磁荷。
+
+类此的，令$C$为空间中一条闭合环路，$S'$为该环路所张的一个开曲面，$d\mathbf{l}$为环路上的线元，$\mathbf{n'}$为$da$处的一单位矢量，方向由环路积分方向的右手定则决定。
+对\autoref{eq:I.1a}的中间两个方程应用斯托克斯定理得到积分形式
+\begin{equation}\label{eq:I.15}
+    \oint_C \mathbf{H}\cdot d\mathbf{l}=\int_{S'}[\mathbf{J}+\frac{\partial\mathbf{D}}{\partial t}]\cdot \mathbf{n'} da
+\end{equation}
+\begin{equation}\label{eq:I.16}
+    \oint_C \mathbf{E}\cdot d\mathbf{l}=-\int_{S'}\frac{\partial\mathbf{B}}{\partial t}\cdot \mathbf{n'} da
+\end{equation}
+\autoref{eq:I.15}为磁场的安培-麦克斯韦定律，\autoref{eq:I.16}为电磁感应的法拉第定律。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/I.4.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{不同介质分界面（粗线）的边界条件示意图。边界面上具有理想化的面电荷和电流密度$\sigma$和$\mathbf{K}$。体元$V$是一个小扁盒，一半在一种介质中，另一半位于另一种介质中，单位法向量$\mathbf{n}$从介质1指向介质2。长方形环路$C$部分位于一种介质中，另一部分位于另一种介质中，表面垂直于分界面，从而其单位法向量$\mathbf{t}$是分界面的切向方向。}
+    \label{fig:I.4}
+\end{figure}
+
+这些熟悉的麦克斯韦方程组的等价积分形式可以直接导出不同介质分界面两侧的各种场量的法向分量和切向分量之间的关系，包括可能的界面上具有电荷或者电流密度的情况。
+一个合适的几何构型如\autoref{fig:I.4}所示。
+一个无限小的高斯扁盒跨过了具有不同电磁性质的两种介质的分界面。
+类此的，无限小环路$C$的长边也位于分界面的两侧，其张成的平面的法向量与分界面的切向平行。
+我们先把\autoref{eq:I.13}和\autoref{eq:I.14}应用到扁盒上。
+对于扁盒极限，侧边的通量对\autoref{eq:I.13}和\autoref{eq:I.14}左侧的积分没有贡献。
+只有顶面和底面的通量才有贡献。
+如果顶面和底面是平行的并与分界面平行，具有面积$\Delta a$，则\autoref{eq:I.13}左边的积分值为
+$$\oint_S \mathbf{D}\cdot \mathbf{n} da=(\mathbf{D_2}-\mathbf{D_1})\cdot \mathbf{n} \Delta a$$
+对于\autoref{eq:I.14}是类似的。如果表面上的电荷密度$\rho$奇异，以至于产生理想面电荷密度$\sigma$，则\autoref{eq:I.13}右边的积分值为
+$$\int_V \rho d^3x=\sigma \Delta a$$
+所以分界面两侧的$\mathbf{D}$和$\mathbf{B}$的\textit{法向分量}满足关系
+\begin{equation}\label{eq:I.17}
+    (\mathbf{D_2}-\mathbf{D_1})\cdot \mathbf{n}=\sigma
+\end{equation}
+\begin{equation}\label{eq:I.18}
+    (\mathbf{B_2}-\mathbf{B_1})\cdot \mathbf{n}=0
+\end{equation}
+用文字说明，$\mathbf{B}$的法向分量是连续的，$\mathbf{D}$的法向分量的在任何位置处的阶跃值等于那点处的电荷面密度。
+
+用类似的方法，无限小斯托克斯环路可以确定$\mathbf{E}$和$\mathbf{H}$切向分量的阶跃值。
+如果\autoref{fig:I.4}中的环路$C$的短边的长度可以忽略不计，每个长边都与分界面平行并具有长度$\Delta l$，那么\autoref{eq:I.16}左边的积分为
+$$\oint_C \mathbf{E}\cdot d\mathbf{l}=(\mathbf{t}\times \mathbf{n})\cdot (\mathbf{E_2}-\mathbf{E_1})\Delta l$$
+对于\autoref{eq:I.15}的左边是类似的。\autoref{eq:I.16}右边为零，因为$\partial\mathbf{B}/\partial t$在分界面上是有限的，而只要短边长度趋于0环路面积就为零。
+然而\autoref{eq:I.15}右边不为零，如果分界面上正好有理想化的电流以面密度$\mathbf{K}$流过。在这种情况下\autoref{eq:I.15}右边积分值为
+$$\int_{S'}[\mathbf{J}+\frac{\partial\mathbf{D}}{\partial t}]\cdot \mathbf{t} da=\mathbf{K}\cdot \mathbf{t} \Delta l$$
+第二项因为相同的理由而为零。因此分界面两侧的$\mathbf{E}$和$\mathbf{H}$的\textit{切向分量}满足关系
+\begin{equation}\label{eq:I.19}
+    \mathbf{n}\times (\mathbf{E_2}-\mathbf{E_1})=0
+\end{equation}
+\begin{equation}\label{eq:I.20}
+    \mathbf{n}\times (\mathbf{H_2}-\mathbf{H_1})=\mathbf{K}
+\end{equation}
+在\autoref{eq:I.20}中，表面电流$\mathbf{K}$在各点上只有平行于分界面的分量。
+跨过介质表面的$\mathbf{E}$的切向分量是连续的，而$\mathbf{H}$的切向分量的阶跃值大小等于面电流密度大小，方向与$\mathbf{K}\times \mathbf{n}$平行。
+
+非连续性方程\autoref{eq:I.17}-\autoref{eq:I.20}在求解不同区域内的麦克斯韦方程组，并把解连接起来以得到全空间的场时非常有用。
+
+\section{关于电磁学理想化条件的一些备注}\label{sec:I.6}
+
+在前面的章节中我们采用了电荷和电流面分布的思想。
+其中显然包括现实物理世界中不存在的数学上的理想化处理。
+电磁学中还存在其他抽象。
+例如在静电学中，我们说物体具有相对于某个通常被称为“地”零势能点的势能。
+这些针对现实世界的理想化条件或许值得讨论一下，即使对于老手来说大多数看上去都十分显然。
+
+首先我们考虑相对于某个参考值，把某个导体保持在一个固定的静电势的问题。
+这个观点暗含了所采用的手段不会显著影响我们所希望的电荷和场的分布构型。
+为了使一个物体保持在固定电势，必须，或至少时不时地用一个导电通路或其等价形式把这个物体和远处的（“无穷远处”）电荷源连接起来，这样当其他带电或者不带电的物体靠近时，电荷可以流向这个物体或者流出，时刻保持该物体的电势处于设定值。
+虽然更复杂的手段也能达到要求，通常采用金属线缆来搭建导电通路。
+直觉上我们期望小电缆相比于大电缆对系统的影响更小。理由如下：
+
+由于在给定电势下，电缆的任意一部分的电量随着电缆的直径无线趋于0而无限趋于0，有限维度物体上的电量分布并不会由于在场中引入良导体导线而发生明显改变。
+这些导线可以被用来构建这些物体和地球，电气机器，或者电表之间的电通路。
+\footnote{J. C. Maxwell, \textit{A Treatise on Electricity and Magnetism}, Dover, New York, 1954 reprint of the 3rd edition (1981), Vol. 1, p. 96.}
+
+当然，细电缆附近的电场强度相当大。然而，在与“相当大的物体”尺寸相当的距离处，这种效应可以变得很小。
+对麦克斯韦所说的一个重要的历史例证是200年前亨利·卡文迪许（Henry Cavendish）的工作。
+实验是在他父亲房屋中的一个经过改造的马厩内，卡文迪许用莱顿（Leyden）瓶作为电荷源，细导线作为导体，并把物体悬在房间中，他测量了固定电势下的圆柱体，圆盘等物体上的电荷，并与等电势的球体（\autoref{fig:I.1}所示的同一个球体）上的电荷量比较。他测量的电容量精度有几百分之一。例如，他发现球体电容与相同半径的薄圆盘电容之比为1.57。理论值是$\pi/2$。
+
+实际线缆的电导率总会碰到极限。单位长度上的电荷量只能对数递减（按照$\ln(d/a)$的反比减少，其中$a$为线缆的平均半径，$d$为线缆到某个导电表面的典型距离）。为了把对系统的扰动降低到某个水平以下，必须要采用其他手段来维持电势，例如间断性地发射带电粒子束。
+
+当我们说某个导体\textit{接地}时，它实际上是通过一根高导电率的导电丝与一个遥远的电荷库相连，电荷库具有势能零点的功能。
+类似地，固定电势的物体与电压源的一侧相连，例如电池，电压源的另一侧“接地”。
+然后，当原本带电的物体彼此之间相对移动，它们的电荷分布被改变，但它们的电势保持不变，合适的电荷量从电荷库中流出或流入电荷库，假定电荷库的电量是无限的。
+接地的概念在不考虑时间参量的静电学中被定义得很好，但对于振荡场，有限的传播速度模糊了这个概念。换句话说，杂散电感和电容效应十分显著。确定一个“良好地面”需要十分小心。
+
+宏观电磁学中的另一个理想化条件是面电荷密度或者面电流密度的观点。
+物理实际是电荷或者电流被限制在表面附近的区域内。
+如果这个区域的厚度相比于研究对象的尺度小得多，我们可以通过把厚度理想化成无限小，讨论面分布来近似实际情况。
+需要区分两种不同的极限。
+第一个是“面”分布被限制在表面附近的区域，这个区域厚度\textit{宏观小，微观大}。
+一个例子是\autoref{sec:8.1}中时谐场穿透一个导电性能很好但不是超导体的材料。
+我们发现场被限制在一定厚度$\delta$内，称为趋肤深度，并且对于足够高的频率和电导率足够高的导体$\delta$在宏观上可以非常小。
+所以把电流密度$\mathbf{J}$在与表面垂直的方向上积分得到有效面电流密度$\mathbf{K_{eff}}$是合理的。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/I.5.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{导体表面上的的自由电荷分布和电场的法向分量分布。固体离子被限制在$x<0$的范围内，通过一个连续的电荷密度常量近似，电子在其中移动。自由电荷分布的体积在“表面”的$\pm 2\AA$范围内。}
+    \label{fig:I.5}
+\end{figure}
+
+另一个极限是\textit{真正的微观}，它由材料原子结构中的量子力学效应所决定。
+作为例子，考虑静电场中导体上的自由电荷分布。
+众所周知，这中电荷全部分布在导体表面上。
+从而我们可以说\textit{面}电荷密度$\sigma$。
+导体内部没有电场，但如\autoref{eq:I.17}所示，表面外具有法向的电场。
+从微观角度看，电荷并不刚好分布在表面，场也没有发生不连续的跃变。
+最基础的思考表明变化区域只有几个原子直径厚。
+金属中的离子可以被认为是相对静止的，位于1埃之内或更小；更轻的电子受到的束缚则更少。
+模型
+\footnote{N. D. Lang and W. Kohn, \textit{Phys. Rev. }\textbf{B1}, 4555 (1970); \textbf{B3}, 1215 (1971); V. E. Kenner, R. E. Allen, and W. M. Saslow, \textit{Phys. Lett. }\textbf{38A}, 255 (1972). }
+给出的计算结果如\autoref{fig:I.5}所示。
+它们来自于量子力学的多电子问题的解，其中导体中的离子由一个在$x<0$范围内连续的电荷密度常量近似。
+电子密度（$r_s=5$）大概与铜和更重的碱金属接近。
+自由电荷似乎被限制在离子分布“表面”的$\pm 2\AA$范围内。
+电场经过这个区域平滑上升，达到它在导体“外部”的值$\sigma$。
+对于宏观情况$10^{-9}{\rm m}$是一个可以忽略的距离，我们可以把电荷密度和电场行为理想化为$\rho(x)=\sigma\delta(x)$和$E_n(x)=\sigma\theta(x)/\epsilon_0$，对应于真正的面密度和场的阶跃函数变化。
+
+我们看到经典电磁学的理论处理包含若干理想化条件，一些是技术上的，一些是物理上的。
+在本书\autoref{cha:1}被导论的静电学，是作为一门\textit{宏观}电学现象的实验科学发展起来的，电磁学的其他方面实质上也是如此。
+这些宏观规律向\textit{微观}领域的衍伸，即使是真空中的电荷和电流，大部分都是不合理的外推。
+早些时候在这章介绍中我们讨论了一些外推的限制条件。
+这里需要指出的是，我们事后知道经典电磁学定律的许多方面，在原子领域内也符合得很好。前提是用量子力学的方式处理源，即宏观上来看，在包含有大量分子的区域内对电磁量进行平均的行为大大抹平了其剧烈变化，以至于外加静电场导致了物质的静电平均响应，自由电荷分布在导体表面\textit{上}。
+因此库仑和安培的宏观观察以及我们从中提取出的数学抽象，比某个超谨慎的物理学家所预测的适用范围要广。空气对电场或磁场的不敏感性无疑大大简化了问题！
+
+\section*{参考文献和推荐阅读}\label{sec:I.R}
+
+我累了，先不翻译这里了。
+
+\chapter{静电学介绍}\label{cha:1}
+
+我们从\textit{静电学}——与时间无关的电荷分布和场分布的现象——开始对电动力学的讨论。
+对于大多数读者来说这部分材料实质上是复习。
+这一章我们特意不会过于详尽。
+我们引入对于后续讨论重要的概念和定义，并展现一些基本的数学处理方式。
+在接下来的章节中这些数学技巧将被发展和应用。
+
+需要指出一个物理上的观点。
+历史上，静电学是作为一门\textit{宏观}现象科学发展的。
+正如在\autoref{cha:I}末尾所指出的那样，这种类似于点电荷或者某点电场之类的理想化条件必须被视作数学构造，它们允许在宏观情况下描述现象，但在微观下可能会失去意义。
+
+\section{库仑定律}\label{sec:1.1}
+
+静电学的所有内容都是从库仑定律的定量表示中发展出来的，它涉及静止带电体之间的相互作用力。
+库仑利用一系列令人惊叹的实验，发现了空气中彼此距离远大于自身尺度的两个小带电体之间的力
+\begin{itemize}
+    \item 直接随着每个带电体电荷量变化而变化，
+    \item 随着它们之间的距离按照平方反比的方式变化，
+    \item 方向沿带电体之间的连线，并且
+    \item 如果带电体带相反电荷为吸引力，如果带电体带同种电荷为排斥力。
+\end{itemize}
+更进一步，实验上发现一些小带电体对其周围的一个带电体产生的总作用力，等于独立的库仑二体力的\textit{矢量}和。严格来说，库仑的结论只适用于真空中或者可忽略感应效应的介质中的电荷。我们把电介质中的电荷留到\autoref{cha:4}中考虑。
+
+\section{电场}\label{sec:1.2}
+
+虽然最终测量的总是力，但引入一个从力中脱出来的概念是很有用的，即由于带电体的某种排列而产生的电场。
+目前，电场强度可以被定义为某点单位电荷的受力。这是一个关于位置的矢量函数，记为$\mathbf{E}$。然而，这个定义需要小心对待。
+它不绝对是一个人在木髓球上放一个单位的电荷，然后把球放在某个位置上所测量到的受力。
+原因在于一个单位的电荷是如此巨大，以至于它的存在改变了原始带电体排列产生的电场。
+结果是我们必须采用一个极限过程，即让试验电荷不断减小，测量其受力和电荷的比值。
+\footnote{电荷的离散性（见\autoref{sec:I.1}）意味着这个数学极限在物理上是不可能实现的。这是一个宏观静电学中数学理想化的例子。}
+实验上，这个比值和力的方向会随着试验电荷的减小而趋于常量。
+这些幅值和方向的极限定理了电场强度$\mathbf{E}$在给定点的大小和方向。用符号语言我们可以写成
+\begin{equation}\label{eq:1.1}
+    \mathbf{F}=q\mathbf{E}
+\end{equation}
+其中$\mathbf{F}$为力，$\mathbf{E}$为电场强度，$q$为电荷量。在这个问题中，假定$q$是位于一个点上，力和电场强度都是在该点上的值。
+
+库仑定律可以被类似地写出。如果$\mathbf{F}$为作用在位于$\mathbf{x_1}$处的点电荷$q_1$上的力，来自于位于$\mathbf{x_2}$处的点电荷$q_2$，那么库仑定律为
+\begin{equation}\label{eq:1.2}
+    \mathbf{F}=kq_1q_2\frac{\mathbf{x_1}-\mathbf{x_2}}{|\mathbf{x_1}-\mathbf{x_2}|^3}
+\end{equation}
+注意$q_1$和$q_2$为代数量，可正可负。比例常数$k$取决于采用的单位制。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.1.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:1.1}
+\end{figure}
+
+在$\mathbf{x}$处由点电荷$q_1$产生的电场强度可以直接得到：
+\begin{equation}\label{eq:1.3}
+    \mathbf{E}=kq_1\frac{\mathbf{x}-\mathbf{x_1}}{|\mathbf{x}-\mathbf{x_1}|^3}
+\end{equation}
+正如\autoref{fig:1.1}所示。不同单位制下常数$k$不同。
+\footnote{单位的问题在附录中有详细讨论。}
+在静电单位制（esu）下，$k=1$，单位电荷满足其对另一个1厘米外的相同电荷施加的作用力为1达因。esu单位制下的电荷量单位被称为\textit{静电库仑}，电场强度用\textit{静电伏特每厘米}测量。我们这里采用的SI单位制，$k=(4\pi\epsilon_0)^{-1}=10^{-7}c^2$，其中$\epsilon_0\approx8.854\times 10^{-12}{\rm F/m}$，被称为真空中的介电常数。
+SI单位制下电荷量单位为\textit{库仑}（C），电场强度用\textit{伏特每米}（V/m）测量。1库仑（1C）的电荷在1米处产生大约$8.9874\times 10^9{\rm V/m}$的电场。
+一个电子（$q\approx1.602\times 10^{-19}{\rm C}$）在1米处产生大约$1.44\times 10^{-9}{\rm V/m}$（1.44nV/m）的电场。
+
+实验上观察到的多电荷产生线性叠加的力，意味着我们可以把由一系列位于$\mathbf{x_i},\quad i=1,2,\dots,n$处的电荷产生的$\mathbf{x}$处的电场写成矢量和的形式：
+\begin{equation}\label{eq:1.4}
+    \mathbf{E}(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\sum_{i=1}^n q_i\frac{\mathbf{x}-\mathbf{x_i}}{|\mathbf{x}-\mathbf{x_i}|^3}
+\end{equation}
+如果电荷小而多，那么它们可以用电荷密度$\rho(\mathbf{x'})$描述（如果$\Delta q$是在$\mathbf{x'}$处的小体元$\Delta x\Delta y\Delta z$内的电荷，那么$\Delta q=\rho(\mathbf{x'})\Delta x\Delta y\Delta z$），求和被积分代替：
+\begin{equation}\label{eq:1.5}
+    \mathbf{E}(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int \rho(\mathbf{x'})\frac{\mathbf{x}-\mathbf{x'}}{|\mathbf{x}-\mathbf{x'}|^3}d^3 x'
+\end{equation}
+其中$d^3 x'=dx'dy'dz'$是$\mathbf{x'}$处的三维体元。
+
+{\small 这个时候有必要引入\textit{狄拉克$\delta$函数}。一维时$\delta$函数写作$\delta(x-a)$，是数学上的异常函数，具有以下性质：
+\begin{enumerate}
+    \item $\delta(x-a)=0$，当$x\neq a$时，并且
+    \item $\int \delta(x-a) dx=1$，如果积分区间包括$x=a$，否则积分为零。
+\end{enumerate}
+$\delta$函数具有一个直觉上但不严谨的意义，它可以作为例如高斯函数这样的峰值曲线不断变窄变高的极限结果，以至于曲线下方的面积总是恒定值。L.施瓦兹（L.Schwartz）关于分布的理论是处理$\delta$函数本身以及其操作变换的全面严谨的数学方法。
+\footnote{一个有用且严谨地关于$\delta$函数的叙述由\textit{莱特希尔（Lighthill）}给出。也可以见\textit{丹纳里和克兹维基（Dennery and Krzywicki）}的著作（第III.13节）。（在正文或脚注中利用斜体作者姓氏引用的条目，其完整引用只能在书末的参考文献中找到。）}
+
+从上面的定义中可以明显看出，对于任意函数$f(x)$，
+\begin{enumerate}[resume]
+    \item $\int f(x)\delta(x-a)dx=f(a)$
+\end{enumerate}
+$f(x)$与$\delta$函数的导数的乘积的积分可以简单理解成$\delta$函数是性质良好，只是具有尖锐峰值的函数。因此定义为
+\begin{enumerate}[resume]
+    \item $\int f(x)\delta'(x-a)dx=-f'(a)$
+\end{enumerate}
+其中的“‘”号代表对变量求导。
+
+如果$\delta$函数的变量为以独立变量$x$作为自变量的函数$f(x)$，它可以按照下面的规则变换，
+\begin{enumerate}[resume]
+    \item $\delta(f(x))=\sum_i \frac{1}{|\frac{df}{dx}(x_i)|}\delta(x-x_i)$
+\end{enumerate}
+假设其中$f(x)$只有单零点，位于$x=x_i$处。
+
+不止一维时，我们只需要把每个维度上的$\delta$函数乘起来。例如在三维情况下，笛卡尔坐标系中，
+\begin{enumerate}[resume]
+    \item $\delta(\mathbf{x}-\mathbf{X})=\delta(x_1-X_1)\delta(x_2-X_2)\delta(x_3-X-3)$
+\end{enumerate}
+是一个除了$\mathbf{x}=\mathbf{X}$处处为零的函数，从而
+\begin{enumerate}[resume]
+    \item 
+  
+    $\int_{\Delta V}\delta(\mathbf{x}-\mathbf{X})d^3x=\left\{
+    \begin{aligned}
+        1,&\quad \mbox{如果}\Delta V\mbox{包含点}\mathbf{x}=\mathbf{X}\\
+        0,&\quad \mbox{如果}\Delta V\mbox{不包含点}\mathbf{x}=\mathbf{X}\\
+    \end{aligned}\right.$
+\end{enumerate}
+注意$\delta$函数具有逆体积的量纲，不论空间维度是多少。
+
+一系列离散的点电荷可以通过$\delta$函数用电荷密度表示。例如，
+\begin{equation}\label{eq:1.6}
+    \rho(\mathbf{x})=\sum_{i=1}^n q_i\delta(\mathbf{x}-\mathbf{x_i})
+\end{equation}
+表示$n$个点电荷$q_i$分别位于$\mathbf{x_i}$的分布。把这个电荷密度的\autoref{eq:1.6}代入\autoref{eq:1.5}中并积分，利用$\delta$函数的性质，得出分离求和\autoref{eq:1.4}。}
+
+\section{高斯定理}\label{sec:1.3}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.2.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{高斯定理。电场强度的法向分量在闭合曲面$S$上被积分。如果电荷在$S$的里面（外面），内表面对电荷所张的立体角总共是$4\pi$（0）。}
+    \label{fig:1.2}
+\end{figure}
+
+\autoref{eq:1.5}的积分式对于分析电场来说并不总是最合适的形式。还有另一个积分结果，被称为\textit{高斯定理}，有时更有用，并且导出了关于$\mathbf{E}(\mathbf{x})$的微分方程。为了得到高斯定理我们首先考虑一个点电荷$q$和一个\textit{闭合}表面$S$，正如\autoref{fig:1.2}所示。令$r$为点电荷到表面上一点的距离，$\mathbf{n}$为表面上该点处的外法向单位矢量，$da$为表面上的一面元。如果电荷$q$产生的电场$\mathbf{E}$在面上该点与单位法向量的夹角为$\theta$，那么电场法向分量乘上面元面积为：
+\begin{equation}\label{eq:1.7}
+    \mathbf{E}\cdot\mathbf{n}da=\frac{q}{4\pi\epsilon_0}\frac{\cos \theta}{r^2}da
+\end{equation}
+因为$\mathbf{E}$是沿着面元与$q$的连线方向的，$\cos \theta da=r^2 d\Omega$，其中$d\Omega$为面元$da$对电荷位置张成的立体角。因此
+\begin{equation}\label{eq:1.8}
+    \mathbf{E}\cdot\mathbf{n}da=\frac{q}{4\pi\epsilon_0}d\Omega
+\end{equation}
+如果我们在整个表面上对$\mathbf{E}$的法向分量积分，很容易看出
+\begin{equation}\label{eq:1.9}
+    \oint_{S}\mathbf{E}\cdot\mathbf{n}da=\left\{
+    \begin{aligned}
+        q/\epsilon_0,&\quad \mbox{如果}q\mbox{位于}S\mbox{内部}\\
+        0,&\quad \mbox{如果}q\mbox{位于}S\mbox{外部}\\
+    \end{aligned}\right.
+\end{equation}
+结果为对单个点电荷的高斯定理。对于一系列分离电荷，立刻得出
+\begin{equation}\label{eq:1.10}
+     \oint_{S}\mathbf{E}\cdot\mathbf{n}da=\frac{1}{\epsilon_0}\sum_i q_i
+\end{equation}
+其中只对表面$S$\textit{内部}的电荷求和。对于连续分布的电荷密度，高斯定理变为：
+\begin{equation}\label{eq:1.11}
+     \oint_{S}\mathbf{E}\cdot\mathbf{n}da=\frac{1}{\epsilon_0}\int_V \rho(\mathbf{x})d^3x
+\end{equation}
+其中$V$为$S$所包围的体积。
+
+\autoref{eq:1.11}是静电学的基本方程之一。注意到它依赖于
+\begin{itemize}
+    \item 电荷之间作用力的平方反比律，
+    \item 力是有心的，
+    \item 不同电荷产生的作用是线性叠加的。
+\end{itemize}
+显然，高斯定理也对牛顿（Newton）的万有引力场有效，只要把电荷密度换成质量密度。
+
+有意思的是，甚至是在卡文迪许和库仑的实验之前，普莱斯利（Priestley）接手了富兰克林（Franklin）的观察，他发现电荷好像位于金属杯子的外部而不是内部，并类比牛顿的万有引力定律说明静电力一定要满足随距离的平方反比律。平方反比律的目前情况在\autoref{sec:I.2}中有讨论。
+
+\section{高斯定理的微分形式}\label{sec:1.4}
+
+高斯定理可以看作是静电规律的积分形式。我们可以利用散度定理得到一个微分形式（即一个微分方程）。\textit{散度定理}说明对于任意一个定义在闭合曲面$S$所包围的$V$体积内性质良好的矢量场$\mathbf{A}(\mathbf{x})$有关系成立
+$$\oint_S \mathbf{A}\cdot\mathbf{n}da=\int_V \nabla\cdot\mathbf{A}d^3x$$
+$\mathbf{A}$的散度在体积内的积分等于$\mathbf{A}$的法向分量在表面的积分。这个方程实际上可以作为散度的定义（见\textit{斯特拉顿（Stratton）}，p. 4）。
+
+为了应用散度定理我们考虑高斯定理的积分关系：
+$$\oint_S \mathbf{E}\cdot\mathbf{n}da=\frac{1}{\epsilon_0}\int_V \rho(\mathbf{x})d^3x$$
+现在散度定理允许我们把这个式子写成
+\begin{equation}\label{eq:1.12}
+    \int_V (\nabla\cdot\mathbf{E}-\rho/\epsilon_0)d^3x=0
+\end{equation}
+对于任意体积$V$都成立。我们可以按照通常的方法令积分式等于零，得到
+\begin{equation}\label{eq:1.13}
+    \nabla\cdot\mathbf{E}=0
+\end{equation}
+为静电学中高斯定理的微分形式。这个方程本身可以用来解决静电学的问题。然而，一般情况下，先处理关于位置的标量函数，最后如果有必要的话再整合成矢量，比直接处理矢量函数要简单（见下）。
+
+\section{关于静电的另一个方程和标势}\label{sec:1.5}
+
+单个\autoref{eq:1.13}是不够完全确定电场$\mathbf{E}(\mathbf{x})$的三个分量的。也许有读者知道一个矢量场通过给出空间各点出的散度和旋度值几乎
+\footnote{至少能确定到一个满足拉普拉斯（Laplace）方程的标量函数的梯度。关于其唯一性见\autoref{sec:1.9}。}
+能被完全确定下来。因此我们寻找一个能确定$\mathbf{E}$的旋度与位置的关系的方程。这个方程为
+\begin{equation}\label{eq:1.14}
+    \nabla\times\mathbf{E}=0
+\end{equation}
+可以直接由广义上的库仑定律\autoref{eq:1.5}导出：
+$$\mathbf{E}(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int \rho(\mathbf{x'})\frac{\mathbf{x}-\mathbf{x'}}{|\mathbf{x}-\mathbf{x'}|^3}d^3 x'$$
+积分式中的矢量因子作为$\mathbf{x}$的函数，是标量$1/|\mathbf{x}-\mathbf{x'}|$的负梯度：
+$$\frac{\mathbf{x}-\mathbf{x'}}{|\mathbf{x}-\mathbf{x'}|^3}=-\nabla(\frac{1}{|\mathbf{x}-\mathbf{x'}|})$$
+因为梯度运算只涉及$\mathbf{x}$，不涉及$\mathbf{x'}$，它可以被提到积分号外面。从而场可以被写成
+\begin{equation}\label{eq:1.15}
+    \mathbf{E}(\mathbf{x})=\frac{-1}{4\pi\epsilon_0}\nabla\int \frac{\rho(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|}d^3x'
+\end{equation}
+因为任意性质良好的标量函数的梯度的旋度为零（$\nabla\times\nabla \psi=0,\quad \forall \psi$），\autoref{eq:1.15}马上导出\autoref{eq:1.14}。
+
+注意到$\nabla\times\mathbf{E}=0$依赖于电荷之间的力是只与相对距离有关的有心力，而不依赖于平方反比律。
+
+在\autoref{eq:1.15}中通过梯度操作从一个标量导出了电场（矢量）。因为关于一个位置的函数比三个更好处理，应该注意到这个标量函数并给它一个名字。我们通过以下方程定义\textit{标势}$\Phi(\mathbf{x})$：
+\begin{equation}\label{eq:1.16}
+    \mathbf{E}=-\nabla\Phi
+\end{equation}
+从而\autoref{eq:1.15}表明标势可以通过电荷密度给出
+\begin{equation}\label{eq:1.17}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int \frac{\rho(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|}d^3x'
+\end{equation}
+对全空间的电荷积分，$\Phi$具有任意性，\autoref{eq:1.17}右侧可以加上任意一个常数。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.3.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:1.3}
+\end{figure}
+
+正如\autoref{fig:1.3}所示，当我们考虑把试探电荷$q$从电场$\mathbf{E}(\mathbf{x})$中的一点（A）移动到另一点（B）时，标势具有所做的功的物理意义。任意一点处作用在电荷上的力为
+$$\mathbf{F}=q\mathbf{E}$$
+所以把电荷从A移动到B所做的功为
+\begin{equation}\label{eq:1.18}
+    W=\int_A^B\mathbf{F}\cdot d\mathbf{l}=-q\int_A^B\mathbf{E}\cdot d\mathbf{l}
+\end{equation}
+负号是由于我们计算的是克服电场力\textit{作用}在电荷上的功。根据\autoref{eq:1.16}的定义功可以被写作
+\begin{equation}\label{eq:1.19}
+    W=q\int_A^B\nabla\Phi\cdot d\mathbf{l}=q\int_A^B d\Phi=q(\Phi_B-\Phi_A)
+\end{equation}
+说明$q\Phi$可以表示试探电荷在电场中的势能。
+
+从\autoref{eq:1.18}和\autoref{eq:1.19}中可以看出任意两点之间电场的积分与路径无关，等于两点间电势的负差值：
+\begin{equation}\label{eq:1.20}
+    \int_A^B \mathbf{E}\cdot d\mathbf{l}=-(\Phi_B-\Phi_A)
+\end{equation}
+当然这可以直接由\autoref{eq:1.16}得到。如果路径是闭合的，那么线积分为零，
+\begin{equation}\label{eq:1.21}
+    \oint \mathbf{E}\cdot d\mathbf{l}=0
+\end{equation}
+这个结果也可以直接由库仑定律得到。应用斯托克斯定理｛如果$\mathbf{A}(\mathbf{x})$是性质良好的矢量场，$S$是任意开曲面，$C$为环绕$S$的闭合曲线，
+$$\oint_C \mathbf{A}\cdot d\mathbf{l}=\int_S (\nabla \times \mathbf{A})\cdot\mathbf{n}da$$
+其中$d\mathbf{l}$为$C$的线元，$\mathbf{n}$是$S$的法向量，环路$C$绕行方向与$\mathbf{n}$满足右手定则）可以立刻回到$\nabla\times\mathbf{E}=0$。
+
+\section{电荷和电偶极矩的面分布和电场与电势的不连续性}\label{sec:1.6}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.4.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{跨越一层电荷时电场法向分量的不连续性。}
+    \label{fig:1.4}
+\end{figure}
+
+静电学中的一个普遍问题是给定电荷的面分布，求电场或电势。\autoref{eq:1.11}的高斯定理允许我们直接写下一个微分结果。如果一个面$S$，其从1面指向2面的单位法向量为$\mathbf{n}$，具有面电荷密度$\sigma(\mathbf{x})$（库仑每平方米）和面两侧的电场$\mathbf{E_1}$和$\mathbf{E_2}$，如\autoref{fig:1.4}所示，那么高斯定理立刻告诉我们
+\begin{equation}\label{eq:1.22}
+    (\mathbf{E_2}-\mathbf{E_1})\cdot\mathbf{n}=\sigma/\epsilon_0
+\end{equation}
+这并不能把$\mathbf{E_1}$和$\mathbf{E_2}$确定下来，除非没有其他场源并且$\sigma$的几何形状和形式特别简单。\autoref{eq:1.22}所表示的只是沿法向$\mathbf{n}$跨越面电荷密度$\sigma$时，电场的法向分量具有$\sigma/\epsilon_0$的阶跃。
+
+可以利用\autoref{eq:1.21}对$\mathbf{E}$在闭合回路上线积分，得出跨越一个表面的电场的切向分量是连续的。需要采用长方形回路，两头长度可略，长边分辨落在边界的两侧。
+
+空间中任意一点（不只是表面上）的电势（求导得到电场）可以从\autoref{eq:1.17}中通过替换$\rho d^3x$为$\sigma$得到：
+\begin{equation}\label{eq:1.23}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int_S\frac{\sigma(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|}da'
+\end{equation}
+对于电荷体分布或面分布，电势是处处连续的，即使在电荷分布内部。这一点可以从\autoref{eq:1.23}中看出来，或者从$\mathbf{E}$是有限的，即使跨过电荷的面分布时不连续的事实中得出。对于点电荷或者线电荷，或者电偶极层，电势不再是连续的，正如马上我们要看到的那样。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.5.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{构建一个电偶极层的极限过程。}
+    \label{fig:1.5}
+\end{figure}
+
+另一个有意思的问题是在面$S$上分布的电偶极层产生的电势。电偶极层可以看作是让一个面$S$具有面电荷密度$\sigma(\mathbf{x})$，另一个和$S$靠的很近的面$S'$，在$S$各点附近具有等量且异号的面电荷密度，正如\autoref{fig:1.5}所示。电偶极层强度$D(\mathbf{x})$是通过让$S'$无限靠近$S$，同时面电荷密度$\sigma(\mathbf{x})$无限增大，保持$\sigma(\mathbf{x})$和局部分离距离$d(\mathbf{x})$的乘积趋向于极限$D(\mathbf{x})$：
+$$\lim_{d(\mathbf{x})\to 0}\sigma(\mathbf{x})d(\mathbf{x})=D(\mathbf{x})$$
+电偶极层的偶极矩的方向与$S$垂直，从负电荷指向正电荷。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.6.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{电偶极层几何位形。}
+    \label{fig:1.6}
+\end{figure}
+
+为了找到电偶极层产生的电势，我们可以考虑单个偶极子，然后把它们叠加成一个面分布，或者我们可以通过在数学上重现上面\autoref{eq:1.23}面密度表述的极限过程，得到相同结果。第一种方法可能更简单，但第二种是很好的矢量运算训练。我们采用极限过程方法。$\mathbf{n}$作为$S$的单位法向量，指向远离$S'$的一边，正如\autoref{fig:1.6}所示，两个靠近的面产生的电势为
+$$\Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int_S\frac{\sigma(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|}da'-\frac{1}{4\pi\epsilon_0}\int_{S'}\frac{\sigma(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}+\mathbf{n}d|}da''$$
+对于很小的$d$我们可以把$|\mathbf{x}-\mathbf{x'}+\mathbf{n}d|^{-1}$展开。考虑一般$|\mathbf{x}+\mathbf{a}|^{-1}$的展开，其中$|\mathbf{a}|\ll |\mathbf{x}|$。我们写下三维的泰勒展开：
+$$\frac{1}{|\mathbf{x}+\mathbf{a}|}=\frac{1}{x}+\mathbf{a}\cdot\nabla(\frac{1}{x})+\dots$$
+用这种方法我们发现当$d\to 0$时电势变成
+\begin{equation}\label{eq:1.24}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int_S D(\mathbf{x'})\mathbf{n}\cdot\nabla'(\frac{1}{|\mathbf{x}-\mathbf{x'}|})da'
+\end{equation}
+我们发现\autoref{eq:1.24}中的积分式是具有电偶极矩$\mathbf{p}=\mathbf{n}Dda'$的电偶极子产生的电势。由$\mathbf{x'}$处的电偶极子$\mathbf{p}$在$\mathbf{x}$处产生的电势为
+\begin{equation}\label{eq:1.25}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\frac{\mathbf{p}\cdot(\mathbf{x}-\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|^3}
+\end{equation}
+
+\autoref{eq:1.24}具有简单的几何意义。注意到
+$$\mathbf{n}\cdot\nabla'(\frac{1}{|\mathbf{x}-\mathbf{x'}|})da'=-\frac{\cos \theta da'}{|\mathbf{x}-\mathbf{x'}|^2}=-d\Omega$$
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.7.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{面元$da'$上的电偶极层$D$在$P$点产生的电势，就是$D$和$da'$对$P$点所张立体角$d\Omega$的乘积的负数。}
+    \label{fig:1.7}
+\end{figure}
+
+其中$d\Omega$为面元$da'$对观察点所张的立体角，如\autoref{fig:1.7}所示。注意到如果$\theta$为锐角时$d\Omega$为正（即当观察点在电偶极层的“内部”时）。电势可以被写成：
+\begin{equation}\label{eq:1.26}
+    \Phi(\mathbf{x})=-\frac{1}{4\pi\epsilon_0}\int_S D(\mathbf{x'})d\Omega
+\end{equation}
+对于恒定的电偶极层偶极矩密度$D$，电势只是电偶极矩除以$4\pi\epsilon_0$后与表面对观察点所张的立体角的乘积，无论形状。
+
+跨越一个双层面电荷电势发生跃变。这可以通过让观察点无限接近双层电荷来得到。现在想象双层电荷由两部分构成，一部分是观察点下的一个小圆盘。这个圆盘无限小，以至于可以被看作是平的，并具有恒定的电偶极层偶极矩密度$D$。显然总电势可以由圆盘产生的电势和剩下部分产生的电势线性叠加得到。从\autoref{eq:1.26}中可以清楚知道圆盘本身从内到外产生了$D/\epsilon_0$的电势阶跃，内部电势$-D/2\epsilon_0$，外部电势$+D/2\epsilon_0$。剩下部分产生的电势，因为有挖去圆盘后的洞存在，穿过洞是连续的。所以跨过表面的总电势阶跃为：
+\begin{equation}\label{eq:1.27}
+    \Phi_2-\Phi_1=D/\epsilon_0
+\end{equation}
+结果和\autoref{eq:1.22}中跨过一层面电荷产生的电场阶跃是类似的。\autoref{eq:1.27}在“物理上”可以理解为在电偶极层内部的电势陡降；它可以通过两层之间的电场乘上间距再求极限得到。
+
+\section{泊松和拉普拉斯方程}\label{sec:1.7}
+
+在\autoref{sec:1.4}和\autoref{sec:1.5}中，电场可以通过两个微分方程描述：
+$$\nabla\cdot\mathbf{E}=\rho/\epsilon_0$$
+和
+$$\nabla\times\mathbf{E}=0$$
+后一个方程等价于$\mathbf{E}$是一个标量函数的梯度，标势$\Phi$：
+$$\mathbf{E}=-\nabla\Phi$$
+
+\autoref{eq:1.13}和\autoref{eq:1.16}可以整合成关于单个函数$\Phi(\mathbf{x})$的一个微分方程：
+\begin{equation}
+    \nabla^2\Phi=-\rho/\epsilon_0\label{eq:1.28}
+\end{equation}
+这个方程被称为\textit{泊松（Poisson）方程}。对于无电荷区域，标势满足\textit{拉普拉斯方程}：
+\begin{equation}\label{eq:1.29}
+    \nabla^2\Phi=0
+\end{equation}
+
+我们已经有一个关于标势的解为\autoref{eq:1.17}：
+$$\Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int \frac{\rho(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|}d^3x'$$
+我们在两边进行拉普拉斯运算，直接验证发现这个解确实满足\autoref{eq:1.28}的泊松方程。因为最终的结果具有奇点，我们引入一个极限过程。定义“a势”$\Phi_a(\mathbf{x})$为
+$$\Phi_a(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int \frac{\rho(\mathbf{x'})}{\sqrt{(\mathbf{x}-\mathbf{x'})^2+a^2}}d^3x'$$
+真实电势\autoref{eq:1.17}是“a势”在$a\to 0$的极限。对“a势”两边进行拉普拉斯运算，得到
+\begin{equation}\label{eq:1.30}
+    \begin{aligned}
+        \nabla^2\Phi_a(\mathbf{x})&=\frac{1}{4\pi\epsilon_0}\int\rho(\mathbf{x'})\nabla^2(\frac{1}{\sqrt{r^2+a^2}})d^3x'\\
+        &=-\frac{1}{4\pi\epsilon_0}\int\rho(\mathbf{x'})[\frac{3a^2}{(r^2+a^2)^{5/2}}]d^3x'
+    \end{aligned}
+\end{equation}
+其中$r=|\mathbf{x}-\mathbf{x'}|$。方括号中的表达式是$1/\sqrt{r^2+a^2}$的负拉普拉斯结果。对于不为零的$a$处处性质良好，但当a趋于0时，在$r=0$处趋向无穷，在$r\neq0$处等于零。对任意$a$体积分为$4\pi$。为了积分，把空间分为两部分，一部分是以$\mathbf{x}$为球心，固定半径为$R$的球体。选择$R$使得$\rho(\mathbf{x'})$的球内的变化很小，并令$a$远远小于$R$并趋于0。如果$\rho(\mathbf{x'})$使得\autoref{eq:1.17}存在，那么当$a\to 0$时，积分式\autoref{eq:1.30}中球外的贡献会按$a^2$速度衰减。因此我们只需要考虑球内的贡献。通过对性质良好的$\rho(\mathbf{x'})$在$\mathbf{x'}=\mathbf{x}$附近展开，可以得到
+$$\nabla^2\Phi_a(\mathbf{x})=-\frac{1}{\epsilon_0}\int_0^R\frac{3a^2}{(r^2+a^2)^{5/2}}[\rho(\mathbf{x})+\frac{r^2}{6}\nabla^2\rho+\dots]r^2dr+O(a^2)$$
+直接积分得到
+$$\nabla^2\Phi_a(\mathbf{x})=-\frac{1}{\epsilon_0}\rho(\mathbf{x})(1+O(a^2/R^2))+O(a^2,a^2\log a)\nabla^2\rho+\dots$$
+在$a\to 0$的极限下，我们得到\autoref{eq:1.28}的泊松方程。
+
+$1/r$的拉普拉斯结果的奇点可以形式上写成狄拉克$\delta$函数。因为当$r\neq0$时$\nabla^2(1/r)=0$，而体积分为$-4\pi$，我们可以形式上写成$\nabla^2(1/r)=-4\pi\delta(\mathbf{x})$，或者更普适的写法，
+\begin{equation}\label{eq:1.31}
+    \nabla^2\frac{1}{|\mathbf{x}-\mathbf{x'}|}=-4\pi\delta(\mathbf{x}-\mathbf{x'})
+\end{equation}
+
+\section{格林定理}\label{sec:1.8}
+
+如果静电问题总是包含无边界条件下局域分离或连续的电荷分布，那么\autoref{eq:1.17}的通解对任何问题都是最简单直接的答案。根本就不需要泊松或者拉普拉斯方程。当然，实际上许多（可能不是大多数）静电问题包含了无限区域，内部包含或不包含电荷，边界面上有边界条件。这些边界条件可能可以通过合适的外部电荷分布来模拟（可能是无穷远的电荷），但是通过\autoref{eq:1.17}计算电势变得不方便，除非是简单情况（例如电像法）。
+
+为了处理边界条件，有必要发展新的数学工具，亦即乔治·格林（George Green）（1824）得出的定理。这是关于散度定理的简单应用。散度定理：
+$$\int_V \nabla\cdot\mathbf{A}d^3x=\oint_S \mathbf{A}\cdot\mathbf{n}da$$
+对于任意定义在被闭合曲面$S$包围的体积$V$内性质良好的矢量场$\mathbf{A}$都成立。令$\mathbf{A}=\phi\nabla\psi$，其中$\phi$和$\psi$是任意标量场。现在
+\begin{equation}\label{eq:1.32}
+    \nabla\cdot(\phi\nabla\psi)=\phi\nabla^2\psi+\nabla\phi\cdot\nabla\psi
+\end{equation}
+并且
+\begin{equation}\label{eq:1.33}
+    \phi\nabla\psi\cdot\mathbf{n}=\phi\frac{\partial \psi}{\partial n}
+\end{equation}
+其中$\partial/\partial n$是表面$S$上的法向求导（从体积$V$的内部指向外部）。当\autoref{eq:1.32}和\autoref{eq:1.33}被代入散度定理中，结果是\textit{格林第一定理}：
+\begin{equation}\label{eq:1.34}
+    \int_V (\phi\nabla^2\psi+\nabla\phi\cdot\nabla\psi)d^3x=\oint_S \phi\frac{\partial \psi}{\partial n} da
+\end{equation}
+如果我们重新写下\autoref{eq:1.34}并把$\phi$和$\psi$互换，并从\autoref{eq:1.34}中减去，$\nabla\phi\cdot\nabla\psi$项抵消，我们得到格林第二定理或\textit{格林定理}：
+\begin{equation}\label{eq:1.35}
+    \int_V (\phi\nabla^2\psi-\psi\nabla^2\phi)d^3x=\oint_S [\phi\frac{\partial \psi}{\partial n}-\psi\frac{\partial \phi}{\partial n}]da
+\end{equation}
+
+如果我们选择一个特别的$\psi$，即$1/R\equiv1/|\mathbf{x}-\mathbf{x'}|$，其中$\mathbf{x}$为观察点而$\mathbf{x'}$是积分变量，电势的泊松微分方程可以转换成积分方程。
+进一步，我们令$\phi=\Phi$，即电势，并利用$\nabla^2\Phi=-\rho/\epsilon_0$。从\autoref{eq:1.31}我们知道$\nabla^2(1/R)=-4\pi\delta(\mathbf{x}-\mathbf{x'})$，从而\autoref{eq:1.35}变成
+$$\int_V [-4\pi\Phi(\mathbf{x'})\delta(\mathbf{x}-\mathbf{x'})+\frac{1}{\epsilon_0R}\rho(\mathbf{x'})]d^3x'=\oint_S [\Phi\frac{\partial}{\partial n'}(\frac{1}{R})-\frac{1}{R}\frac{\partial \Phi}{\partial n'}]da'$$
+如果$\mathbf{x}$位于体积$V$内部，我们得到：
+\begin{equation}\label{eq:1.36}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int_V \frac{\rho(\mathbf{x'})}{R}d^3x'+\frac{1}{4\pi}\oint_S [\frac{1}{R}\frac{\partial \Phi}{\partial n'}-\Phi \frac{\partial}{\partial n'}(\frac{1}{R})]da'
+\end{equation}
+如果$\mathbf{x}$在表面$S$之外，那么\autoref{eq:1.36}的左边为零。
+\footnote{读者可能会抱怨\autoref{eq:1.36}得到的过程不合法，因为$1/|\mathbf{x}-\mathbf{x'}|$在体积$V$内性质不良好。严谨的话可以通过极限过程求解，正如前面的章节那样，或者在冲突点$\mathbf{x}=\mathbf{x'}$周围挖掉一个小球。结果仍为\autoref{eq:1.36}。}
+（注意到这和由于面电荷密度$\sigma=\epsilon_0 \partial\Phi/\partial n'$和电偶极层$D=-\epsilon_0 \Phi$的产生的电势的面积分表达是自洽的。从而电场的不连续性和跨越表面的电势\autoref{eq:1.22}和\autoref{eq:1.27}导致体积$V$外部的电势为零。）
+
+关于\autoref{eq:1.36}有两点备注。第一，如果表面$S$无穷远，并且$S$上的电场的衰减速度比$R^{-1}$快，那么面积分消失，\autoref{eq:1.36}变为通常的形式\autoref{eq:1.17}。第二，对于无电荷空间，体积内的电势（拉普拉斯方程的解）通过\autoref{eq:1.36}仅由面上的电势及其法向导数表达。这个令人吃惊的结果不是一个边界条件问题的解，只是一个积分形式，因为确定任意$\Phi$和$\partial \Phi/\partial n'$（柯西（Cauchy）边界条件）的具体表达是一个过分细致的问题。这一点在后续章节中有详细讨论，展示了如何利用格林定理\autoref{eq:1.35}得到合适边界条件下的解。
+
+\section{狄利克雷和纽曼边界条件下解的唯一性}\label{sec:1.9}
+
+为了确保边界内的区域的电势有唯一且良好（即在物理上合理的）的解，泊松（或者拉普拉斯）方程应该具有什么样的边界条件？物理经验让我们相信在闭合曲面上确定的电势（例如不同电势下的导体组成的系统）确定了一个唯一的电势问题。这被称为\textit{狄利克雷（Dirichlet）问题}，或者\textit{狄利克雷边界条件}。类似的，确定边界面上处处的电场（电势的法向导数）也能确定一个唯一的电势问题。确定法向导数被称为\textit{纽曼（Neumann）边界条件}。我们现在通过格林第一定理\autoref{eq:1.34}来证明这些事情。
+
+我们希望展现在体积$V$内部，闭合边界面$S$上满足狄利克雷或者纽曼边界条件的泊松方程$\nabla^2\Phi=-\rho/\epsilon_0$解的独特性。相反，我们假设具有两个解$\Phi_1$和$\Phi_2$满足同样的边界条件。令
+\begin{equation}\label{eq:1.37}
+    U=\Phi_2-\Phi_1
+\end{equation}
+那么在$V$内部$\nabla^2U=0$，并且在$S$上，对于狄利克雷边界条件$U=0$，对于纽曼边界条件$\partial U/\partial n=0$。从格林第一定理\autoref{eq:1.34}中，令$\phi=\psi=U$，我们发现
+\begin{equation}\label{eq:1.38}
+    \int_V (U\nabla^2U+\nabla U\cdot\nabla U)d^3x=\oint_S U\frac{\partial U}{\partial n}da
+\end{equation}
+对于具有特殊性质的$U$，这缩减为（对两种边界条件都成立）：
+$$\int_V |\nabla U|^2d^3x=0$$
+暗示了$\nabla U=0$。结果是，在$V$内部，$U$是常数。对于狄利克雷边界条件，在$S$上$U=0$，所以在$V$内部$\Phi_1=\Phi_2$，解是唯一的。类似的，对于纽曼边界条件，解除了一个不重要的任意附加常数是唯一的。
+
+从\autoref{eq:1.38}的右边可以显然看出，对于混合的边界条件也有解的唯一性（即狄利克雷边界条件覆盖部分表面$S$，剩下的部分由纽曼边界条件覆盖）。
+
+需要明确的是，在闭合边界上$\Phi$和$\partial \Phi/\partial n$两者都被任意确定（柯西边界条件）的泊松方程的解不一定存在，因为单独对于狄利克雷或者纽曼边界条件就有解的唯一性，两者一般不自洽。这一点可以通过\autoref{eq:1.36}确认。右边插入$\Phi$和$\partial \Phi/\partial n$的任意值，可以发现当$\mathbf{x}$接近表面时，$\Phi(\mathbf{x})$和$\nabla\Phi(\mathbf{x})$一般与假定的边界值不自洽。关于\textit{开}表面上的柯西边界条件能不能确定一个唯一的静电问题需要超出这里所允许的范围的讨论。为了得到关于这些问题更详细的讨论，读者可以参考\textit{莫尔斯和费什巴赫（Morse and Feshbach）}的著作（6.2章，692-706页），或者参考\textit{索末菲（Sommerfeld）（Partical Differential Equations in Physics, 第II章）}。结论是，对于在闭合边界面$S$（当然可以部分或全部位于无穷远处）上只有狄利克雷边界条件\textit{或者}纽曼边界条件的静电问题具有唯一解。
+
+\section{格林函数法得到的静电边值问题的形式解}\label{sec:1.10}
+
+有限体积$V$内的，边界$S$上为狄利克雷或纽曼边界条件的泊松方程或拉普拉斯方程的解可以通过格林定理\autoref{eq:1.35}解出，被称为格林函数法。
+
+为了得到结果\autoref{eq:1.36}——不是解——我们让$\psi$等于$1/|\mathbf{x}-\mathbf{x'}|$，这是单位点电荷产生的势，满足方程：
+$$\nabla^2\frac{1}{|\mathbf{x}-\mathbf{x'}|}=-4\pi\delta(\mathbf{x}-\mathbf{x'})$$
+函数$1/|\mathbf{x}-\mathbf{x'}|$只是一类依赖于$\mathbf{x}$和$\mathbf{x'}$的函数的其中之一，这类函数被称为\textit{格林函数}，满足\autoref{eq:1.31}。普遍情况，
+\begin{equation}\label{eq:1.39}
+    \nabla'^2G(\mathbf{x},\mathbf{x'})=-4\pi\delta(\mathbf{x}-\mathbf{x'})
+\end{equation}
+其中
+\begin{equation}\label{eq:1.40}
+    G(\mathbf{x},\mathbf{x'})=\frac{1}{|\mathbf{x}-\mathbf{x'}|}+F(\mathbf{x},\mathbf{x'})
+\end{equation}
+函数$F(\mathbf{x},\mathbf{x'})$满足体积$V$内部的拉普拉斯方程：
+\begin{equation}\label{eq:1.41}
+    \nabla'^2 F(\mathbf{x},\mathbf{x'})=0
+\end{equation}
+
+事实上$\Phi$或者$\partial \Phi/\partial n$满足边界条件的问题，我们可以通过考虑\autoref{eq:1.36}的结果找到关键。已经指出，这不是一个满足正确类型的边界条件的解，因为$\Phi$和$\partial \Phi/\partial n$都出现在面积分中。最好积分只与$\Phi$有关。通过格林函数的广义定义和其冗余自由度（通过函数$F(\mathbf{x},\mathbf{x'})$实现），我们有可能利用格林定理$\psi=G(\mathbf{x},\mathbf{x'})$，并选择$F(\mathbf{x},\mathbf{x'})$来排除两个面积分中的一个，得到一个只包含狄利克雷或纽曼边界条件的结果。当然，如果必要的$G(\mathbf{x},\mathbf{x'})$细节上依赖与边界条件的具体形式，这个方法就不具有多少普适性了。但正如我们将要立刻看到的那样，这一点不必须，并且$G(\mathbf{x},\mathbf{x'})$在$S$上满足相当简单的边界条件。
+
+利用格林定理\autoref{eq:1.35}，令$\phi=\Phi$，$\psi=G(\mathbf{x},\mathbf{x'})$，以及$G$的特殊性质\autoref{eq:1.39}，很容易得到\autoref{eq:1.36}的推广形式：
+\begin{equation}\label{eq:1.42}
+\begin{aligned}
+    \Phi(\mathbf{x})=&\frac{1}{4\pi\epsilon_0}\int_V \rho(\mathbf{x'})G(\mathbf{x},\mathbf{x'})d^3x'\\
+    &+\frac{1}{4\pi}\oint_S [G(\mathbf{x},\mathbf{x'})\frac{\partial \Phi}{\partial n'}-\Phi(\mathbf{x'})\frac{\partial G(\mathbf{x},\mathbf{x'})}{\partial n'}]da'
+    \end{aligned}
+\end{equation}
+$G$的定义式\autoref{eq:1.40}中的冗余自由度意味着我们可以让面积分只依赖于所选择的边界条件。因此，对于\textit{狄利克雷边界条件}我们要求：
+\begin{equation}\label{eq:1.43}
+    G_D(\mathbf{x},\mathbf{x'})=0, \quad \mbox{对于在}S\mbox{上的}\mathbf{x'}
+\end{equation}
+那么\autoref{eq:1.42}中面积分的第一项消失，解为
+\begin{equation}\label{eq:1.44}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int_V \rho(\mathbf{x'})G_D(\mathbf{x},\mathbf{x'})d^3x'-\frac{1}{4\pi}\oint_S \Phi(\mathbf{x'})\frac{\partial G_D}{\partial n'}da'
+\end{equation}
+
+对于\textit{纽曼边界条件}我们需要更小心。显然关于边界条件对于$G(\mathbf{x},\mathbf{x'})$一个看似可以的选择是
+$$\frac{\partial G_N}{\partial n'}(\mathbf{x},\mathbf{x'})=0, \quad \mbox{对于在}S\mbox{上的}\mathbf{x'}$$
+因为这样做\autoref{eq:1.42}中面积分的第二项正如我们所期望的那样消失了。但是对\autoref{eq:1.39}应用高斯定理发现
+$$\oint_S \frac{\partial G}{\partial n'}da'=-4\pi$$
+从而最简单的$G_N$的边界限制为
+\begin{equation}\label{eq:1.45}
+    \frac{\partial G_N}{\partial n'}(\mathbf{x},\mathbf{x'})=-\frac{4\pi}{S}, \quad \mbox{对于在}S\mbox{上的}\mathbf{x'}
+\end{equation}
+其中$S$是边界面的总面积。那么解为
+\begin{equation}\label{eq:1.46}
+    \Phi(\mathbf{x})=\langle \Phi \rangle_S+\frac{1}{4\pi\epsilon_0}\int_V \rho(\mathbf{x'})G_N(\mathbf{x},\mathbf{x'})d^3x'+\frac{1}{4\pi}\oint_S \frac{\partial \Phi}{\partial n'}G_Nda'
+\end{equation}
+其中$\langle \Phi \rangle_S$是整个表面上电势的平均值。通常的纽曼问题是所谓的外部问题，当中体积$V$被两个面所包围，一个闭合且有限，另一个位于无穷远处。从而表面积$S$是无穷大的；\autoref{eq:1.45}的边界条件变为同质的；平均值$\langle \Phi \rangle_S$消失。
+
+我们注意到格林函数满足简单的边界条件\autoref{eq:1.43}或者\autoref{eq:1.45}，它们都不依赖于狄利克雷（或纽曼）边界条件的具体形式。即使如此，问题常常涉及到（除非不可能的情况）确定依赖于表面$S$的形状的$G(\mathbf{x},\mathbf{x'})$。我们会在\autoref{cha:2}和\autoref{cha:2}中见到这种问题。
+
+数学对称性$G(\mathbf{x},\mathbf{x'})=G(\mathbf{x'},\mathbf{x})$，对于满足狄利克雷边界条件\autoref{eq:1.43}的格林函数，可以通过代入$\phi=G(\mathbf{x},\mathbf{y})$和$\psi=G(\mathbf{x'},\mathbf{y})$进格林定理得证，其中$\mathbf{y}$为积分变量。因为格林函数，看作其中一个变量的函数，是来自于单位点源的势，对称性单单代表着物理上交换源和观察点的不变性。对于纽曼边界条件对称性不是自动的，但是可以作为另外的强加条件。
+\footnote{见K.-J. Kim and J. D. Jackson,, Am. J. Phys. \textbf{61}, (12) 1144-1146 (1993).}
+
+作为结束时重要的备注，我们注意到$F(\mathbf{x},\mathbf{x'})/4\pi\epsilon_0$的物理意义。它是$V$内拉普拉斯方程的解，因此代表着\textit{$V$外部}的电荷系统产生的电势。它可以被想成是，使得$S$上同质性边界条件成立（零电势或者零电势法向导数）的外部电荷分布，与位于$\mathbf{x'}$处的点源共同产生的电势。因为表面上由点电荷产生的位于$\mathbf{x}$处的电势依赖于点源的位置，外部电荷分布$F(\mathbf{x},\mathbf{x'})$也必须依赖于“参数”$\mathbf{x'}$。从这个角度来说，我们看到电像法（在\autoref{cha:2}中讨论）是确定合适的满足边界条件\autoref{eq:1.43}或\autoref{eq:1.45}的$F(\mathbf{x},\mathbf{x'})$的物理上的等价形式。对于包含导体的狄利克雷问题，$F(\mathbf{x},\mathbf{x'})/4\pi\epsilon_0$还可以被解释成，由于$\mathbf{x'}$处点源的存在，由导体表面的面电荷产生的电势。
+
+\section{静电势能和能量密度；电容}\label{sec:1.11}
+
+在\autoref{sec:1.5}中我们发现标势和点状物体所带电荷的乘积具有势能的意义。更准确地说，如果一个点电荷$q_i$从无穷远处被移动到具有由标势$\Phi$（在无穷处消失）定义的局域电场中的$\mathbf{x_i}$处，作用在电荷上的功（因此也是其势能）由
+\begin{equation}\label{eq:1.47}
+    W_i=q_i\Phi(\mathbf{x_i})
+\end{equation}
+给出。电势$\Phi$可以被看作由一系列位于$\mathbf{x_j}$处的$(n-1)$个电荷$q_j(j=1,2,\dots,n-1)$产生。因此
+\begin{equation}\label{eq:1.48}
+    \Phi(\mathbf{x_i})=\frac{1}{4\pi\epsilon_0}\sum_{j=1}^{n-1}\frac{q}{|\mathbf{x_i}-\mathbf{x_j}|}
+\end{equation}
+因此电荷$q_i$的势能为
+\begin{equation}\label{eq:1.49}
+    W_i=\frac{q_i}{4\pi\epsilon_0}\sum_{j=1}^{n-1}\frac{q_j}{|\mathbf{x_i}-\mathbf{x_j}|}
+\end{equation}
+所有这些电荷的\textit{总}势能来源于它们之间力的相互作用：
+\begin{equation}\label{eq:1.50}
+    W=\frac{1}{4\pi\epsilon_0}\sum_{i=1}^n\sum_{j<i}\frac{q_iq_j}{|\mathbf{x_i}-\mathbf{x_j}|}
+\end{equation}
+可以通过对每个电荷求和简单得到。一个更对称的形式是对不受限制的$i$和$j$求和，然后除以2：
+\begin{equation}\label{eq:1.51}
+    W=\frac{1}{8\pi\epsilon_0}\sum_{i}\sum_{j}\frac{q_iq_j}{|\mathbf{x_i}-\mathbf{x_j}|}
+\end{equation}
+$i=j$的项（发散“自能”项）在双重求和中是省略的。
+
+对于连续分布的电荷（或者更普遍地来讲，利用狄拉克$\delta$函数\autoref{eq:1.6}）电势能有以下形式：
+\begin{equation}\label{eq:1.52}
+    W=\frac{1}{8\pi\epsilon_0}\iint\frac{\rho(\mathbf{x})\rho(\mathbf{x'})}{|\mathbf{x}-\mathbf{x'}|}d^3x d^3x'
+\end{equation}
+另一种等价于\autoref{eq:1.52}的形式，可以把\autoref{eq:1.52}中的一个积分写成电势。因此
+\begin{equation}\label{eq:1.53}
+    W=\frac{1}{2}\int \rho(\mathbf{x})\Phi(\mathbf{x})d^3x
+\end{equation}
+
+\autoref{eq:1.51}，\autoref{eq:1.52}和\autoref{eq:1.53}用电荷的位置表达了静电势能，因此强调了电荷之间的库伦力作用。另一种颇有成效的方式，是强调电场强度，并把能量看作是储存在围绕在电荷周围的电场中。为了得到这后一种形式，我们利用泊松方程来从\autoref{eq:1.53}中去除电荷密度：
+$$W=\frac{-\epsilon}{2}\int \Phi\nabla^2\Phi d^3x$$
+分部积分得到结果：
+\begin{equation}\label{eq:1.54}
+    W=\frac{\epsilon_0}{2}\int |\nabla^2\Phi|^2d^3x=\frac{\epsilon_0}{2}\int |\mathbf{E}|^2 d^3x
+\end{equation}
+对全空间积分。在\autoref{eq:1.54}中所有对电荷的显性依赖都消失了，而能量是通过电场强度的平方在全空间内的积分来表达的。这自然导致了定义积分式为能量密度$w$：
+\begin{equation}\label{eq:1.55}
+    w=\frac{\epsilon_0}{2}|\mathbf{E}|^2
+\end{equation}
+这个关于能量密度的表达式直觉上是对的，因为高场强的区域“肯定”包含更多能量。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.8.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:1.8}
+\end{figure}
+
+可能\autoref{eq:1.55}有一点迷惑人的地方。能量密度总是正的。结果是体积分是非负的。这看上去好像违背了\autoref{eq:1.51}，当两个电荷带相反电荷时能量是负的。这个明显矛盾背后的理由是\autoref{eq:1.54}和\autoref{eq:1.55}中的“自能”对能量密度有贡献，而\autoref{eq:1.51}的双重求和没有。为了阐明这一点，考虑两个分别位于$\mathbf{x_1}$和$\mathbf{x_2}$处的点电荷$q_1$和$q_2$，如\autoref{eq:1.8}所示。点P处坐标$\mathbf{x}$的电场为
+$$\mathbf{E}=\frac{1}{4\pi\epsilon_0}\frac{q_1(\mathbf{x}-\mathbf{x_1})}{|\mathbf{x}-\mathbf{x_1}|^3}+\frac{1}{4\pi\epsilon_0}\frac{q_2(\mathbf{x}-\mathbf{x_2})}{|\mathbf{x}-\mathbf{x_2}|^3}$$
+因此\autoref{eq:1.55}的能量密度为
+\begin{equation}\label{eq:1.56}
+    32\pi^2\epsilon_0w=\frac{q_1^2}{|\mathbf{x}-\mathbf{x_1}|^4}+\frac{q_2^2}{|\mathbf{x}-\mathbf{x_2}|^4}+2\frac{q_1q_2(\mathbf{x}-\mathbf{x_1})\cdot(\mathbf{x}-\mathbf{x_2})}{|\mathbf{x}-\mathbf{x_1}|^3|\mathbf{x}-\mathbf{x_2}|^3}
+\end{equation}
+显然前两项为“自能”的贡献。为了显示第三项给出了正确的相互作用势能，我们在全空间中积分：
+\begin{equation}\label{eq:1.57}
+    W_{int}=\frac{q_1q_2}{16\pi^2\epsilon_0}\int \frac{(\mathbf{x}-\mathbf{x_1})\cdot(\mathbf{x}-\mathbf{x_2})}{|\mathbf{x}-\mathbf{x_1}|^3|\mathbf{x}-\mathbf{x_2}|^3}d^3x
+\end{equation}
+变量代换$\mathbf{\rho}=(\mathbf{x}-\mathbf{x_1})/|\mathbf{x}-\mathbf{x_1}|$得到
+\begin{equation}\label{eq:1.58}
+    W_{int}=\frac{1}{4\pi\epsilon_0}\frac{q_1q_2}{|\mathbf{x_1}-\mathbf{x_2}|}\times\frac{1}{4\pi}\int\frac{\mathbf{\rho}\cdot(\mathbf{\rho}+\mathbf{n})}{\rho^3|\mathbf{\rho}+\mathbf{n}|^3}d^3\rho
+\end{equation}
+其中$\mathbf{n}$是$(\mathbf{x_1}-\mathbf{x_2})$的方向单位矢量。利用$(\mathbf{\rho}+\mathbf{n})/|\mathbf{\rho}+\mathbf{n}|^3=-\nabla_{\rho}(1/|\mathbf{\rho}+\mathbf{n}|)$的事实，无量纲积分可以简单得到结果为$4\pi$，因此相互作用能回到我们所期望的值。
+
+带电体之间的作用力可以通过计算微小虚位移下静电能量的变化得到。这一类例子在章末的问题中被讨论。需要十分小心，能量的形式应该清楚的显示哪些因子是随着位置构型而改变的，而哪些是不变的。
+
+作为一个简单的例子，我们计算导体表面电荷面密度为$\sigma(\mathbf{x})$时，单位面积上的力。在附近区域表面的能量密度为
+\begin{equation}\label{eq:1.59}
+    w=\frac{\epsilon_0}{2}|\mathbf{E}|^2=\sigma_2/2\epsilon_0
+\end{equation}
+如果我们想象导体表面的面元$\Delta a$有一个小的向外的位移$\Delta x$，静电能降低了能量密度$w$乘上外排的体积$\Delta x\Delta a$：
+\begin{equation}\label{eq:1.60}
+    \Delta W=-\sigma^2\Delta a\Delta x/2\epsilon_0
+\end{equation}
+这意味着在导体表面的单位面积上有一个向外的力，等于$\sigma/2\epsilon_0=w$。这个结果通常通过面电荷密度乘上电场导出，并且记得要排除由于本身面电荷产生的电场。
+
+对于一个具有$n$个导体的系统，每个具有电势$V_i$和总电荷$Q_i(i=1,2,\dots,n)$，剩余空间为空，静电势能可以只由电势和特定的被称为电容的几何因子表达。对于给定的导体构型，电势对电荷密度的线性依赖意味着第$i$个导体的电势可以被写成
+$$V_i=\sum_{j=1}^n p_{ij}Q_j \quad (i=1,2,\dots,n)$$
+其中$p_{ij}$依赖于导体的几何结构。这$n$个方程可以被转换成第$i$个导体上的电荷，由所有的电势表达：
+\begin{equation}\label{eq:1.61}
+    Q_i=\sum_{j=1}^n C_{ij}V_j \quad (i=1,2,\dots,n)
+\end{equation}
+系数$C_{ii}$被称为电容，而$C_{ij},i\neq j$被称为感应系数。\textit{因此导体的电容是当它处于单位电势，其他导体处于零电势时所带的总电荷}。有时会定义系统电容。例如，许多接地导体当中的两个带等量异种电荷的导体的电容被定义为一个导体上的电荷与它们之间的电势差的比值。\autoref{eq:1.61}可以通过系数$C_{ij}$来表达这种电容。
+
+导体系统的势能\autoref{eq:1.53}为
+\begin{equation}\label{eq:1.62}
+    W=\frac{1}{2}\sum_{i=1}^n Q_iV_i=\frac{1}{2}\sum_{i=1}^n\sum_{j=1}^n C_{ij}V_iV_j
+\end{equation}
+通过电势$V_i$和$C_{ij}$，或者通过电荷$Q_i$和系数$p_{ij}$表达能量，允许我们采用变分法得到电容的正确值。基于下一节的方法（见问题1.17和问题1.18），变分法可以给出$C_{ii}$的上下界。这个原理允许我们通过所涉及的导体的相对位置给出误差已知的电容估计。高速计算技术允许我们使用复杂的含有多个参数的试探函数。然而，必须要注意的是，计算下界时采用的满足狄利克雷边界条件的格林函数会让误差估计不再平凡。关于计算电容的更进一步考虑留在本章末的问题和后续章节中。
+
+\section{变分法求解拉普拉斯和泊松方程}\label{sec:1.12}
+
+变分法在经典和量子物理的许多领域具有主导作用。它为导出“运动方程”提供了形式技巧，并为一些无法用其他方法处理的问题提供近似，甚至常常是准确的结果。例如声子的共振频率和原子系统的能级估计。
+
+平衡态下的物理系统具有最小能量是一个拓展很广泛的概念，并可以被推广到类能量泛函。作为例子，考虑泛函
+\begin{equation}\label{eq:1.63}
+    I[\psi]=\frac{1}{2}\int_V \nabla\psi\cdot\nabla\psi d^3x-\int_V g\psi d^3x
+\end{equation}
+其中方程$\psi(\mathbf{x})$在体积$V$中和表面$S$（可能由几个独立的表面构成）上性质良好，而$g(\mathbf{x})$是一个确定的“源”函数，在$V$内部没有奇点。我们现在考察当$\psi\to\psi+\delta\psi$时的泛函的一阶变化，其中微扰$\delta\psi(\mathbf{x})$在$V$内部是无限小的。差分$\delta I=I[\psi+\delta \psi]-I[\psi]$为
+\begin{equation}\label{eq:1.64}
+    \delta I=\int_V \nabla\psi\cdot\nabla(\delta\psi)d^3x-\int_V g\delta\psi d^3x+\dots
+\end{equation}
+被忽略的项是半正定的，为$\delta\psi$的二阶项。利用格林第一定理，令$\phi=\delta\psi$和$\psi=\psi$得出
+\begin{equation}\label{eq:1.65}
+    \delta I=\int_V [-\nabla^2 \psi-g]\delta\psi d^3x+\oint_S \delta\psi\frac{\partial \psi}{\partial n}da
+\end{equation}
+假定边界面$S$上$\delta\psi=0$（因此面积分消失），如果$\psi(\mathbf{x})$满足下列条件，$I[\psi]$的一阶差分为零
+\begin{equation}\label{eq:1.66}
+    \nabla^2\psi=-g
+\end{equation}
+考虑到\autoref{eq:1.64}中的被忽略的项是半正定的，我们看到$I[\psi]$是稳定的最小值，如果$\psi$在体积$V$内满足一个类似泊松方程，边界上的变分$\delta\psi$消失。利用$\psi\to\Phi$和$g\to \rho/\epsilon_0$，泛函的最小值给出有电荷密度和狄利克雷边界条件（$\Phi$在$S$上给定，所以这里$\delta\Phi=0$）下的静电势所满足的“运动方程”。
+
+从变分泛函中得出泊松方程是形式上的。同样重要的是，$I[\psi]$极点的稳定性给出了一个实用的计算$\psi(\mathbf{x})$近似解的方法。我们选择一个灵活的“试探”函数$\psi(\mathbf{x})=A\Psi(\mathbf{x},\alpha,\beta,\dots)$，它依赖于归一化常量$A$和其他一些参数$\alpha,\beta,\dots$，并满足给定的表面$S$上的边界条件。函数$\Psi$可能是一些以参量为系数的项的总和，或者一个具有许多参量的单个函数；选择它时应着眼于所期待的解的形式。（直觉在这里很重要！）$I[\psi]$的计算给出函数$I(A,\alpha,\beta,\dots)$。我们现在改变参数来找到$I(A,\alpha,\beta,\dots)$的极值（实际上是最小值）。通过可变参数，在特定的函数形式下，试验解是真实解的最好可能近似。对于拉普拉斯方程，归一化常量由狄利克雷边界条件的$\psi$值确定。对于泊松方程，它由源的强度$g(\mathbf{x})$和$S$上的边界值决定。假设$\psi$的边界条件由$\partial \psi/\partial n|_S=f(\mathbf{s})$确定，其中$\mathbf{s}$确定了表面$S$上的一个点。合适的泛函是
+\begin{equation}\label{eq:1.67}
+    I[\psi]=\frac{1}{2}\int_V \nabla\psi\cdot\nabla\psi d^3x -\int_V g\psi d^3x-\oint_S f\psi da
+\end{equation}
+和前面一样的步骤，$\psi\to\psi+\delta\psi$得到泛函的一阶差分，
+\begin{equation}\label{eq:1.68}
+    \delta I=\int_V[-\nabla^2\psi-g]\delta \psi d^3x+\oint_S (\frac{\partial \psi}{\partial n}-f(\mathbf{s})\delta\psi da
+\end{equation}
+要求$\delta I$对于任意$\delta \psi$为零要求
+\begin{equation}\label{eq:1.69}
+    \nabla^2\psi=-g \quad \mbox{在}V\mbox{内部，和}\frac{\partial \psi}{\partial n}=f(\mathbf{s}) \quad \mbox{在}S\mbox{上}
+\end{equation}
+又一次对于满足\autoref{eq:1.69}的$\psi$泛函达到稳定最小值。利用满足纽曼边界条件的试探函数可以得到合适结果，正如前面对狄利克雷边界条件那样。
+
+作为一个泊松方程的简单应用，考虑沿z轴方向，单位半径，内部具有源密度$g(\mathbf{x})=g(\rho)$的空心圆柱的二维问题，角向对称并与$z$无关。电势在$\rho=1$处消失。极坐标下$\psi$（只是$\rho$的函数）满足的“运动方程”为
+\begin{equation}\label{eq:1.70}
+    \frac{1}{\rho}\frac{\partial }{\partial \rho}(\rho\frac{\partial \psi}{\partial \rho})=-g(\rho)
+\end{equation}
+对于试探函数我们考虑有限的关于$(1-\rho)$和$\rho$幂次的多项式。第一类的包含三个参数的函数为
+\begin{equation}\label{eq:1.71}
+    \Psi_1=\alpha_1(1-\rho)+\beta_1(1-\rho)^2+\gamma_1(1-\rho)^3
+\end{equation}
+这个选择是自然的，因为它自动建立了$\rho=1$处的边界条件，但它有一点瑕疵，让它得到的结果不如$\rho$的幂次准确。原因在于，如果源密度$g$性质良好并在原点有限，高斯定理显示$\psi$在该处具有零斜率的最大值或者最小值。同时满足原点和$\rho=1$处的要求的试探函数可以是一个三参量关于$\rho$的幂次的函数：
+\begin{equation}\label{eq:1.72}
+    \Psi_2=\alpha\rho^2+\beta\rho^3+\gamma\rho^4-(\alpha+\beta+\gamma)
+\end{equation}
+我们期望这个试探函数一般能给出一个比$\Psi_1$更好的$\psi$的近似值。（我们当然可以在\autoref{eq:1.71}上强加一个限制$\alpha_1+2\beta_1+3\gamma_1=0$来满足原点处的正确性质，但那就会使得参数数量由三个变为两个。）
+
+对$\Psi_2$的泛函积分\autoref{eq:1.63}可以简单得到
+\begin{equation}\label{eq:1.73}
+    \begin{aligned}
+        \frac{1}{2\pi}I[\Psi_2]=&[\frac{1}{2}\alpha^2+\frac{6}{5}\alpha\beta+\frac{4}{3}\alpha\gamma+\frac{3}{4}\beta^2\\
+        &+\frac{12}{7}\beta\gamma+\gamma^2]-[e_2\alpha+e_3\beta+e_4\gamma]
+    \end{aligned}
+\end{equation}
+其中$e_n=\int_0^1g(\rho)(\rho^n-1)\rho d\rho$。
+
+对$\Psi_1$的积分具有和\autoref{eq:1.73}相同的形式，但是不同的系数。正如上述，我们通过令参数$\alpha$，$\beta$和$\gamma$的偏导数为零寻找\autoref{eq:1.73}的极值。三个耦合的线性代数方程给出了“最好”值，
+\begin{equation}\label{eq:1.74}
+    \begin{aligned}
+        \alpha&=225e_2-420e_3+210e_4\\
+        \beta&=-420e_2+\frac{2450}{3}e_3-420e_4\\
+        \gamma&=210e_2-420e_3+\frac{441}{2}e_4\\
+    \end{aligned}
+\end{equation}
+这些值可以代入\autoref{eq:1.73}，给出不是很直观的$I[\Psi_2]_{min}$关于$e_n$的函数。我们从而会发现“动能”（第一个）括号是“势能”（第二个）括号的一半，符号相反，这是极值的一个特点。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/1.9.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{准确解$\psi(\rho)$（实线）和两个变分法近似电势解的比较，$\Psi_1$（点线）和$\Psi_2$（虚线）。电荷密度\autoref{eq:1.75}由点划线现实（任意量纲）。}
+    \label{fig:1.9}
+\end{figure}
+
+为了更进一步我们必须明确$g(\rho)$。对于下列源密度，最好试探函数$\Psi_1$和$\Psi_2$的的结果如\autoref{fig:1.9}所示，
+\begin{equation}\label{eq:1.75}
+    g(\rho)=-5(1-\rho)+10^4\rho^5(1-\rho)^5
+\end{equation}
+源的选择是任意的，并且给出一个特征不明显的势。$\Psi_2$的“最好”参数为$\alpha=2.915$，$\beta=-7.031$，和$\gamma=3.642$。变分积分具有值$I[\Psi_2]_{min}=-1.5817$，而准确值为$I[\psi]_{exact}=-1.6017$。相对误差为1.3\%。
+
+注意到试探函数$Psi_1$在$\rho<0.3$时误差很大，因为它没有考虑$\rho=0$时的零斜率。不管怎么说，它给出了$I[\Psi_1]_{min}=-1.5136$，稍微比$\Psi_2$差一点（但差的不是很多）（5.5\%误差）。$I[\psi]$对试探函数中的错误不敏感的事实同时展现了变分法的优势和缺点。如果这个原理被用来估计本征值（与$I[\psi]$的值有关），它表现良好。用来估计解$\psi\approx\Psi$，它有可能出大问题，至少在部分研究空间中会出问题。
+
+读者可以从\autoref{eq:1.70}中看出多项式源密度会导致准确的多项式解$\psi$，但这里的想法是展示变分法，不是展现一类准确解。更多例子留在本章和后续章节的问题中。
+
+\section{二维静电问题的弛豫法}\label{sec:1.13}
+
+弛豫法是一种求解二维拉普拉斯或泊松方程的迭代数值算法（有时被称为迭代有限差分法）。这里我们只展示它最基本的思想和它与变分法的联系。首先我们考虑二维区域$S$，边界曲线为$C$的狄利克雷边界条件下的拉普拉斯方程。我们想象区域$S$被边长为$h$的方形格子所覆盖（而边界曲线$C$由连接各个格点的阶梯式边界近似）。自变量为标记各个格点的整数数组$(i,j)$；应变量为每个格点处的电势的试探值$\psi(i,j)$。边界格点上的电势值假定被给定。
+
+\begin{figure}[!ht]
+  \centering
+  \subfigure[]{
+    \label{fig:1.10a} 
+    \includegraphics[width=0.48\textwidth]{./pic/1.10a.png}}
+  \hspace{5pt}
+  \subfigure[]{
+    \label{fig:1.10b} 
+    \includegraphics[width=0.48\textwidth]{./pic/1.10b.png}}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+  \caption{\textit{(a)}泛函积分区域内一个子区域的放大（阴影）。邻近的电势试探值被标记为$\psi_N$，$\psi_S$，$\psi_E$和$\psi_W$，而子区域中心的值为$\psi_0$。\textit{(b)}一个可能的迭代方法是把格点（$\bigcirc$）处的试探值替换为周围格点($\times$）值的平均值。}
+  \label{fig:1.10}
+\end{figure}
+
+为了确立这种方法的变分本质，明确迭代机制，我们想象$I[\psi]$在$S$上的积分为每个小区域$h^2$的求和，正如\autoref{fig:1.10a}所示。我们把临近的电势试探值看成是固定的，而子区域中心的值是可变的。格点边长足够小以至于我们可以把求导近似为，例如，子区域东北角
+$$(\frac{\partial \psi}{\partial x})_{NE}=\frac{1}{h}(\psi_E-\psi_0);\quad (\frac{\partial \psi}{\partial y})_{NE}=\frac{1}{h}(\psi_N-\psi_0)$$
+对其他三个方向也类似。东北角的泛函积分为
+\begin{equation}\label{eq:1.76}
+    \begin{aligned}
+        I_{NE}&=\frac{1}{2}\int_0^{h/2} dx\int_0^{h/2}dy[(\frac{\partial \psi}{\partial x})^2+(\frac{\partial \psi}{\partial y})^2]\\
+        &\approx\frac{1}{8}[(\psi_0-\psi_N)^2+(\psi_0-\psi_E)^2]
+    \end{aligned}
+\end{equation}
+显然整个子区域（阴影）内的完整积分为
+\begin{equation}\label{eq:1.77}
+    I\approx\frac{1}{4}[(\psi_0-\psi_N)^2+(\psi_0-\psi_E)^2+(\psi_0-\psi_S)^2+(\psi_0-\psi_W)^2]
+\end{equation}
+使这个积分最小得到$\psi_0$的最佳值，
+\begin{equation}\label{eq:1.78}
+    (\psi_0)_{optimum}=\frac{1}{4}(\psi_N+\psi_E+\psi_S+\psi_W)
+\end{equation}
+当$\psi_0$等于“交叉”点值的平均值时，积分最小。
+
+现在考虑整个泛函积分，即所有子区域积分的总和。我们首先猜测一组$\psi(i,j)$并通过\autoref{eq:1.77}的求和形式近似泛函积分$I[\psi]$。然后我们遍历网格并替换一半的值，由\autoref{fig:1.10b}中的圆圈表示，用其周围点（叉）的平均值代替。新的试探值$\psi(i,j)$相比于原始值，能大大降低$I[\psi]$；新的试探值更接近真实解。实际上，没有必要只对一半的点做平均——这只对一半的\autoref{fig:1.10a}中的子区域做了替换。
+
+还有很多地方可以改进。一个显著的方法有关平均种类。我们可以对\autoref{fig:1.10a}中大方形的四个角上的值求平均，而不是对“交叉”值求平均。或者我们可以采用两者的某些线性组合。通过泰勒展开级数可以发现（见问题1.22），任意一个性质良好的函数$F(x,y)$满足一个特定的加权平均，
+\begin{equation}\label{eq:1.79}
+    \langle\langle F(x,y)\rangle\rangle\equiv\frac{4}{5}\langle F \rangle_c+\frac{1}{5}\langle F \rangle_s
+\end{equation}
+其中“交叉”平均和“方形”平均为
+\begin{subequations}\label{eq:1.80}
+    \begin{equation}\label{eq:1.80a}
+        \langle F(x,y)\rangle_c=\frac{1}{4}[F(x+h,y)+F(x,y+h)+F(x-h,y)+F(x,y-h)]
+    \end{equation}
+    \begin{equation}\label{eq:1.80b}
+        \begin{aligned}
+            \langle F(x,y)\rangle_s=&\frac{1}{4}[F(x+h,y+h)+F(x+h,y-h)\\
+            &+F(x-h,y+h)+F(x-h,y-h)]
+        \end{aligned}
+    \end{equation}
+\end{subequations}
+给出
+\begin{equation}\label{eq:1.81}
+     \langle\langle F(x,y)\rangle\rangle=F(x,y)+\frac{3}{10}h^2\nabla^2F+\frac{1}{40}h^4\nabla^2(\nabla^2F)+O(h^6)
+\end{equation}
+在\autoref{eq:1.81}中$F$的拉普拉斯结果为在点$(x,y)$处的值。如果$F(x,y)$为拉普拉斯方程的解，\autoref{eq:1.79}中八个邻近点的加权平均给出中心处的$F$，误差只有$h^6$量级。除了和\autoref{eq:1.80a}一样的\autoref{eq:1.78}，更好的迭代机制采用$\psi_{new}(i,j)=\langle\langle \psi(i,j)\rangle\rangle+O(h^6)$。而只采用“交叉”平均或“方形”平均中的一种，误差为$O(h^4)$。$\langle\langle\psi\rangle\rangle$准确度的提高的代价是每个格点计算量为原来的两倍，但是对于相同的精度，需要的格点远远更少：$\langle\langle N\rangle\rangle=O(\langle N\rangle^{2/3})$，其中$\langle\langle N\rangle\rangle$是计算$\langle\langle\psi\rangle\rangle$所需要的格点数，而$\langle N\rangle$是对应的采用“交叉”或“方形”平均所需的格点数。
+
+当应用于泊松方程$\nabla^2\psi=-g$时，\autoref{eq:1.81}具有附加优势。$h^2$项和$h^4$项可以直接由给定的电荷密度和其拉普拉斯结果的最简近似给出。可以简单地得到$(i,j)$处的试探函数为
+\begin{equation}\label{eq:1.82}
+    \psi_{new}(i,j)=\langle\langle\psi(i,j)\rangle\rangle+\frac{h^2}{5}g(i,j)+\frac{h^2}{10}\langle g(i,j)\rangle_c+O(h^6)
+\end{equation}
+其中$\langle g\rangle_c$是$g$的“交叉”平均，由\autoref{eq:1.80a}给出。
+
+一个基本的迭代数值求解二维狄利克雷边界条件下的拉普拉斯或泊松方程的流程如下所示：
+\begin{enumerate}
+    \item 选择格点间距$h$，以某种方式（这里我们记为$(i,j)$）标记网格，包括边界上的格点。
+    \item 边界上的电势值被记录进一个包含所有格点势的表格。
+    \item 对所有的内部格点猜测其值，记为$\Phi_{old}(i,j)$。处处恒定的值是最简单的。这些被添加进上述表格或者“开始”值数组中。
+    \item 第一次迭代循环是系统性地遍历所有格点，一个接一个，并利用\autoref{eq:1.79}或\autoref{eq:1.80}中的一个平均值计算$\langle\langle\Phi(i,j)\rangle\rangle$。这个值（或者对于泊松方程采用\autoref{eq:1.82}）作为每个格点处的更新值$\Phi_{new}(i,j)$被输入进一个“新”值表格。注意到边界附近的格点从已知的边界值中受益，因此他们的$\langle\langle\Phi\rangle\rangle$相比于深入内部的那些格点，初始时就更接近最终值。随着每一次迭代，准确值从边界向内部传递。
+    \item 一旦所有的内部格点都被处理过了，数组$\Phi_{old}(i,j)$被$\Phi_{new}(i,j)$所替代，然后迭代循环重新开始。
+    \item 迭代不断进行，直到达到某些预期的精度水平。例如，一个人可能会不断迭代，直到每个个格点旧值和新值的差的绝对值小于某个预设值。
+\end{enumerate}
+
+上述机制被称为贾柯比（Jacobian）迭代。每次迭代都需要两个储存格点电势值的数组。一个更好的机制，被称为高斯-赛德尔（Seidel）迭代，包含一个小改变：一旦更新值被算出，马上用$\Phi_{new}(i,j)$替代$\Phi_{old}(i,j)$。这意味着一次迭代中值马上从更新值中受益。典型地，在任意一个给定的点，$\langle\langle\Phi\rangle\rangle$由一半旧值和一半新值给出，取决于遍历网格的路径。还有很多其他可能的改进方法——参阅\textit{普雷斯等，数值方法（Press et al., Numerical Recipes）}，或者其他章末列出的参考文献。弛豫法也可以应用与磁场问题，在\autoref{sec:5.14}中有简要描述。
+
+\section*{参考文献和推荐阅读}
+\section*{问题}
+
+\chapter{静电中的边值问题：I}\label{cha:2}
+
+许多静电学问题包含确定电势或者面电荷密度的边界面。这种问题的形式解在\autoref{sec:1.10}中，利用格林函数得到。在实际情况中（或者甚至是实际情况的理想近似），寻找格林函数有时简单，有时困难。结果就是一系列处理静电边值问题的方法被发展出来，有些只是远远地关联上格林函数方法。在这一章我们将会考察三种这些特殊方法：（1）电像法，和格林函数紧密结合；（2）正交归一化函数展开，一种直接求解微分方程的方法，和格林函数的构造相差甚远；（3）一个对有限元分析（FEA）的介绍，一类涉及很广的数值方法。一个主要的疏漏是复变量使用的技术，包括针对二维问题的保角变换。这个主题很重要，但由于空间不够以及其他地方的自洽讨论，我们不涉及这一部分。感兴趣的读者可以参阅章末列出的参考文献。
+
+\section{电像法}\label{sec:2.1}
+
+电像法与存在一个或多个点电荷，包含边界面的问题有关，例如，接地或者处于固定电势的导体。在有利的条件下，可能可以从几何或构型中推断，小数目的合理放置的电量合适的电荷，位于研究区域的外部，可以模拟出所需的边界条件。这些电荷被称为\textit{像电荷}，而用扩大后的不包括边界但包括像电荷的区域替代实际问题中包含边界的区域的方法被称为\textit{电像法}。像电荷必须位于研究区域的外部，因为它们的产生的势必须是区域内部拉普拉斯方程的解；“特别积分”（即泊松方程的解）由区域内部的电荷产生的电势之和提供。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.1.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{通过电像法得到的解。初始的电势问题位于左侧，等价电像图位于右侧。}
+    \label{fig:2.1}
+\end{figure}
+
+一个简单的例子是一个点电荷位于一块无限大的零电势导体平板之前，正如\autoref{fig:2.1}所示。明显这个问题等价于原电荷和一个位于平板后面镜像位置的等电荷量但电性相反的电荷构成的问题。
+
+\section{存在接地导体球时的点电荷}\label{sec:2.2}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.2.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{半径为$a$的导体球，存在电荷$q$和像电荷$q'$。}
+    \label{fig:2.2}
+\end{figure}
+
+作为电像法的一个例证我们考虑\autoref{fig:2.2}中的问题，一个点电荷$q$位于相对于原点$\mathbf{y}$处的位置，原点周围有一个半径为$a$，以原点为球心的接地导体球。我们寻找满足$\Phi(|\mathbf{x}|=a)=0$的电势$\Phi(\mathbf{x})$。根据对称性显然像电荷$q'$（假设只需要一个像电荷）会位于连接原点到电荷$q$的射线上。如果我们考虑电荷$q$位于球\textit{外}，像电荷位置$\mathbf{y'}$将会位于球内。电荷$q$和$q'$产生的电势为：
+\begin{equation}\label{eq:2.1}
+    \Phi(\mathbf{x})=\frac{q/4\pi\epsilon_0}{|\mathbf{x}-\mathbf{y}|}+\frac{q'/4\pi\epsilon_0}{|\mathbf{x}-\mathbf{y'}|}
+\end{equation}
+我们现在要尝试选择$q'$和$|\mathbf{y'}|$使得电势在$|\mathbf{x}|=a$处消失。如果$\mathbf{n}$是$\mathbf{x}$方向上的单位矢量，$\mathbf{n'}$是$\mathbf{y
+}$方向上的单位矢量，那么
+\begin{equation}\label{eq:2.2}
+    \Phi(\mathbf{x})=\frac{q/4\pi\epsilon_0}{|x\mathbf{n}-y\mathbf{n'}|}+\frac{q'/4\pi\epsilon_0}{|x\mathbf{n}-y'\mathbf{n'}|}
+\end{equation}
+如果第一项提出$x$，第二项提出$y'$，在$x=a$处的电势变成：
+\begin{equation}\label{eq:2.3}
+    \Phi(x=a)=\frac{q/4\pi\epsilon_0}{a|\mathbf{n}-\frac{y}{a}\mathbf{n'}|}+\frac{q'/4\pi\epsilon_0}{y'|\mathbf{n}-\frac{a}{y'}\mathbf{n'}|}
+\end{equation}
+从\autoref{eq:2.3}的形式可以看出选择：
+$$\frac{q}{a}=-\frac{q'}{y'},\quad \frac{y}{a}=\frac{a}{y'}$$
+使得$\Phi(x=a)=0$，对于所有$\mathbf{n}\cdot\mathbf{n'}$可能的值都成立。因此像电荷的电量和位置为
+\begin{equation}\label{eq:2.4}
+    q'=-\frac{a}{y}q, \quad y'=\frac{a^2}{y}
+\end{equation}
+我们注意到，当电荷$q$越来越靠近球体，像电荷电荷量逐渐增大并远离球心。当$q$恰好在球体表面外侧，像电荷带等量异种电荷，恰好位于表面内侧。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.3.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{由于距离球心$y$处的点电荷$q$的存在，半径为$a$的接地球体表面产生的感应电荷面密度$\sigma$。$\sigma$作为相对于半径角位置$\gamma$的函数，在$y=2a,4a$处，以$-q/4\pi a^2$为单位绘制。内嵌图显示了$y=2a$时的力线。}
+    \label{fig:2.3}
+\end{figure}
+
+现在找到了像电荷，我们可以回到电荷$q$位于接地导体球的原始问题并考虑多种效应。球体表面实际的电荷密度可以通过表面上$\Phi$的法向导数求出：
+\begin{equation}\label{eq:2.5}
+    \sigma=-\epsilon_0\frac{\partial \Phi}{\partial x}|_{x=a}=-\frac{q}{4\pi a^2}(\frac{a}{y})\frac{1-\frac{a^2}{y^2}}{(1+\frac{a^2}{y^2}-2\frac{a}{y}\cos \gamma)^{3/2}}
+\end{equation}
+其中$\gamma$是$\mathbf{x}$和$\mathbf{y}$的夹角。这个电荷密度作为$\gamma$和$y/a$的函数，以$-q/4\pi a^2$为单位绘制在\autoref{fig:2.3}中。显然电荷集中在$q$的方向，特别是对$y/a=2$。通过直接积分可以得到总感应电荷等于像电荷的电荷量，根据高斯定理，这一定会被满足。
+
+作用在电荷$q$上的力可以通过两种不同方法计算。一种（最简单的）方法是直接写下电荷$q$和像电荷$q'$之间的作用力。它们之间的距离是$y-y'=y(1-a^2/y^2)$。因此根据库仑定律吸引力为：
+\begin{equation}\label{eq:2.6}
+    |\mathbf{F}|=\frac{1}{4\pi\epsilon_0}\frac{q^2}{a^2}(\frac{a}{y})^3(1-\frac{a^2}{y^2})^{-2}
+\end{equation}
+对于大分离距离，力满足立方反比律，但是靠近球体时它正比于离球表面距离的平方反比。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.4.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:2.4}
+\end{figure}
+
+另一种计算力的方法是计算作用在球面上的合力。每个面元$da$上的受力是$(\sigma^2/2\epsilon_0$，其中$\sigma$由\autoref{eq:2.5}给定，正如\autoref{fig:2.4}所示。但是通过对称性，显然只有平行于连接球心和$q$的径向矢量的分量才对合力有贡献。因此作用在球上的合力（大小等于作用在$q$上的力，方向相反）由积分给出：
+\begin{equation}\label{eq:2.7}
+    |\mathbf{F}|=\frac{q^2}{32\pi^2\epsilon_0a^2}(\frac{a}{y})^2(1-\frac{a^2}{y^2})^2\int\frac{\cos\gamma}{(1+\frac{a^2}{y^2}-\frac{2a}{y}\cos\gamma)^3}d\Omega
+\end{equation}
+积离散刻得到\autoref{eq:2.6}。
+
+整个讨论都建立在点电荷$q$位于球体\textit{外部}的基础上。实际上，这个结果也可以应用于电荷$q$位于球体\textit{内部}的情况。唯一的必要改变是面电荷密度\autoref{eq:2.5}，其中的向导体外部的法向导数现在沿径向向内，导致符号上多一个负号。读者可以重写所有的方程，记住现在$y\leq a$。面电荷的角分布和\autoref{fig:2.3}类似，但是总感应电荷显然等于$-q$，与$y$无关。
+
+\section{存在带电孤立导体球时的点电荷}\label{sec:2.3}
+
+在前述章节中我们考虑了一个靠近接地球体的点电荷$q$，并发现球面上出现感应电荷面密度。这个电荷总共等于$q'=-aq/y$，分布于表面上，使得在所有作用力下达到平衡。
+
+如果我们想要考虑一个存在点电荷$q$的带总电荷$Q$的孤立导体球的问题，可以通过线性叠加的方式构建一个电势的解。从操作的角度来说，我们可以想象从接地导体球开始（感应电荷$q'$分布在其表面上）。然后我们断开接地线，并给球电量$(Q-q')$。这导致球体上的总电荷为$Q$。为了找到电势我们仅需要注意到附加电荷$(Q-q')$会在表面\textit{均匀分布}，因为由于$q$产生的静电力已经被电荷$q'$抵消。因此附加电荷$(Q-q')$产生的电势，和带等量电荷位于原点的点电荷是一样的，至少对球外的点是这样的。
+
+电势是\autoref{eq:2.1}和位于原点处，电量为$(Q-q')$点电荷电势的叠加：
+\begin{equation}\label{eq:2.8}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}[\frac{q}{|\mathbf{x}-\mathbf{y}|}-\frac{aq}{y|\mathbf{x}-\frac{a^2}{y^2}\mathbf{y}|}+\frac{Q+\frac{a}{y}q}{|\mathbf{x}|}]
+\end{equation}
+作用在电荷$q$上的力可以直接利用库仑定律得到。它沿径向指向$q$，大小为:
+\begin{equation}\label{eq:2.9}
+    \mathbf{F}=\frac{1}{4\pi\epsilon_0}\frac{q}{y^2}[Q-\frac{qa^3(2y^2-a^2)}{y(y^2-a^2)^2}]\frac{\mathbf{y}}{y}
+\end{equation}
+在$y\gg a$极限下，力回到通常的两个小带电体的库仑定律形式。但是靠近球体力被修正，因为球面上产生的感应电荷分布。\autoref{fig:2.5}描绘了对于不同的比值$Q/q$，受力作为距离的函数。受力以$q^2/4\pi\epsilon_0y^2$为单位；正（负）值对应于排斥力（吸引力）。如果球体带电荷与$q$相反，或者不带电，在任意距离下力都是吸引的。然而，即使电荷$Q$和$q$是同号的，在非常近的距离下力也是吸引的。在$Q\gg q$极限下，零力点（不稳定平衡点）很靠近球体，即在$y\simeq a(1+\frac{1}{2}\sqrt{q/Q})$处。注意到当电荷$q$离球体略超过几个半径长，就可以得到力的渐近解。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.5.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{一个半径为$a$，带总电荷$Q$的孤立导体球对点电荷$q$的作用力。正值意味着排斥力，负值意味着吸引力。力的渐近依赖已经被除掉了。对于$Q/q=-1,0,1,3$，$4\pi\epsilon_0 F y^2/q^2$关于$y/a$的曲线被画出。不论$Q$的值，由于感性面电荷，在近距离处力总是吸引的。}
+    \label{fig:2.5}
+\end{figure}
+
+这个例子展现了一个普遍的性质，解释了为什么表面上的附加电荷不会由于单个电荷彼此间的排斥力立刻离开表面。只要一部分电荷远离表面，镜像力马上趋向于把它吸引回来。当然，如果做了足够多的功，电荷可以从表面被移动到无穷远处。金属的功函数在很大程度上就是克服吸引的镜像力把电荷从表面上移走所做的功。
+
+\section{固定电势导体球附近的点电荷}\label{sec:2.4}
+
+另一个可以被简单讨论的问题是固定电势$V$导体球附近的点电荷。电势和带电球体是等价的，除了球心电荷$(Q-q')$被电荷$(Va)$代替。这一点可以从\autoref{eq:2.8}中看出，因为当$|\mathbf{x}|=a$时前两项抵消，最后一项按照需要等于$V$。因此电势为
+\begin{equation}\label{eq:2.10}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}[\frac{q}{|\mathbf{x}-\mathbf{y}|}-\frac{aq}{y|\mathbf{x}-\frac{a^2}{y^2}\mathbf{y}|}]+\frac{Va}{|\mathbf{x}|}
+\end{equation}
+固定电势球体作用在电荷$q$上的力为
+\begin{equation}\label{eq:2.11}
+    \mathbf{F}=\frac{q}{y^2}[Va-\frac{1}{4\pi\epsilon_0}\frac{qa^3y^3}{(y^2-a^2)^2}]\frac{\mathbf{y}}{y}
+\end{equation}
+对于与$Q/q$对应的$4\pi\epsilon_0Va/q$，这个力和带点球体十分接近，正如\autoref{fig:2.5}所示，虽然靠近渐近值$(Vaq/y^2)$的方式更缓慢。对于$Va\gg q$，不稳定平衡点具有等价的位置$y\simeq a(1+\frac{1}{2}\sqrt{q/4\pi\epsilon_0Va})$。
+
+\section{镜像法求解均匀电场中的导电球体}\label{sec:2.5}
+
+\begin{figure}[!ht]
+  \centering
+  \subfigure[]{
+    \label{fig:2.6a} 
+    \includegraphics[width=0.8\textwidth]{./pic/2.6a.png}}\\
+  %\hspace{5pt}
+  \subfigure[]{
+    \label{fig:2.6b} 
+    \includegraphics[width=0.8\textwidth]{./pic/2.6b.png}}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+  \caption{镜像法求解均匀电场中的导电球体。}
+  \label{fig:2.6}
+\end{figure}
+
+作为电像法的最后一个例子我们考虑一个均匀电场$E_0$中半径为$a$的导体球。均匀电场可以看作是由无穷远处的一对合适的正负电荷产生的。例如，如果有两个电荷$\pm Q$，位于$z=\mp R$处，正如\autoref{fig:2.6a}所示，那么原点附近尺度远远小于$R$的区域内具有近似平行于$z$轴的恒定电场$E_0\simeq 2Q/4\pi\epsilon_0R^2$。在$R,Q\to\infty$的极限下，保持$Q/R^2$不变，这个近似变成准确值。
+
+如果一个半径为$a$的导体球位于原点处，电势将由位于$\mp R$处的电荷$\pm Q$的，位于$\mp a^2/R$处的像电荷$\mp Qa/R$产生：
+\begin{equation}\label{eq:2.12}
+    \begin{aligned}
+        \Phi=&\frac{Q/4\pi\epsilon_0}{(r^2+R^2+2rR\cos \theta)^{1/2}}-\frac{Q/4\pi\epsilon_0}{(r^2+R^2-2rR\cos \theta)^{1/2}}\\
+        &-\frac{aQ/4\pi\epsilon_0}{R(r^2+\frac{a^4}{R^2}+\frac{2a^2r}{R}\cos \theta)^{1/2}}+\frac{aQ/4\pi\epsilon_0}{R(r^2+\frac{a^4}{R^2}-\frac{2a^2r}{R}\cos \theta)^{1/2}}
+    \end{aligned}
+\end{equation}
+其中$\Phi$是用球坐标表示的。在前两项中$R$远大于$r$。因此我们可以在提出$R^2$后对径向参数展开。类似的，在第三项和第四项，我们可以提出$r^2$后再展开。结果是：
+\begin{equation}\label{eq:2.13}
+    \Phi=\frac{1}{4\pi\epsilon_0}[-\frac{2Q}{R^2}r\cos\theta+\frac{2Q}{R^2}\frac{a^3}{r^2}\cos\theta]+\dots
+\end{equation}
+其中被省略的项在$R\to\infty$的极限时消失。在这一极限下$2Q/4\pi\epsilon_0R^2$为外加均匀场，所以电势为
+\begin{equation}\label{eq:2.14}
+    \Phi=-E_0(r-\frac{a^3}{r^2})\cos\theta
+\end{equation}
+第一项当然是$(-E_0z)$，就是均匀电场$E_0$的电势，可以从\autoref{eq:2.12}的前两项中写出。第二项是由面感应电荷产生的电势，或等价地说，像电荷的电势。注意到像电荷构成了极矩为$D=Qa/R\times2a^2/R=4\pi\epsilon_0E_0a^3$的电偶极子。感应电荷面密度为
+\begin{equation}\label{eq:2.15}
+    \sigma=-\epsilon_0\frac{\partial\Phi}{\partial r}|_{r=a}=3\epsilon_0E_0\cos\theta
+\end{equation}
+我们注意到这个电荷密度的总面积分为零，所以接地和孤立球体没有区别。
+
+\section{球的格林函数；电势的通解}\label{sec:2.6}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.7.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:2.7}
+\end{figure}
+
+在前面的章节中，我们用电像法讨论了导体球和点电荷共存的问题。正如\autoref{sec:1.10}提到的那样，单位源和满足均匀边界条件的像电荷产生的电势，就是狄利克雷或纽曼边界条件下合适的格林函数（\autoref{eq:1.43}或\autoref{eq:1.45}）。在$G(\mathbf{x},\mathbf{x'})$中变量$\mathbf{x'}$指的是单位源的位置$P'$，而变量$\mathbf{x}$指的是电势的观察点$P$。这些坐标和球体如\autoref{fig:2.7}所示。对于定义在半径为$a$的球面上的狄利克雷边界条件，把单位源电荷和在\autoref{eq:2.1}中替换$q\to 4\pi\epsilon_0$给出的像电荷，代入\autoref{eq:1.39}可以定义格林函数。合理的替换变量，我们得到格林函数：
+\begin{equation}\label{eq:2.16}
+    G(\mathbf{x},\mathbf{x'})=\frac{1}{|\mathbf{x}-\mathbf{x'}|}-\frac{a}{x'|\mathbf{x}-\frac{a^2}{x'^2}\mathbf{x'}|}
+\end{equation}
+用球坐标这可以被写作：
+\begin{equation}\label{eq:2.17}
+    G(\mathbf{x},\mathbf{x'})=\frac{1}{(x^2+x'^2-2xx'\cos\gamma)^{1/2}}-\frac{1}{(\frac{x^2x'^2}{a^2}+a^2-2xx'\cos\gamma)^{1/2}}
+\end{equation}
+其中$\gamma$是$\mathbf{x}$和$\mathbf{x'}$之间的夹角。变量$\mathbf{x}$和$\mathbf{x'}$的交换对称性在\autoref{eq:2.17}的形式下是显然的，对$\mathbf{x}$或$\mathbf{x'}$位于球面上$G=0$的条件也符合。
+
+对于泊松方程的解\autoref{eq:1.44}我们不仅需要$G$，还需要$\partial G/\partial n'$。记得$\mathbf{n'}$是指向研究空间外侧的单位法向量（即沿$\mathbf{x'}$向内朝向原点），我们得到
+\begin{equation}\label{eq:2.18}
+    \frac{\partial G}{\partial n'}|_{x'=a}=-\frac{(x^2-a^2)}{a(x^2+a^2-2ax\cos\gamma)^{3/2}}
+\end{equation}
+（注意到这实际上是感应电荷面密度\autoref{eq:2.5}。）因此按照\autoref{eq:1.44}，球面上确定电势，球\textit{外}的拉普拉斯方程的解为，
+\begin{equation}\label{eq:2.19}
+    \Phi(\mathbf{x})=\frac{1}{4\pi}\int \Phi(a,\theta',\phi')\frac{a(x^2-a^2)}{(x^2+a^2-2ax\cos\gamma)^{3/2}} d\Omega'
+\end{equation}
+其中$d\Omega'$是点$(a,\theta',\phi')$处的立体角元，而$\cos\gamma=\cos\theta\cos\theta'+\sin\theta\sin\theta'\cos(\phi-\phi')$。对于\textit{内部}问题，法向导数是朝外的，因此$\partial G/\partial n'$的符号和\autoref{eq:2.18}是相反的。这和把\autoref{eq:2.19}中的$(x^2-a^2)$因子换成$(a^2-x^2)$是等价的。对于有电荷分布的问题，我们必须在\autoref{eq:2.19}的基础上加上正确的\autoref{eq:1.44}中的积分，格林函数是\autoref{eq:2.17}。
+
+\section{处于不同电势的半球组成的导体球}\label{sec:2.7}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.8.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:2.8}
+\end{figure}
+
+作为已知球面上的电势求解球外电势的解\autoref{eq:2.19}的一个例子，我们考虑一个一个半径为$a$的导体球，由两个被薄绝缘环隔开的半球组成。半球的电势不同。考虑电势为$\pm V$足够了，因为任意电势可以通过整个球处于同一电势的解的线性叠加得到。绝缘环位于$z=0$平面，正如\autoref{fig:2.8}所示，上（下）半球处于电势$+V$（$-V$）。
+
+从\autoref{eq:2.19}中，$\Phi(x,\theta,\phi)$的解由积分给出：
+\begin{equation}\label{eq:2.20}
+    \begin{aligned}
+        \Phi(x,\theta,\phi)=&\frac{V}{4\pi}\int_0^{2\pi}d\phi'\{ \int_0^1 d(\cos\theta')\\
+        &-\int_{-1}^0 d(\cos\theta')\}\frac{a(x^2-a^2)}{(x^2+a^2-2ax\cos\gamma)^{3/2}}
+    \end{aligned}
+\end{equation}
+在第二个积分中进行合适的变量替换（$\theta'\to\pi-\theta',\phi'\to\phi'+\pi$），可以变换成如下形式：
+\begin{equation}\label{eq:2.21}
+    \begin{aligned}
+        \Phi(x,\theta,\phi)=&\frac{Va(x^2-a^2)}{4\pi}\int_0^{2\pi}d\phi' \int_0^1 d(\cos\theta')[(a^2+x^2-2ax\cos\gamma)^{-3/2}\\
+        &-(a^2+x^2+2ax\cos\gamma)^{-3/2}]
+    \end{aligned}
+\end{equation}
+因为$\cos\gamma$对角度$(\theta',\phi')$的依赖十分复杂，\autoref{eq:2.21}通常无法被积分成闭合形式。
+
+作为特例我们考虑$z$轴上的电势。那么$\cos\gamma=\cos\theta'$，因为$\theta=0$。积分是基础的，电势为
+\begin{equation}\label{eq:2.22}
+    \Phi(z)=V[1-\frac{(z^2-a^2}{z\sqrt{z^2+a^2}}]
+\end{equation}
+在$z=a$处，这按要求变为$\Phi=V$，而在远距离处它渐近于$\Phi\simeq 3Va^2/2z^2$。
+
+因为\autoref{eq:2.21}的积分缺乏闭合表达，我们可以把分母按幂级数展开然后逐项积分。从每个分母提出$(a^2+x^2)$，我们得到
+\begin{equation}\label{eq:2.23}
+    \begin{aligned}
+        \Phi(x,\theta,\phi)=&\frac{Va(x^2-a^2)}{4\pi(x^2+a^2)^{3/2}}\int_0^{2\pi}d\phi' \int_0^1 d(\cos\theta')[(1-2\alpha\cos\gamma)^{-3/2}\\
+        &-(1+2\alpha\cos\gamma)^{-3/2}]
+    \end{aligned}
+\end{equation}
+其中$\alpha=ax/(a^2+x^2)$。我们发现在展开项中只出现$\alpha\cos\gamma$的奇次幂：
+\begin{equation}\label{eq:2.24}
+    [(1-2\alpha\cos\gamma)^{-3/2}-(1+2\alpha\cos\gamma)^{-3/2}]=6\alpha\cos\gamma+35\alpha^3\cos^3\gamma+\dots
+\end{equation}
+现在可以对$\cos\gamma$的奇次幂在$d\phi' d(\cos\theta')$上积分：
+\begin{equation}\label{eq:2.25}
+    \begin{rcases*}
+    \int_0^{2\pi}d\phi'\int_0^1 d(\cos\theta')\cos\gamma=\pi\cos\theta\\
+    \int_0^{2\pi}d\phi'\int_0^1 d(\cos\theta')\cos^3\gamma=\frac{\pi}{4}\cos\theta(3-\cos^2\theta)\\
+    \end{rcases*}
+\end{equation}
+代入\autoref{eq:2.24}和\autoref{eq:2.25}到\autoref{eq:2.23}中，电势变为
+\begin{equation}\label{eq:2.26}
+    \Phi(x,\theta,\phi)=\frac{3Va^2}{2x^2}(\frac{x^3(x^2-a^2)}{(x^2+a^2)^{5/2}})\cos\theta[1+\frac{35}{24}\frac{a^2x^2}{(a^2+x^2)^2}(3-\cos^2\theta)+\dots]
+\end{equation}
+我们注意到只出现了$\cos\theta$奇次幂，正如问题的对称性所要求的那样。如果展开参数是$(a^2/x^2)$而不是$\alpha^2$，序列具有以下形式：
+\begin{equation}\label{eq:2.27}
+    \Phi(x,\theta,\phi)=\frac{3Va^2}{2x^2}[\cos\theta-\frac{7a^2}{12x^2}(\frac{5}{2}\cos^3\theta-\frac{3}{2}\cos\theta)+\dots]
+\end{equation}
+对于$x/a$的大值这个展开式迅速收敛，所以是一个实用的电势表达式。即使对于$x/a=5$，系列的第二项也只有$2\%$的量级。很容易证明，对于$\cos\theta=1$，表达式\autoref{eq:2.27}和轴上电势\autoref{eq:2.22}的展开是吻合的。（\autoref{eq:2.27}中特别的角度系数由勒让德（Lengendre）多项式决定。两个因子实际上是$P_1(\cos\theta)$和$P_3(\cos\theta)$，而电势展开是其中一个奇数次幂的勒让德多项式。我们会在\autoref{sec:3.3}中系统性地建立这个概念。）更进一步，同时考虑两个半球球外和球内的问题可以在问题2.22中找到。
+
+\section{正交函数和展开}\label{sec:2.8}
+
+电势问题（或者任何数学性的物理问题）的解的正交函数展开形式组成了一个可用于一大类问题的强大技巧。正交函数基的选择取决于涉及到的对称性或准对称性。为了回忆起正交函数的基本性质和展开式，我们考虑一个在$(a,b)$区间内，关于变量$\xi$的一组实函数或复变函数$U_n(\xi),n=1,2,\dots,$的积分，这组函数在$(a,b)$上是平方可积的和正交的。函数$U_n(\xi)$的正交条件被表达为：
+\begin{equation}\label{eq:2.28}
+    \int_a^b U_n^*(\xi)U_m(\xi)d\xi=0,\quad m\neq n
+\end{equation}
+如果$n=m$，积分不为零。我们假设函数是归一化的，因此这个积分是1。那么这组函数被称为是\textit{正交归一的}，满足
+\begin{equation}\label{eq:2.29}
+    \int_a^b U_n^*(\xi)U_m(\xi)d\xi=\delta_{nm}
+\end{equation}
+
+一个任意的函数$f(\xi)$，在$(a,b)$上平方可积，可以用正交归一函数组$U_n(\xi)$展开。如果序列的项是有限的（例如$N$），
+\begin{equation}\label{eq:2.30}
+    f(\xi)\leftrightarrow \sum_{n=1}^N a_nU_n(\xi)
+\end{equation}
+那么我们可以寻找系数$a_n$的“最好”选择，从而得到函数$f(\xi)$的“最好”表达。如果“最好”是用最小化均方根误差$M_N$：
+\begin{equation}\label{eq:2.31}
+    M_N=\int|f(\xi)-\sum_{n=1}^N a_n U_n(\xi)|^2 d\xi
+\end{equation}
+可以简单发现系数由下式给出
+\begin{equation}\label{eq:2.32}
+    a_n=\int_a^b U_n^*(\xi)f(\xi) d\xi
+\end{equation}
+其中使用了正交归一化条件\autoref{eq:2.29}。这是正交函数展开系数的标准形式。
+
+
+如果序列\autoref{eq:2.30}中的项数$N$越来越大，我们直觉上期望$f(\xi)$的展开式“越来越好”。我们的直觉是对的，如果正交归一函数组是\textit{完备的}，完备性要求存在有限数$N_0$，当$N>N_0$时，均方根误差$M_N$可以小于任意小正数。从而展开表达式
+\begin{equation}\label{eq:2.33}
+    \sum_{n=1}^\infty a_n U_n(\xi)=f(\xi)
+\end{equation}
+$a_n$由\autoref{eq:2.32}给出，被称为\textit{均值收敛}于$f(\xi)$。物理学家通常把证明一组函数的完备性的困难工作留给数学家。通常出现在数学物理中的正交归一函数组都已经被证明是完备的。
+
+序列\autoref{eq:2.33}可以利用系数$a_n$的显式表达\autoref{eq:2.32}改写：
+\begin{equation}\label{eq:2.34}
+    f(\xi)=\int_a^b \{ \sum_{n=1}^\infty U_n^*(\xi')U_n(\xi)\} f(\xi') d\xi'
+\end{equation}
+因为这表达了积分区间$(a,b)$上的任意函数$f(\xi)$，显然双线性项$U_n^*(\xi')U_n(\xi)$的求和只在$\xi'=\xi$的附近不为零。实际上，以下一定为真
+\begin{equation}\label{eq:2.35}
+    \sum_{n=1}\infty U_n^*(\xi')U_n(\xi)=\delta(\xi'-\xi)
+\end{equation}
+这就是所谓的\textit{完备性}或\textit{闭合关系}。这和正交归一化条件\autoref{eq:2.29}是类似的，除了连续变量$\xi$和离散指标$n$的地位互换了。
+
+最有名的正交函数就是正弦和余弦函数了，以它们为基的展开是\textit{傅里叶级数}。如果对$x$的积分区间是$(-a/2,a/2)$，正交归一函数是
+$$\sqrt{\frac{2}{a}}\sin(\frac{2\pi mx}{a}),\quad \sqrt{\frac{2}{a}}\cos(\frac{2\pi mx}{a})$$
+其中$m$是非负整数，对于$m=0$，余弦函数等于$1/\sqrt{a}$。与\autoref{eq:2.33}等价的序列形式通常被写成以下形式：
+\begin{equation}\label{eq:2.36}
+    f(x)=\frac{1}{2}A_0 + \sum_{m=1}^\infty [A_m \cos(\frac{2\pi mx}{a})+B_m \sin(\frac{2\pi mx}{a})]
+\end{equation}
+其中
+\begin{equation}
+    \begin{aligned}
+        A_m=&\frac{2}{a}\int_{-a/2}^{a/2} f(x)\cos(\frac{2\pi mx}{a}) dx\\
+        B_m=&\frac{2}{a}\int_{-a/2}^{a/2} f(x)\sin(\frac{2\pi mx}{a}) dx\\
+    \end{aligned}
+\end{equation}
+
+如果由正交归一基张成的积分区间超过一维，\autoref{eq:2.28}-\autoref{eq:2.33}显然可以推广。假设空间是二维的，变量$\xi$遍历区间$(a,b)$，而变量$\eta$遍历区间$(c,d)$。每个维度的正交归一函数分别是$U_n(\xi)$和$V_m(\eta)$。那么任意函数$f(\xi,\eta)$的展开是
+\begin{equation}\label{eq:2.38}
+    f(\xi,\eta)=\sum_n \sum_m a_{nm}U_n(\xi)V_m(\eta)
+\end{equation}
+其中
+\begin{equation}\label{eq:2.39}
+    a_{nm}=\int_a^b d\xi \int_c^d d\eta U_n^*(\xi)V_m^*(\eta)f(\xi,\eta)
+\end{equation}
+
+如果积分区间$(a,b)$变得延伸到无穷远，正交函数组$U_n(\xi)$可能会变成一组连续的函数，而不是一个离散的集合。从而\autoref{eq:2.29}的克罗内克（Kronecker）$\delta$符号变为狄拉克$\delta$函数。一个重要的例子是\textit{傅里叶积分}。从复指数函数的正交归一集开始，
+\begin{equation}\label{eq:2.40}
+    U_m(x)=\frac{1}{\sqrt{a}}e^{i(2\pi mx/a)}
+\end{equation}
+$m=0,\pm1,\pm2,\dots,$，在区间$(-a/2,a/2)$上，有展开：
+\begin{equation}\label{eq:2.41}
+    f(x)=\frac{1}{\sqrt{a}}\sum_{m=-\infty}^{\infty}A_m e^{i(2\pi mx/a)}
+\end{equation}
+其中
+\begin{equation}\label{eq:2.42}
+    A_m=\frac{1}{\sqrt{a}}\int_{-a/2}^{a/2} e^{-i(2\pi mx'/a)}f(x')dx'
+\end{equation}
+让积分区间趋于无穷（$a\to\infty$），同时做替换
+\begin{equation}\label{eq:2.43}
+    \begin{rcases*}
+    \frac{2\pi m}{a}\to k\\
+    \sum_m\to\int_{-\infty}^\infty dm=\frac{a}{2\pi}\int_{-\infty}^\infty dk\\
+    A_m\to \sqrt{\frac{2\pi}{a}}A(k)\\
+    \end{rcases*}
+\end{equation}
+展开结果与\autoref{eq:2.41}等价，是\textit{傅里叶积分}，
+\begin{equation}\label{eq:2.44}
+    f(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty A(k)e^{ikx}dk
+\end{equation}
+其中
+\begin{equation}\label{eq:2.45}
+    A(k)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-ikx}f(x)dx
+\end{equation}
+正交条件为
+\begin{equation}\label{eq:2.46}
+    \frac{1}{2\pi}\int_{-\infty}^\infty e^{i(k-k')x}dx=\delta(k-k')
+\end{equation}
+而完备条件为
+\begin{equation}\label{eq:2.47}
+    \frac{1}{2\pi}\int_{-\infty}^\infty e^{ik(x-x')}dk=\delta(x-x')
+\end{equation}
+最后三个积分还可以作为$\delta$函数的简单表达式。我们注意到在\autoref{eq:2.44}-\autoref{eq:2.47}中两个连续变量$x$和$k$是完全等价的。
+
+\section{分离变量；矩形坐标下的拉普拉斯方程}\label{sec:2.9}
+
+数学物理中的偏微分方程常常可以通过一种叫做\textit{分立变量}的方法简单求解。在这个过程中，常常产生正交函数集，各有各的用处。在11种不同的坐标系统下的包含三维拉普拉斯算符的方程都可以被分立变量（见\textit{莫尔斯和费什巴赫}, pp. 509, 655）。我们只详细讨论其中的三种——矩形，球体和圆柱体——从最简单的矩形坐标开始。
+
+矩形坐标下的拉普拉斯方程是
+\begin{equation}\label{eq:2.48}
+    \frac{\partial^2 \Phi}{\partial x^2}+\frac{\partial^2 \Phi}{\partial y^2}+\frac{\partial^2 \Phi}{\partial z^2}=0
+\end{equation}
+这个\textit{偏}微分方程的解可以通过三个相同形式\textit{常}微分方程得出，假设势可以由三个函数的乘积表示，分别对应三个坐标：
+\begin{equation}\label{eq:2.49}
+    \Phi(x,y,z)=X(x)Y(y)Z(z)
+\end{equation}
+代入\autoref{eq:2.48}中并除以\autoref{eq:2.49}的结果得到
+\begin{equation}\label{eq:2.50}
+    \frac{1}{X(x)}\frac{d^2 X}{dx^2}+\frac{1}{Y(y)}\frac{d^2 Y}{dy^2}+\frac{1}{Z(z)}\frac{d^2 Z}{dz^2}=0
+\end{equation}
+其中全微分替换了偏微分，因为每一项只涉及一个变量。如果\autoref{eq:2.50}对任意独立坐标都成立，那么三项必须分别恒定：
+\begin{equation}\label{eq:2.51}
+    \begin{rcases*}
+        \frac{1}{X(x)}\frac{d^2 X}{dx^2}=-\alpha^2\\
+        \frac{1}{Y(y)}\frac{d^2 Y}{dy^2}=-\beta^2\\
+        \frac{1}{Z(z)}\frac{d^2 Z}{dz^2}=\gamma^2\\
+    \end{rcases*}
+\end{equation}
+其中
+$$\alpha^2+\beta^2=\gamma^2$$
+如果我们取$\alpha^2$和$\beta^2$为任意正数，那么三个常微分\autoref{eq:2.51}的解为$e^{\pm i\alpha x}$，$e^{\pm i\beta y}$和$e^{\pm i\sqrt{\alpha^2+\beta^2} z}$。因此势\autoref{eq:2.49}可以由解的乘积构造出来：
+\begin{equation}\label{eq:2.52}
+    \Phi=e^{\pm i\alpha x} e^{\pm i\beta y} e^{\pm i\sqrt{\alpha^2+\beta^2} z}
+\end{equation}
+在这个阶段$\alpha$和$\beta$是完全任意的。从而\autoref{eq:2.52}通过线性叠加，代表了非常大一类拉普拉斯方程的解。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.9.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{空的长方体盒子，五个面处于零电势，第六个面（$z=c$）有确定电势$\Phi=V(x,y)$。}
+    \label{fig:2.9}
+\end{figure}
+
+为了确定$\alpha$和$\beta$有必要对势附加特定的边界条件。作为例子，考虑一个长方体的盒子，处于\autoref{fig:2.9}所示的位置，在$(x,y,z)$方向上具有尺度$(a,b,c)$。盒子的所有表面都处于零电势，除了面$z=c$，它的电势为$\Phi=V(x,y)$。要求找到盒子内部各点的电势。从$x=0,y=0,z=0$时$\Phi=0$的要求开始，容易看出$X,Y,Z$的形式应该为
+\begin{equation}\label{eq:2.53}
+    \begin{rcases*}
+        X=\sin \alpha x\\
+        Y=\sin \beta y\\
+        Z=\sinh(\sqrt{\alpha^2+\beta^2}z)\\
+    \end{rcases*}
+\end{equation}
+为了让$x=a$和$y=b$时$\Phi=0$，我们必须有$\alpha a=n\pi$和$\beta b=m\pi$。利用定义，
+\begin{equation}\label{eq:2.54}
+    \begin{rcases*}
+        \alpha_n=\frac{n\pi}{a}\\
+        \beta_m=\frac{m\pi}{b}\\
+        \gamma_{nm}=\pi\sqrt{\frac{n^2}{a^2}+\frac{m^2}{b^2}}\\
+    \end{rcases*}
+\end{equation}
+我们可以写下部分电势$\Phi_{nm}$，满足所有边界条件，除了一个，
+\begin{equation}\label{eq:2.55}
+    \Phi_{nm}=\sin(\alpha_n x)\sin(\beta_m y)\sinh(\gamma_{nm}z)
+\end{equation}
+电势可以按照这些$\Phi_{nm}$展开，初始系数任意（选择合适的系数以满足最终的边界条件）：
+\begin{equation}\label{eq:2.56}
+    \Phi(x,y,z)=\sum_{n,m=1}^\infty A_{nm}\sin(\alpha_n x)\sin(\beta_m y)\sinh(\gamma_{nm}z)
+\end{equation}
+
+只剩一个边界条件，在$z=c$处$\Phi=V(x,y)$：
+\begin{equation}\label{eq:2.57}
+    V(x,y)=\sum_{n,m=1}^\infty A_{nm}\sin(\alpha_n x)\sin(\beta_m y)\sinh(\gamma_{nm}c)
+\end{equation}
+这就是函数$V(x,y)$的双傅里叶级数。系数$A_{nm}$的结果由下式给出：
+\begin{equation}\label{eq:2.58}
+    A_{nm}=\frac{4}{ab\sinh(\gamma_{nm}c)}\int_0^a dx\int_0^b dy V(x,y)\sin(\alpha_n x)\sin(\beta_m y)
+\end{equation}
+
+如果长方体盒子的六个面的电势都不为零，盒子内部的电势解可以由六个解线性叠加得到，每个解对应一个面，等价于\autoref{eq:2.56}和\autoref{eq:2.58}。泊松方程的解的问题在于，盒子内部具有电势和电荷分布，和确定的表面上的边界条件，要求按照\autoref{eq:1.43}和\autoref{eq:1.44}构造合适的格林函数。针对这个问题的讨论我们推迟到处理完球坐标和柱坐标下的拉普拉斯方程。目前，我们仅需要注意到\autoref{eq:2.56}和\autoref{eq:2.58}给出的解和格林函数解\autoref{eq:1.44}中的面积分是等价的。
+
+\section{一个二维电势问题；傅里叶级数的求和}\label{sec:2.10}
+
+我们现在简单考虑笛卡尔坐标系下二维拉普拉斯方程的分立变量法的解。二维问题，意思是我们假定电势独立于其中一个坐标，例如$z$。这通常是一种近似，但可能在很高精度下都成立，就像在一条长长的均匀传输线中。如果电势与$z$无关，前一节的基本解衰减为乘积
+$$e^{\pm i\alpha x}e^{\pm \alpha y}$$
+其中$\alpha$是任意实或复常数。电势的边界条件限制会决定$\alpha$允许的值和不同解之间线性叠加的形式。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.10.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{二维电势问题。}
+    \label{fig:2.10}
+\end{figure}
+
+一个用来展示分离变量法技巧，并建立起与使用复变量的联系的简单例子如\autoref{fig:2.10}所示。要求区域$0\leq x \leq a, y\leq 0$内的电势，满足的边界条件为：在$x=0$和$x=a$处$\Phi=0$，在$0\leq x\leq a$内，$y=0$处$\Phi=V$，对于大$y$，$\Phi\to 0$。检查基本解发现$\alpha$是实数，并且为了对于所有的$y$，$x=0$和$x=a$处电势消失，$y\to \infty$时电势也消失，正确的线性组合是$e^{-\alpha y}$和$\sin(\alpha x)$，$\alpha=n\pi/a$。因此满足其中三个边界条件的线性组合是
+\begin{equation}\label{eq:2.59}
+    \Phi(x,y)=\sum_{n=1}^\infty A_n \exp(-n\pi y/a)\sin(n\pi x/a)
+\end{equation}
+系数$A_n$由$y=0,0\leq x \leq a$处$\Phi=V$的要求决定。正如\autoref{sec:2.8}所讨论的那样，傅里叶系数为
+\begin{equation}\label{eq:2.60}
+    A_n=\frac{2}{a}\int_0^a \Phi(x,0) \sin(n\pi x/a) dx
+\end{equation}
+代入$\Phi(x,0)=V$，可以找到
+$$
+    A_n=\frac{4V}{\pi n}
+    \begin{cases}
+        1\quad n \mbox{为奇数}\\
+        0\quad n \mbox{为偶数}\\
+    \end{cases}
+$$
+因此确定电势$\Phi(x,y)$为
+\begin{equation}\label{eq:2.61}
+    \Phi(x,y)=\frac{4V}{\pi}\sum_{n\mbox{为奇数}}\frac{1}{n}\exp(-n\pi y/a)\sin(n\pi x/a)
+\end{equation}
+对于小$y$，一个准确的近似需要序列中的许多项，但对于$y\gtrsim a/\pi$显然只需要前几项就可以了。电势迅速接近它的渐近形式，由第一项给出，
+\begin{equation}\label{eq:2.62}
+    \Phi(x,y)\to \frac{4V}{\pi}\exp(-\pi y/a)\sin(\pi x/a)
+\end{equation}
+附注，我们注意到此普遍的行为是所有这一类型边界条件问题的特点，与$\Phi(x,0)$是否是常数无关，只要序列的第一项不为零即可。系数$A_1$\autoref{eq:2.60}会不一样，但渐近解中关于$x$变得平滑的行为对于$y\gtrsim a$是确定的，与$\Phi(x,0)$的复杂程度无关。目前例子的\autoref{fig:2.11}定量展现了这一点，其中绘制了\autoref{fig:2.10}中两条虚线$y/a=0.1,0.5$处的电势。实线是准确电势，虚线是第一项\autoref{eq:2.62}。靠近边界（$y/a=0.1$）处曲线差别很大，但对于$y/a=0.5$渐近形式已经是很好的近似了。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.11.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{$y/a=0.1,0.5$处的电势（沿\autoref{fig:2.10}中的虚线）作为$x/a$的函数。实线是准确解；虚线是级数解\autoref{eq:2.61}的第一项。}
+    \label{fig:2.11}
+\end{figure}
+
+有很多可以求和写成闭合形式的傅里叶级数。\autoref{eq:2.61}中的级数就是其中之一。我们做如下处理。观察到$\sin\theta={\rm Im}(e^{i\theta})$，其中${\rm Im}$代表虚部，我们看到\autoref{eq:2.61}可以被写成
+$$\Phi(x,y)=\frac{4V}{\pi}{\rm Im}\sum_{n\mbox{为奇数}}\frac{1}{n}e^{(in\pi/a)(x+iy)}$$
+定义
+\begin{equation}\label{eq:2.63}
+    Z=e^{(i\pi/a)(x+iy)}
+\end{equation}
+这可以被写成暗示形式
+$$\Phi(x,y)=\frac{4V}{\pi}{\rm Im}\sum_{n\mbox{为奇数}}\frac{Z^n}{n}$$
+这时我们可能会回忆起展开式，
+\footnote{或者，我们观察到$(d/dZ)(\sum_{n=1}^\infty Z^n/n)=\sum_{n=0}^\infty Z^n=1/(1-Z)$。之后积分给出$\sum_{n=1}^\infty Z^n/n=-\ln(1-Z)$。}
+$$\ln(1+Z)=Z-\frac{1}{2}Z^2+\frac{1}{3}Z^3-\frac{1}{4}Z^4+\dots$$
+显然，
+$$\sum_{n\mbox{为奇数}}\frac{Z^n}{n}=\frac{1}{2}\ln(\frac{1+Z}{1-Z})$$
+并且
+\begin{equation}\label{eq:2.64}
+    \Phi(x,y)=\frac{2V}{\pi}{\rm Im}[\ln(\frac{1+Z}{1-Z})]
+\end{equation}
+
+因为对数函数的虚部等于其宗量的相位，我们考虑
+$$\frac{1+Z}{1-Z}=\frac{(1+Z)(1-Z^*)}{|1-Z|^2}=\frac{1-|Z|^2+2i{\rm Im}Z}{|1-Z|^2}$$
+因此对数宗量的相位是$\tan^{-1}[2{\rm Im}Z/(1-|Z|^2)]$。用显性形式\autoref{eq:2.63}替代$Z$，电势变为
+\begin{equation}\label{eq:2.65}
+    \Phi(x,y)=\frac{2V}{\pi}\tan^{-1}(\frac{\sin\frac{\pi x}{a}}{\sinh\frac{\pi y}{a}})
+\end{equation}
+正切函数曲线的分支对应于0到$\pi/2$之间的角度。\autoref{eq:2.61}的无穷级数被转换为\autoref{eq:2.65}的显式闭合形式。读者可能去证明边界条件是满足的，\autoref{eq:2.62}的渐近形式可以通过简单的方式得到。
+
+电势\autoref{eq:2.64}作为由\autoref{eq:2.63}定义的$Z$的函数，显然与复变函数相联系。这个联系是以下事实的直接结果：任何一个满足二维拉普拉斯方程的解析函数的实部或虚部都是柯西-黎曼（Riemann）方程的解。正如本章最开头，我们省略了关于复变量技巧的讨论，并不因为它不重要，而是因为缺少空缺并且其他地方存在完全且充分的讨论。有些资源被列在本章最后。对傅里叶级数求和的方法和许多例子，在\textit{柯林（Collin）}中有描述（附录A.6）。
+
+\section{二维角和沿边缘的场和电荷密度}\label{sec:2.11}
+
+在很多实践场合中相交的导电表面可以被近似成，至少在小尺度上，两个平面的交线。\autoref{fig:2.9}的盒子边沿是一个例子，\autoref{fig:2.10}中的角$x=0,y=0$和$x=a,y=0$是另一个例子。因此，理解电势场和面电荷密度在这种尖锐的“角”或边沿附近有何种行为十分有用。为了能足够近距离地观察它们，使得描述场行为的函数形式只决定于“角”的性质而与全局构型无关，我们假设“角”是无限尖锐的。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.12.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{二维中两个导电平面的交汇定义了一个张角为$\beta$的角。}
+    \label{fig:2.12}
+\end{figure}
+
+二维下的普遍情况如\autoref{fig:2.12}所示。两个导电平面交汇成角$\beta$。平面处于电势$V$。远离原点并不在图上显示的部分是其他导体或可能的电荷构型，它们确定下一个独特的电势问题。因为我们关心的是原点附近的电场之类的函数行为，而不是其绝对值，所以尽可能地让“远场”的行为不确定。
+
+\autoref{fig:2.12}的几何提示我们使用极坐标而不是笛卡尔坐标。在极坐标$(\rho,\phi)$下，二维拉普拉斯方程是
+\begin{equation}\label{eq:2.66}
+    \frac{1}{\rho}\frac{\partial}{\partial \rho}(\rho\frac{\partial \Phi}{\partial \rho})+\frac{1}{\rho^2}\frac{\partial^2 \Phi}{\partial \phi^2}=0
+\end{equation}
+使用分离变量法，我们替换
+$$\Phi(\rho,\phi)=R(\rho)\Psi(\phi)$$
+乘上$\rho^2/\Phi$，这导出
+\begin{equation}\label{eq:2.67}
+    \frac{\rho}{R}\frac{d}{d \rho}(\rho\frac{d R}{d \rho})+\frac{1}{\Psi}\frac{d^2 \Psi}{d \phi^2}=0
+\end{equation}
+因为两项分别是$\rho$和$\phi$的函数，每一项必须为常数：
+\begin{equation}\label{eq:2.68}
+    \frac{\rho}{R}\frac{d}{d \rho}(\rho\frac{d R}{d \rho})=\nu^2, \quad \frac{1}{\Psi}\frac{d^2 \Psi}{d \phi^2}=-\nu^2
+\end{equation}
+这些方程的解为
+\begin{equation}\label{eq:2.69}
+    \begin{rcases*}
+        R(\rho)=a\rho^\nu+b\rho^{-\nu}\\
+        \Psi(\phi)=A\cos(\nu\phi)+B\sin(\nu\phi)\\
+    \end{rcases*}
+\end{equation}
+对于特殊情况$\nu=0$，解为
+\begin{equation}
+    \begin{rcases*}\label{eq:2.70}
+        R(\rho)=a_0+b_0\ln\rho\\
+        \Psi(\phi)=A_0+B_0\phi\\
+    \end{rcases*}
+\end{equation}
+这些是我们用线性叠加搭建电势的砖块。
+
+虽然不集中于我们目前的目标，注意到当整个角向范围都被允许时，例如两个圆柱面$\rho=a$和$\rho=b$之间的作为$\phi$的函数的电势，二维拉普拉斯方程的普遍解。如果对$\phi$没有限制，$\nu$必须是一个正整数或负整数或零来保证电势是单值的。更进一步，对于$\nu=0$，\autoref{eq:2.70}中的常数$B_0$也要因为相同的理由为零。因此普遍解具有如下形式，
+\begin{equation}\label{eq:2.71}
+    \begin{aligned}
+        \Phi(\rho,\phi)=&a_0+b_0\ln\rho+\sum_{n=1}^\infty a_n\rho^n\sin(n\phi+\alpha_n)\\
+        &+\sum_{n=1}^\infty b_n\rho^{-n}\sin(n\phi+\beta_n)
+    \end{aligned}
+\end{equation}
+如果原点被包含在内部无电荷的体积之内，所有的$b_n$都是零。只出现常数和$\rho$的正数次幂。如果不包含原点，$b_n$可以不为零。特别的，对数项等价于轴上的线电荷密度为$\lambda=-2\pi\epsilon_0 b_0$的线电荷，正如大家都知道的那样。
+
+对于\autoref{fig:2.12}的情景角度被限制在$0\leq \phi \leq\beta$之间。边界条件是当$\phi=0$和$\phi=\beta$时，对于所有的$\rho\geq 0$都有$\Phi=V$。这要求\autoref{eq:2.70}中的$b_0=B_0=0$，以及\autoref{eq:2.69}中的$b=0$和$A=0$。更进一步，还要求$\nu$的选择使得$\sin(\nu\beta)=0$。因此
+$$\nu=\frac{m\pi}{\beta}, \quad m=1,2,\dots$$
+从而普遍解变为
+\begin{equation}\label{eq:2.72}
+    \Phi(\rho,\phi)=V+\sum_{m=1}^\infty a_m\rho^{m\pi/\beta}\sin(m\pi\phi/\beta)
+\end{equation}
+还未被确定下来的系数$a_m$取决于远离$\rho=0$处尖角的电势。因为级数包含$\rho^{\pi/\beta}$的正幂次，对于足够小的$\rho$只有级数的第一项是重要的。
+\footnote{这里我们做一个关于遥远边界条件的必要假设，即它们使得系数$a_1$不为零。通常这不会有什么问题，但特殊的对称性可能会使得$a_1$甚至$a_2$等等为零。这些特别的例子必须另外处理。}
+因此，\textit{靠近}$\rho=0$处，电势近似为
+\begin{equation}\label{eq:2.73}
+    \Phi(\rho,\phi)\simeq V+a_1\rho^{\pi/\beta}\sin(\pi\phi/\beta)
+\end{equation}
+电场分量为
+\begin{equation}\label{eq:2.74}
+    \begin{rcases*}
+        E_{\rho}(\rho,\phi)=-\frac{\partial\Phi}{\partial\rho}\simeq-\frac{\pi a_1}{\beta}\rho^{(\pi/\beta)-1}\sin(\pi\phi/\beta)\\
+        E_{\phi}(\rho,\phi)=-\frac{1}{\rho}\frac{\partial\Phi}{\partial\phi}\simeq-\frac{\pi a_1}{\beta}\rho^{(\pi/\beta)-1}\cos(\pi\phi/\beta)\\
+    \end{rcases*}
+\end{equation}
+$\phi=0$和$\phi=\beta$处的面电荷密度是相等的，近似为
+\begin{equation}\label{eq:2.75}
+    \sigma(\rho)=\epsilon_0 E_{\phi}(\rho,0)\simeq-\frac{\epsilon_0 \pi a_1}{\beta}\rho^{(\pi/\beta)-1}
+\end{equation}
+$\rho=0$附近的电场分量和面电荷密度都随着距离按$\rho^{(\pi/\beta)-1}$规律变化。一些特别情况下，这种对$\rho$的依赖如\autoref{fig:2.13}所示。对于很深的角落（小$\beta$）$\rho$的幂次变得十分大。本质上这种角中没有电荷积累。对于$\beta=\pi$（一个平面），场量与$\rho$无关，这在直觉上是显然的。当$\beta>\pi$时，二维的角变成边沿，场和面电荷密度在$\rho\to0$时发散。对于$\beta=2\pi$（一个薄片的边沿），按照$\rho^{-1/2}$发散。这还是可积分的，因此离边沿有限距离内的电荷是有限的，但这暗示了导电薄片边沿处的电场强度相当大（或者，实际上，对于任何$\beta>\pi$的构型都成立）。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.13.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{对于张角$\beta=\pi/4,\pi/2,\pi,3\pi/2,2\pi$，面电荷密度（和电场）随着到“角”或边沿的距离$\rho$的变化规律。}
+    \label{fig:2.13}
+\end{figure}
+
+尖锐边沿附近的电场发散是避雷针起作用的原因。在这里讨论的理想情况中，当$\rho\to0$时电场强度无限增大，但对于厚度为$d$，具有圆滑边缘的薄片，可以推断处面上场强会正比于$d^{1/2}$。对足够小的$d$这可以很大。在绝对真空中这种场强是可能的；然而在空气中，如果场强超过一定值（取决于电极的精确形状，它和其他电极的位置关系等等，但对于常温常压（NTP）下的空气通常大于$2.5\times 10^6{\rm V/m}$，有时是其4倍）会发生电击穿和放电。在雷雨天，地面和雷雨云之间有巨大电势差，一个接地的尖锐导体边沿，或者更好的情况，一个点（见\autoref{sec:3.4}）的附近，会首先发生击穿，然后提供一个空气中的锯齿状导电通路的一端，闪电沿其放电。
+
+\section{针对静电学的有限元介绍}\label{sec:2.12}
+
+有限元分析（FEA）包含了物理和工程中求解一系列边值问题的数值方法。这里我们仅大致介绍其基本思想，利用二维静电问题的伽辽金（Galerkin）方法作为例子。向三维的推广在章末有简要提到。想要获得更深入的介绍的读者可以参阅\textit{宾斯，劳伦森和特劳布利奇（Binns, Lawrenson and Trowbridge）}，\textit{伊达和巴斯托斯（Ida and Bastos）}，\textit{萨迪库（Sadiku）}，\textit{斯特朗（Strang）}或者\textit{周（Zhou）}的作品。
+
+考虑位于二维区域$R$内的泊松方程$\nabla^2\psi=-g$，在边界曲线$C$上有狄利克雷边界条件。我们构造为零的积分，
+\begin{equation}\label{eq:2.76}
+    \int_R [\phi\nabla^2\psi+g\phi]dxdy=0
+\end{equation}
+其中$\phi(x,y)$是试探函数，目前只能确定它在$R$内片状连续，在$C$上为零。对上式第一项利用格林第一定理得到
+\begin{equation}\label{eq:2.77}
+    \int_R [\nabla\phi\cdot\nabla\psi-g\phi]dxdy=0
+\end{equation}
+因为$\phi$在$C$上为零所以面积分消失。伽辽金方法的第一步是用一组局域的、线性无关的、定义在$x=x_i,y=y_i$有限邻近范围内的函数$\phi_{ij}(x,y)$来近似想要的解$\psi(x,y)$。为了明确，我们想象区域$R$由网格边长为$h$的方形格子覆盖。从而一个可能的$\phi_{ij}(x,y)$的选择是，
+\begin{equation}\label{eq:2.78}
+    \phi_{ij}(x,y)=(1-|x-x_i|/h)(1-|y-y_i|/h)
+\end{equation}
+对于$|x-x_i|\leq h, |y-y_i|\leq h$成立；否则$\phi_{ij}(x,y)=0$。所有$\phi_{ij}$在方形格子上的求和归一。当然其他局域函数的选择也是可能的。不管怎么选，如果包括边界的格点数是$N_0$，展开式$\psi(x,y)$有形式
+\begin{equation}\label{eq:2.79}
+    \psi(x,y)\approx \sum_{k,l}^{(N_0)} \Psi_{kl}\phi_{kl}(x,y)
+\end{equation}
+除了边界格点上的已知值，常系数$\Psi_{kl}$可以被看成是$\psi(x_k,y_l)$的近似值。如果网格边长$h$足够小，展开式\autoref{eq:2.79}将会是真实$\psi$的合理近似，前提是合理选择系数。
+
+伽辽金方法的第二步是让\autoref{eq:2.77}中的试探函数$\phi$为展开式中的第$(i,j)$项函数，$i$和$j$连续遍历所有$N$个\textit{内部}格点。从\autoref{eq:2.77}中导出的特征方程是
+\begin{equation}\label{eq:2.80}
+    \sum_{k,l}^{(N_0)}\Psi_{kl}\int_R \nabla\phi_{ij}(x,y)\cdot\nabla\phi_{kl} dxdy=g(x_i,y_j)\int_R \phi_{ij}(x,y)dxdy
+\end{equation}
+虽然积分是在整个区域$R$进行的，$\phi_{ij}$只在格点$(x_i,y_j)$附近的一个小区域内不为零。在\autoref{eq:2.80}中假设了$g(x,y)$在元胞尺度上变化足够缓慢，以至于可以用其格点处的值近似积分。一旦进行了积分，\autoref{eq:2.80}就变成了未知数是$N$个$\Psi_{kl}$的$N$个耦合非齐次线性代数方程的其中一个。$\Psi_{kl}$之间的耦合被限制在$(x_i,y_j)$附近的少数格点内，正如\autoref{fig:2.14}所示。剩下的问题就是对于\autoref{eq:2.78}需要的积分结果为
+\begin{equation}\label{eq:2.81}
+    \begin{aligned}
+        \int_R \phi_{ij}(x,y)dxdy&=h^2\\
+        \int_R \nabla\phi_{ij}(x,y)\cdot\nabla\phi_{kl} dxdy&=\left\{ 
+        \begin{aligned}
+            &8/3\\
+            &-1/3\\
+        \end{aligned} \right\} \mbox{对于}\left\{ 
+        \begin{aligned}
+            &k=i,&l=j\\
+            &k=i\pm 1,&l=j\\
+            &k=i,&l=j\pm 1\\
+            &k=i\pm 1,&l=j\pm 1\\ 
+        \end{aligned}
+        \right\}
+    \end{aligned}
+\end{equation}
+当格点$(i,j)$和边界邻近，\autoref{eq:2.80}左侧至少有三项等于$(-1/3)$乘上$\psi$的边界值。这些可以被移到右侧作为非齐次项的一部分。如果我们把\autoref{eq:2.80}写成矩阵形式，$\mathbf{K}\boldsymbol{\Psi}=\mathbf{G}$，其中$\mathbf{K}$是$N\times N$方形矩阵，$\boldsymbol{\Psi}$和$\mathbf{G}$是$N$维列向量，矩阵$\mathbf{K}$是一个“稀疏”矩阵，任意行或列只有几个不为零的元素。计算稀疏矩阵的逆求解这种矩阵方程，可以利用特殊的数值技巧完成（见\textit{普雷斯等（Press et al.）}）。这个方法的具体例子留在章末的问题中。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.14.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{\autoref{eq:2.78}中$\phi_{ij}(x,y)$的示意图。对于局域函数\autoref{eq:2.78}，网格中被点标出的格点（下图）被\autoref{eq:2.80}左侧的积分所耦合。}
+    \label{fig:2.14}
+\end{figure}
+
+许多问题不适合方形网格，因为解可能在所研究区域的某些部分，相较于其他部分变化更迅速。在这种区域中我们希望有更好的网格。针对标准普适形状，但允许不同大小的FEA方法会更灵活和高级。在二维中，我们把应用最广的三角形作为基本单元。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.15.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{对于二维FEA，基本三角单元$e(1,2,3)$具有面积$S_e$。}
+    \label{fig:2.15}
+\end{figure}
+
+假设三角单元足够小，以至于场变量在一个单元中变化很小，在各个方向上都可以用线性形式近似。基本三角单元$e(1,2,3)$如\autoref{fig:2.15}所示。在这个区域内，我们近似场量为$\psi(x,y)\approx\psi_e(x,y)=A+Bx+Cy$。节点或顶点处的三个值$(\psi_1,\psi_2,\psi_3)$决定了系数$(A,B,C)$。然而，把数值计算程序系统化是很有用的，这可以通过定义三个形函数$N_j^{(e)}(x,y)$，每一个对应一个顶点，使得当$x=x_j,y=y_j$时$N_j^{(e)}=1$，而在其他顶点上$N_j^{(e)}=0$来实现。对于单元$e$，在区域外部形函数为零。
+
+\small{考虑$N_1^{(e)}=a_1+b_1x+c_1y$。要求
+$$\begin{aligned}
+    a_1+b_1x_1+c_1y_1&=1\\
+    a_1+b_1x_2+c_1y_2&=0\\
+    a_1+b_1x_3+c_1y_3&=0\\
+\end{aligned}$$
+左侧系数的行列式$D$为
+$$D=\begin{vmatrix}
+    1 & x_1 & y_1\\
+    1 & x_2 & y_2\\
+    1 & x_3 & y_3\\
+\end{vmatrix}=(x_2-x_1)(y_3-y_1)-(x_3-x_1)(y_2-y_1)$$
+行列式$D$在三角形旋转变换下是不变的；实际上，$D=2S_e$，其中$S_e$是三角形的面积。系数$(a_1,b_1,c_1)$为
+$$\begin{aligned}
+    a_1=&\frac{1}{2S_e}(x_2y_3-x_3y_2)\\
+    b_1=&\frac{1}{2S_e}(y_2-y_3)\\
+    c_1=&\frac{-1}{2S_e}(x_2-x_3)\\
+\end{aligned}$$
+其他的$N_j^{(e)}$可以利用指标的循环置换写出。$N_j$和它们的系数满足以下关系：
+$$\sum_{i=1}^3 N_i^{(e)}(x,y)=1;\quad \sum_{i=1}^3 a_i=1;\quad \sum_{i=1}^3 b_i=0;\quad \sum_{i=1}^3 c_i=0;$$
+$$a_j+b_j\Bar{x_e}+c_j\Bar{y_e}=\frac{1}{3}\quad (j=1,2,3)$$
+这里$\Bar{x_e}=(x_1+x_2+x_3)/3$和$\Bar{y_e}=(y_1+y_2+y_3)/3$为三角单元$e$重心的坐标。}
+
+覆盖区域$R$的三角单元的形函数可以作为局域线性无关展开基，被用在伽辽金方法中。场变量$\psi(x,y)$具有展开，
+\begin{equation}\label{eq:2.82}
+    \psi(x,y)\approx\sum_{f,j}\Psi_j^{(f)}N_j^{(f)}(x,y)
+\end{equation}
+其中求和遍历所有的三角形$f$和每个三角形的所有顶点。常数$\Psi_j^{(f)}$是顶点处我们想要的场值。（这里有多余指标，因为相邻的三角形有一些公共的顶点。）值得注意的是，尽管当点$(x,y)$从一个三角形跨越到一个相邻三角形时，形函数也变成了另一个，但\autoref{eq:2.82}右手边定义处的函数还是连续的。由于形函数的线性，\autoref{eq:2.82}在两个三角形的公共边上的值，不论采用哪一边的表示方法，都是两个端点相同的加权平均，非公共顶点处的形函数对其没有贡献。
+
+我们回到\autoref{eq:2.77}的狄利克雷边界条件下的泊松方程和零积分。利用\autoref{eq:2.82}的$\psi(x,y)$展开，我们对特定单元$e$和顶点$i$（只避开边界上的顶点，因为我们要求$C$上$\phi=0$）选择试探函数$\phi(x,y)=N_i^{(e)}(x,y)$。这样选择使积分（和\autoref{eq:2.82}中的求和）局限到特定的单元中，正如\autoref{eq:2.80}代入局域函数的结果。把非齐次项挪到右手边，积分为
+\begin{equation}\label{eq:2.83}
+    \sum_{j=1}^3 \Psi_j^{(e)}\int_e \nabla N_i^{(e)}\cdot\nabla N_j^{(e)} dxdy=\int_e gN_i^{(e)}dxdy
+\end{equation}
+如果$g(x,y)$在单元$e$中变化很小，它可以被其在三角形重心处的值$g_e\equiv g(\Bar{x_e},\Bar{y_e})$近似并从右手边的积分中提出去。剩下的积分为
+\begin{equation}\label{eq:2.84}
+    \int_e N_i^{(e)}dxdy=S_e(a_i+b_i\Bar{x_e}+c_i\Bar{y_e})=\frac{1}{3}S_e
+\end{equation}
+对于\autoref{eq:2.83}左手边的积分，形函数的线性意味着被积函数是常数。注意到$\partial N_i^{(e)}/\partial x=b_i, \partial N_i^{(e)}/\partial y=c_i$，并且定义
+\begin{equation}\label{eq:2.85}
+    k_{ij}^{(e)}=S_e(b_ib_j+c_ic_j)
+\end{equation}
+系数$k_{ij}^{(e)}$构成了一组关于三角形$e$的无量纲耦合系数。可以直接发现它们依赖于三角形的形状，但与位置或大小无关。两个例子如\autoref{fig:2.16}所示，其中对角元素$k_{ii}^{(e)}$被标在对应的顶点$(i)$上，非对角元素$k_{ij}^{(e)}$被标在连接顶点$i$和顶点$j$的边上。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.16.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{三角耦合系数的例子。“对角”系数被标在角（顶点）上，“非对角”系数标在顶点之间的边上。}
+    \label{fig:2.16}
+\end{figure}
+
+利用\autoref{eq:2.85}对耦合系数的定义，\autoref{eq:2.83}变为
+\begin{equation}\label{eq:2.86}
+    \sum_{j=1}^3 k_{ij}^{(e)}\Psi_j^{(e)}=\frac{S_e}{3}g_e
+\end{equation}
+对于每个单元$e$有三个代数方程，除了当三角形的某（几）条边构成了边界的一部分时。三个耦合的方程可以被写成矩阵形式，$\mathbf{k}^{(e)}\boldsymbol{\Psi}^{(e)}=\mathbf{G}^{(e)}$。
+
+现在我们把一个单元的结果推广到覆盖$R$的所有的三角单元上。令内部顶点或节点的数目为$N$，顶点的总数（包括边界）为$N_0$。标记内部节点为$j=1,2,3,\dots,N$，边界节点为$j=N+1,N+2,\dots,N_0$。现在扩大并重排矩阵$\mathbf{k}^{(e)}\to\mathbf{K}^{(e)}$，其中$\mathbf{K}^{(e)}$是$N\times N$的矩阵，行和列被节点指标所标记。类似地定义$N$为列向量$\boldsymbol{\Psi}$和$\mathbf{G}$。对于每个三角单元，轮流把元素$k_{ij}^{(e)}$和$S_eg_e/3$添加到$\mathbf{K}$和$\mathbf{G}$正确的行和列上。最终结果是矩阵方程
+\begin{equation}\label{eq:2.87}
+    \mathbf{K}\boldsymbol{\Psi}=\mathbf{G}
+\end{equation}
+其中
+\begin{equation}\label{eq:2.88}
+    \begin{aligned}
+        \mathbf{K}=(k_{ij})\quad \mbox{其中}k_{ii}&=\sum_T k_{ii}^{(e)} \quad \mbox{以及} \quad k_{ij}=\sum_E k_{ij}^{(e)},\quad i\neq j\\
+        G_i&=\frac{1}{3}\sum_T S_eg_e-\sum_{j=N+1}^{N_0} k_{ij}^{(e)}\Psi_j^{(e)}\\
+    \end{aligned}
+\end{equation}
+对$T$的求和意思是对所有与内部节点$i$接触的三角形求和；对$E$的求和意思是对所有具有连接内部节点$i$和内部节点$j$的一条边的三角形求和。$G_i$内的最终求和包括，直接与边界相连接的节点，那处已知的边界值$\psi$和对应的$k_{ij}^{(e)}$值（未出现在矩阵$\mathbf{K}$中）。读者可以对着\autoref{fig:2.17}思考以确认\autoref{eq:2.88}的正确性。和方形网格一样，$N\times N$矩阵$\mathbf{K}$也是对称稀疏矩阵，拥有正对角元素。如前所述，对于这种矩阵存在特殊的高效求逆方法，即使矩阵很大。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/2.17.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{覆盖区域$R$的三角单元组的一部分，假设有100个内部节点。}
+    \label{fig:2.17}
+\end{figure}
+
+三角单元向三维FEA的推广是显然的，只要在平面外再加一个顶点，把四面体作为体积的基本单元。现在四个形函数，$N_j^{(e)}(x,y,z)$被用来给出四面体内部场变量的近似值。代数变复杂了，但思路是一样的。
+
+我们的讨论只是对有限元分析的简单介绍。物理和工程的分支中还存在许多变体。国家实验室和商业公司有“罐装”的FEA包：POISSON就是这些包的其中之一，由劳伦斯·伯克利国家实验室（Lawrence Berkeley National Laboratory）和利物莫尔国家实验室（Livermore National Laboratory）联合开发；TOSCA和CARMEN是另外两个在英国卢瑟福-阿普尔顿实验室（Rutherford-Appleton Laboratory）开发的包。
+
+\section*{参考文献和推荐阅读}
+\section*{问题}
+
+
+\chapter{静电中的边值问题：II}\label{cha:3}
+
+这一章我们继续讨论边值问题。首先考虑球形和柱形几何，拉普拉斯方程的解被合适的正交函数组展开。关于利用分离变量法从拉普拉斯方程中得到的多种常微分方程的解仅给出大致框架，但总结了不同函数的性质。
+
+为了求解多种几何情况下的泊松方程，自然会出现利用正交函数组构建格林函数的问题。我们会利用几个明确的例子获得格林函数并将其应用于特定问题，并讨论几种解决电势问题方法的等价性。
+
+\section{球坐标下的拉普拉斯方程}\label{sec:3.1}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.1.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.1}
+\end{figure}
+
+如\autoref{fig:3.1}在所示，球坐标$(r,\theta,\phi)$下，拉普拉斯方程可以写成以下形式：
+\begin{equation}\label{eq:3.1}
+    \frac{1}{r}\frac{\partial^2}{\partial r^2}(r\Phi)+\frac{1}{r^2\sin\theta}\frac{\partial}{\partial \theta}(\sin\theta\frac{\partial\Phi}{\partial\theta})+\frac{1}{r^2\sin^2\theta}\frac{\partial^2 \Phi}{\partial\phi^2}=0
+\end{equation}
+如果假设势具有乘积形式，可以写成：
+\begin{equation}\label{eq:3.2}
+    \Phi=\frac{U(r)}{r}P(\theta)Q(\phi)
+\end{equation}
+把上式代入\autoref{eq:3.1}中，得到方程：
+$$PQ\frac{d^2U}{dr^2}+\frac{UQ}{r^2\sin\theta}\frac{d}{d\theta}(\sin\theta\frac{dP}{d\theta})+\frac{UP}{r^2\sin^2\theta}\frac{d^2Q}{d\phi^2}=0$$
+乘上$r^2\sin^2\theta/UPQ$，得到：
+\begin{equation}\label{eq:3.3}
+    r^2\sin^2\theta[\frac{1}{U}\frac{d^2U}{dr^2}+\frac{1}{Pr^2\sin\theta}\frac{d}{d\theta}(\sin\theta\frac{dP}{d\theta})]+\frac{1}{Q}\frac{d^2Q}{d\phi^2}=0
+\end{equation}
+方程对$\phi$的依赖可以从最后一项中独立出来。结果就是这一项必须为常数，我们设为$(-m^2)$：
+\begin{equation}\label{eq:3.4}
+    \frac{1}{Q}\frac{d^2Q}{d\phi^2}=-m^2
+\end{equation}
+具有解
+\begin{equation}\label{eq:3.5}
+    Q=e^{\pm im\phi}
+\end{equation}
+为了使$Q$为单值函数，如果全部的角度都被允许，$m$必须是整数。通过类似的考虑我们找到$P(\theta)$和$U(r)$的分离方程：
+\begin{equation}\label{eq:3.6}
+    \frac{1}{\sin\theta}\frac{d}{d\theta}(\sin\theta\frac{dP}{d\theta})+[l(l+1)-\frac{m^2}{\sin^2\theta}]P=0
+\end{equation}
+\begin{equation}\label{eq:3.7}
+    \frac{d^2U}{dr^2}-\frac{l(l+1)}{r^2}U=0
+\end{equation}
+其中$l(l+1)$是另一个实常数。
+
+从径向方程的形式可以显然得到，一个简单的$r$的幂函数（不是幂级数）就能满足它。解为：
+\begin{equation}\label{eq:3.8}
+    U=Ar^{l+1}+Br^{-l}
+\end{equation}
+但$l$还未被确定下来。
+
+\section{勒让德方程和勒让德多项式}\label{sec:3.2}
+
+关于$P(\theta)$的$\theta$方程通常采用$x=\cos\theta$作为变量，而不直接采用$\theta$。从而它具有如下形式：
+\begin{equation}\label{eq:3.9}
+    \frac{d}{dx}[(1-x^2)\frac{dP}{dx}]+[l(l+1)-\frac{m^2}{1-x^2}]P=0
+\end{equation}
+这个方程被称为推广的勒让德（Legendre）方程，其解为相关的勒让德函数。在考虑\autoref{eq:3.9}之前我们利用幂级数勾勒当$m=0$时普通勒让德常微分方程的解；
+\begin{equation}\label{eq:3.10}
+    \frac{d}{dx}[(1-x^2)\frac{dP}{dx}]+l(l+1)P=0
+\end{equation}
+我们假设$\cos\theta$的整个范围，包括南北极，都在研究范围内。为了使解能表达具有物理意义的电势，解从而是单值的，有限的，在区间$-1\leq x\leq 1$上连续。假设解具有如下幂级数形式：
+\begin{equation}\label{eq:3.11}
+    P(x)=x^\alpha\sum_{j=0}^\infty a_jx^j
+\end{equation}
+其中$\alpha$是待定参数。将其代入\autoref{eq:3.10}，得到级数：
+\begin{equation}\label{eq:3.12}
+    \sum_{j=0}^\infty\{(\alpha+j)(\alpha+j-1)a_jx^{\alpha+j-2}-[(\alpha+j)(\alpha+j+1)-l(l+1)]a_jx^{\alpha+j}\}=0
+\end{equation}
+在这个展开式中每个$x$的幂次的系数必须分别为零。对于$j=0,1$，我们发现
+\begin{equation}\label{eq:3.13}
+    \begin{rcases*}
+        \mbox{如果}a_0\neq 0,\mbox{那么}\alpha(\alpha-1)=0\\
+        \mbox{如果}a_1\neq 0,\mbox{那么}\alpha(\alpha+1)=0\\
+    \end{rcases*}
+\end{equation}
+而对于大部分$j$值
+\begin{equation}\label{eq:3.14}
+    a_{j+2}=[\frac{(\alpha+j)(\alpha+j+1)-l(l+1)}{(\alpha+j+1)(\alpha+j+2)}]a_j
+\end{equation}
+简单思考一下会发现\autoref{eq:3.13}的两个关系式是等价的，并且只要让$a_0$或$a_1$\textit{其中之一}不为零就足够了，不需要都不为零。选择前者，我们有$\alpha=0$或$\alpha=1$。从\autoref{eq:3.14}中我们看出幂级数只包含$x$的偶次幂（$\alpha=0$）或只包含奇次幂（$\alpha=1$）。
+
+对于$\alpha=0$或$\alpha=1$的级数都可以证明如下性质：
+\begin{itemize}
+    \item 级数对$x^2<1$收敛，无论$l$的值；
+    \item 级数在$x=\pm 1$处发散，除非它截断。
+\end{itemize}
+因为我们想要一个和在$x^2<1$区间一样，在$x=\pm 1$处也收敛的解，所以要求级数截断。因为$\alpha$和$j$是正整数或零，所以迭代关系\autoref{eq:3.14}只有在$l$\textit{为零或正整数}时才能被截断。即使这样两个级数中也只有一个在$x=\pm1$处收敛。如果$l$是偶数（奇数），那么只有$\alpha=0$（$\alpha=1$）的级数截断。
+\footnote{例如，如果$l=0$，$\alpha=1$级数具有系数通式$a_j=a_0/(j+1),j=0,2,4,\dots$。因此级数是$a_0(x+\frac{1}{3}x^3+\frac{1}{5}x^5+\dots)$。这就是$a_0$乘上函数$Q_0(x)=\frac{1}{2}\ln(1+x)/(1-x)$的幂级数展开，显然在$x=\pm 1$处是发散的。对于每个$l$都有类似的函数$Q_l(x)$，其同时包含对数函数和性质良好的多项式解。见\textit{马格努斯等（Magnus et al.)}(pp. 151 ff)。\textit{惠特克和沃森（Whittaker and Watson）}(第XV章)给出了利用解析函数的处理方法。}
+每种情况中多项式的最高幂次都是$x^l$，次高幂次为$x^{l-2}$，等等，直到$x^0$（$x$）对应于$l$为偶数（奇数）。通常这些多项式会被归一化，使得$x=\pm 1$处的值为一，并被称为$l$次的\textit{勒让德多项式}$P_l(x)$。前几个勒让德多项式为：
+\begin{equation}\label{eq:3.15}
+    \begin{rcases*}
+        P_0(x)=1\\
+        P_1(x)=x\\
+        P_2(x)=\frac{1}{2}(3x^2-1)\\
+        P_3(x)=\frac{1}{2}(5x^3-3x)\\
+        P_4(x)=\frac{1}{8}(35x^4-30x^2+3)\\
+    \end{rcases*}
+\end{equation}
+通过调整\autoref{eq:3.11}和\autoref{eq:3.14}的级数解，可以得到一个紧凑的勒让德多项式的表达形式，被称作\textit{罗德里格斯（Rodrigues）方程}：
+\begin{equation}\label{eq:3.16}
+    P_l(x)=\frac{1}{2^l l!}\frac{d^l}{dx^l}(x^2-1)^l
+\end{equation}
+（可以参考\textit{阿尔弗肯（Arfken）}的著作。）
+
+勒让德多项式在区间$-1\leq x\leq 1$上构成了一组完备的函数正交基。为了证明其正交性我们可以直接采用常微分方程\autoref{eq:3.10}。我们写下对$P_l(x)$的微分方程，乘上$P_{l'}(x)$，并在区间内积分：
+\begin{equation}\label{eq:3.17}
+    \int_{-1}^1 P_{l'}(x)\{\frac{d}{dx}[(1-x^2)\frac{dP_l}{dx}]+l(l+1)P_l(x)\}dx=0
+\end{equation}
+对第一项分部积分，我们得到
+\begin{equation}\label{eq:3.18}
+    \int_{-1}^1 [(x^2-1)\frac{dP_l}{dx}\frac{dP_{l'}}{dx}+l(l+1)P_{l'}(x)P_l(x)]dx=0
+\end{equation}
+如果我们把$l$和$l'$互换重新写下\autoref{eq:3.18}，并把它从\autoref{eq:3.18}中减掉，结果就是正交条件：
+\begin{equation}\label{eq:3.19}
+    [l(l+1)-l'(l'+1)]\int_{-1}^1 P_{l'}(x)P_l(x)dx=0
+\end{equation}
+对于$l\neq l'$，积分必须为零。对于$l=l'$，积分是有限的。为了确定其值，必须要使用勒让德多项式的显式表达，比如罗德里格斯方程。从而积分是显式的：
+$$N_l\equiv\int_{-1}^1 [P_l(x)]^2dx=\frac{1}{2^{2l}(l!)^2}\int_{-1}^1 \frac{d^l}{dx^l}(x^2-1)^l \frac{d^l}{dx^l}(x^2-1)^l dx$$
+分部积分$l$次得到结果：
+$$N_l=\frac{(-1)^l}{2^{2l}(l!)^2}\int_{-1}^1 (x^2-1)^l \frac{d^{2l}}{dx^{2l}}(x^2-1)^l dx$$
+对$(x^2-1)^l$求$2l$次导数得到常数$(2l)!$，所以
+$$N_l=\frac{(2l)!}{2^{2l}(l!)^2}\int_{-1}^1 (1-x^2)^l dx$$
+剩下的积分可以暴力求解，也可以利用递推。我们把被积分式写成
+$$(1-x^2)^l=(1-x^2)(1-x^2)^{l-1}=(1-x^2)^{l-1}+\frac{x}{2l}\frac{d}{dx}(1-x^2)^l$$
+因此我们有
+$$N_l=(\frac{2l-1}{2l})N_{l-1}+\frac{(2l-1)!}{2^{2l}(l!)^2}\int_{-1}^1 x d[(1-x^2)^l]$$
+分部积分最后一项得到
+$$N_l=(\frac{2l-1}{2l})N_{l-1}-\frac{1}{2l}N_l$$
+或者
+\begin{equation}\label{eq:3.20}
+    (2l+1)N_l=(2l-1)N_{l-1}
+\end{equation}
+这说明$(2l+1)N_l$与$l$无关。对于$l=0$，利用$P_0(x)=1$，我们有$N_0=2$。因此$N_l=2/(2l+1)$，正交关系可以被写成：
+\begin{equation}\label{eq:3.21}
+    \int_{-1}^1 P_{l'}(x)P_l(x)dx=\frac{2}{2l+1}\delta_{l'l}
+\end{equation}
+在\autoref{sec:2.8}的定义下正交归一函数组为
+\begin{equation}\label{eq:3.22}
+    U_l(x)=\sqrt{\frac{2l+1}{2}}P_l(x)
+\end{equation}
+
+因为勒让德多项式构成了一组完备的正交函数组，所以任何定义在区间$-1\leq x\leq 1$的函数$f(x)$都可以按它写成展开式。勒让德级数表达式为：
+\begin{equation}\label{eq:3.23}
+    f(x)=\sum_{l=0}^\infty A_lP_l(x)
+\end{equation}
+其中
+\begin{equation}\label{eq:3.24}
+    A_l=\frac{2l+1}{2}\int_{-1}^1 f(x)P_l(x)dx
+\end{equation}
+作为例子，考虑\autoref{fig:3.2}所示的函数：
+$$\begin{aligned}
+    f(x)=&+1\quad \mbox{对于}x>0\\
+    =&-1\quad \mbox{对于}x<0\\
+\end{aligned}$$
+那么
+$$A_l=\frac{2l+1}{2}[\int_0^1 P_l(x)dx-\int_{-1}^0 P_l(x)dx]$$
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.2.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.2}
+\end{figure}
+
+因为如果$l$为偶数（奇数），$P_l(x)$关于$x=0$也是奇函数（偶函数），所以只有奇数$l$的系数不为零。因此，对于$l$是奇数，
+\begin{equation}\label{eq:3.25}
+    A_l=(2l+1)\int_0^1 P_l(x)dx
+\end{equation}
+通过罗德里格斯方程可以计算积分，得到
+\begin{equation}\label{eq:3.26}
+    A_l=(-\frac{1}{2})^{(l-1)/2}\frac{(2l+1)(l-2)!!}{2(\frac{l+1}{2})!}
+\end{equation}
+其中$(2n+1)!!\equiv(2n+1)(2n-1)(2n-3)\dots\times5\times3\times1$。因此$f(x)$的级数表达为：
+\begin{equation}\label{eq:3.27}
+    f(x)=\frac{3}{2}P_1(x)-\frac{7}{8}P_3(x)+\frac{11}{16}P_5(x)-\dots
+\end{equation}
+
+不同幂次的勒让德多项式之间的特殊递推关系在计算积分，从低幂次多项式中产生高幂次多项式等场景下十分有用。从罗德里格斯方程可以直接看出
+\begin{equation}\label{eq:3.28}
+    \frac{dP_{l+1}}{dx}-\frac{dP_{l-1}}{dx}-(2l+1)P_l=0
+\end{equation}
+这个结果与\autoref{eq:3.10}的常微分方程结合在一起，可以导出多个递推方程，一些如下：
+\begin{equation}\label{eq:3.29}
+    \begin{aligned}
+        (l+1)P_{l+1}-(2l+1)xP_l+lP_{l-1}=&0\\
+        \frac{dP_{l+1}}{dx}-x\frac{dP_l}{dx}-(l+1)P_l=&0\\
+        (x^2-1)\frac{dP_l}{dx}-lxP_l+lP_{l-1}=&0\\
+    \end{aligned}
+\end{equation}
+作为使用这些递推方程的例子，考虑计算积分：
+\begin{equation}\label{eq:3.30}
+    I_1=\int_{-1}^1 xP_l(x)P_{l'}(x)dx
+\end{equation}
+从\autoref{eq:3.29}中的第一个方程，我们得到$xP_l(x)$的表达式。因此\autoref{eq:3.30}变为
+$$I_1=\frac{1}{2l+1}\int_{-1}^1 P_{l'}(x)[(l+1)P_{l+1}(x)+lP_{l-1}(x)]dx$$
+现在可以利用正交积分\autoref{eq:3.21}发现，除非$l'=l\pm 1$，否则积分为零，从而对于这些$l'$值，
+\begin{equation}\label{eq:3.31}
+    \int_{-1}^1 xP_l(x)P_{l'}(x)dx=
+    \begin{rcases*}
+        \frac{2(l+1)}{(2l+1)(2l+3)},\quad l'=l+1\\
+        \frac{2l}{(2l-1)(2l+1)},\quad l'=l-1\\
+    \end{rcases*}
+\end{equation}
+它们实际上是$l$和$l'$地位互换后的相同结果。用类似的方法可以简单得到
+\begin{equation}\label{3.32}
+    \int_{-1}^1 x^2P_l(x)P_{l'}(x)dx=
+    \begin{rcases*}
+        \frac{2(l+1)(l+2)}{(2l+1)(2l+3)(2l+5)},\quad l'=l+2\\
+        \frac{2(2l^2+2l-1)}{(2l-1)(2l+1)(2l+3)},\quad l'=l\\
+    \end{rcases*}
+\end{equation}
+其中假设了$l'\leq l$。
+
+\section{具有角向对称性的边值问题}\label{sec:3.3}
+
+从球坐标系下拉普拉斯方程\autoref{eq:3.2}的形式来看，对于一个具有角向对称性的问题，\autoref{eq:3.5}中$m=0$。这意味着这种问题的通解为：
+\begin{equation}\label{eq:3.33}
+    \Phi(r,\theta)=\sum_{l=0}^\infty [A_lr^l+B_lr^{-(l+1)}]P_l(\cos\theta)
+\end{equation}
+系数$A_l$和$B_l$由边界条件决定。假设在半径为$a$的球面上确定电势为$V(\theta)$，要求找到球内的电势。如果原点没有电荷，该处的电势一定是有限的。结果就是对于所有的$l$，$B_l=0$。系数$A_l$可以通过计算球面上的电势值\autoref{eq:3.33}找到：
+\begin{equation}\label{eq:3.34}
+    V(\theta)=\sum_{l=0}^\infty A_la^lP_l(\cos\theta)
+\end{equation}
+这就是\autoref{eq:3.23}形式的勒让德级数，因此系数$A_l$为：
+\begin{equation}\label{eq:3.35}
+    A_l=\frac{2l+1}{2a^l}\int_0^\pi V(\theta)P_l(\cos\theta)\sin\theta d\theta
+\end{equation}
+例如，如果$V(\theta)$和\autoref{sec:2.7}的一致，两个半球处于大小相等，符号相反的电势，
+$$V(\theta)=\begin{cases}
+    +V,\quad (0\leq\theta<\pi/2)\\
+    -V,\quad (\pi/2<\theta\leq\pi)\\
+\end{cases}$$
+那么系数正比于\autoref{eq:3.27}中的值。因此球内的电势为
+\begin{equation}\label{eq:3.36}
+    \Phi(r,\theta)=V[\frac{3}{2}\frac{r}{a}P_1(\cos\theta)-\frac{7}{8}(\frac{r}{a})^3P_3(\cos\theta)+\frac{11}{16}(\frac{r}{a})^5P_5(\cos\theta)\dots]
+\end{equation}
+为了找到球外的电势我们只需要把$(r/a)^l$换成$(a/r)^{l+1}$。结果和\autoref{eq:2.27}是一样的，只是通过不同的方法。
+
+级数\autoref{eq:3.33}，其系数由边界条件决定，是电势的一种唯一展开。这种唯一性提供了一种从有限区域内，即对称轴上的已知电势中求解整个电势问题的解的方法。在对称轴上\autoref{eq:3.33}变为（其中$z=r$）：
+\begin{equation}\label{eq:3.37}
+    \Phi(z=r)=\sum_{l=0}^\infty [A_lr^l+B_lr^{-(l+1)}]
+\end{equation}
+对正$z$成立。对负$z$每一项必须乘上$(-1)^l$。假设通过某种方法我们得到了对称轴上的电势$\Phi(z)$。如果这个电势函数可以按照\autoref{eq:3.37}的形式被展开成$z=r$的幂级数，系数已知，那么电势在空间任意一点处的解就是把$r^l$和$r^{-(l+1)}$的每个幂次乘上$P_l(\cos\theta)$。
+
+冒着使读者厌烦的风险，我们回到具有相等且异号电势的半球例子。我们已经通过两种方法得到了级数解，\autoref{eq:2.27}和\autoref{eq:3.36}。刚刚提到的方法是第三种。对于轴上一点我们有闭合形式\autoref{eq:2.22}：
+$$\Phi(z=r)=V[1-\frac{r^2-a^2}{r\sqrt{r^2+a^2}}]$$
+这可以被展开成$a^2/r^2$的幂级数：
+$$\Phi(z=r)=\frac{V}{\sqrt{\pi}}\sum_{j=1}^\infty (-1)^{j-1}\frac{(2j-\frac{1}{2})\Gamma(j-\frac{1}{2})}{j!}(\frac{a}{r})^{2j}$$
+与展开式\autoref{eq:3.37}比较，只存在奇数$l$值（$l=2j-1$）的项。结果是，球外所有的点处的解为：
+$$
+    \Phi(r,\theta)=\frac{V}{\sqrt{\pi}}\sum_{j=1}^\infty (-1)^{j-1}\frac{(2j-\frac{1}{2})\Gamma(j-\frac{1}{2})}{j!}(\frac{a}{r})^{2j}P_{2j-1}(\cos\theta)
+$$
+这和已经得到的解，\autoref{eq:2.27}和\autoref{eq:3.36}，是相同的。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.3.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.3}
+\end{figure}
+
+一个重要的展开是关于$\mathbf{x'}$处的单位点电荷在$\mathbf{x}$处的电势的：
+\begin{equation}\label{eq:3.38}
+    \frac{1}{|\mathbf{x}-\mathbf{x'}|}=\sum_{l=0}^\infty \frac{r^l_<}{r^{l+1}_>}P_l(\cos\gamma)
+\end{equation}
+其中$r^l_<$（$r^{l+1}_>$)是$|\mathbf{x}|$和$|\mathbf{x'}|$两者之中较小（较大）的值，$\gamma$是$\mathbf{x'}$和$\mathbf{x}$之间的夹角，如\autoref{fig:3.3}所示。这可以通过旋转坐标轴使得$\mathbf{x'}$沿着$z$轴。从而电势满足拉普拉斯方程，具有角向对称性，并且可以按照\autoref{eq:3.33}展开，除了在$\mathbf{x}=\mathbf{x'}$处：
+$$\frac{1}{|\mathbf{x}-\mathbf{x'}|}=\sum_{l=0}^\infty (A_lr^l+B_lr^{-(l+1)})P_l(\cos\gamma)$$
+如果点$\mathbf{x}$在$z$轴上，右手边变为\autoref{eq:3.37}，而左手边变为：
+$$\frac{1}{|\mathbf{x}-\mathbf{x'}|}\equiv\frac{1}{(r^2+r'^2-2rr'\cos\gamma)^{1/2}}\to\frac{1}{|r-r'|}$$
+展开，我们发现对于轴上的$\mathbf{x}$，
+$$\frac{1}{|\mathbf{x}-\mathbf{x'}|}=\frac{1}{r_>}\sum_{l=0}^\infty (\frac{r_<}{r_>})^l$$
+对于轴外的点只需要按照\autoref{eq:3.33}和\autoref{eq:3.37}，给每一项乘上$P_l(\cos\gamma)$。这证明了一般结果\autoref{eq:3.38}。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.4.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{半径为$a$的带点圆环和总电荷$q$，圆心位于$z$轴上的$z=b$处。}
+    \label{fig:3.4}
+\end{figure}
+
+另一个例子是均匀分布在半径为$a$的圆环上的总电荷$q$产生的电势，位置如\autoref{fig:3.4}所示，对称轴为$z$轴，圆心位于$z=b$处。对称轴上$z=r$处的点$P$处的电势就是$q/4\pi\epsilon_0$除以距离$AP$：
+$$\Phi(z=r)=\frac{1}{4\pi\epsilon_0}\frac{q}{(r^2+c^2-2cr\cos\alpha)^{1/2}}$$
+其中$c^2=a^2+b^2$，$\alpha=\tan^{-1}(a/b)$。距离$AP$的倒数可以用\autoref{eq:3.38}展开。因此对于$r>c$，
+$$\Phi(z=r)=\frac{q}{4\pi\epsilon_0}\sum_{l=0}^\infty \frac{c^l}{r^{l+1}}P_l(\cos\alpha)$$
+对于$r<c$，相应的形式是：
+$$\Phi(z=r)=\frac{q}{4\pi\epsilon_0}\sum_{l=0}^\infty \frac{r^l}{c^{l+1}}P_l(\cos\alpha)$$
+\textit{任意一点}处的电势现在可以通过给这个级数的每一项乘上$P_l(\cos\theta)$来得到：
+$$\Phi(r,\theta)=\frac{q}{4\pi\epsilon_0}\sum_{l=0}^\infty \frac{r_<^l}{r_>^{l+1}}P_l(\cos\alpha)P_l(\cos\theta)$$
+其中$r_<$（$r_>$）是$r$和$c$两者之中较小（较大）的值。
+
+\section{锥形孔或尖锐点附近的场行为}\label{sec:3.4}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.5.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.5}
+\end{figure}
+
+在转到更复杂的边值问题之前，我们考虑具有角对称性，但$\theta$范围有限的问题。这是\autoref{sec:2.11}的情景的三维类比。假设有限的角区域$0\leq \theta\leq\beta,0\leq\phi 2\pi$，被锥形的导电表面所围绕，如\autoref{fig:3.5}所示。对于$\beta<\pi/2$，这个区域是导体内部一个深锥孔。对于$\beta>\pi/2$，这个区域环绕着一个尖锐的锥形导体。
+
+\autoref{sec:3.2}中对勒让德微分方程的处理方法需要被调整。假设角向对称性，\autoref{eq:3.10}仍成立，但我们现在要寻找在$x=\cos\theta$，$\cos\beta\leq x\leq1$范围内的有限单值解。另外，因为导体面$\theta=\beta$处于固定电势，我们可以设为零，所以关于$\cos\theta$的解必须在$\theta=\beta$处为零以满足边界条件。因为我们要求在$x=1$处为非奇点，所以以$x=1$为中心展开级数比\autoref{eq:3.11}中以$x=0$为中心更方便。引入变量
+$$\xi=\frac{1}{2}(1-x)$$
+勒让德方程\autoref{eq:3.10}变为通常的形式
+\begin{equation}\label{eq:3.39}
+    \frac{d}{d\xi}[\xi(1-\xi)\frac{dP}{d\xi}]+\nu(\nu+1)P=0    
+\end{equation}
+其中$l$被换成$\nu$来避免混乱。相应的\autoref{eq:3.2}中关于$U(r)/r$的径向解为$r^\nu$和$r^{-\nu-1}$。有幂级数解，
+$$P(\xi)=\xi^\alpha\sum_{j=0}^\infty a_j\xi^j$$
+代入\autoref{eq:3.39}中，$\xi$的最低次幂的系数为零要求$\aleph=0$。级数中相邻系数之间的递推关系从而为
+\begin{equation}\label{eq:3.40}
+    \frac{a_{j+1}}{a_j}=\frac{(j-\nu)(j+\nu+1)}{(j+1)^2}
+\end{equation}
+选择$a_0=1$使得解在$\xi=0(\cos\theta=1)$时为一，我们有级数解形式
+\begin{equation}\label{eq:3.41}
+    P_{\nu}(\xi)=1+\frac{(-\nu)(\nu+1)}{1!1!}\xi+\frac{(-\nu)(-\nu+1)(\nu+1)(\nu+2)}{2!2!}\xi^2+\dots
+\end{equation}
+我们首先发现如果$\nu$为零或正整数，级数截断。读者可以证明对于$\nu=l=0,1,2,\dots,$，级数\autoref{eq:3.41}就是\autoref{eq:3.15}的勒让德\textit{多项式}。对于不为整数的$\nu$，\autoref{eq:3.41}代表了一种推广，被称为\textit{$\nu$次的第一类勒让德函数}。级数\autoref{eq:3.41}是超几何函数$_2F_1(a,b;c;z)$的一个例子，其级数展开为
+$$_2F_1(a,b;c;z)=1+\frac{ab}{c}\frac{z}{1!}+\frac{a(a+1)b(b+1)}{c(c+1)}\frac{z^2}{2!}+\dots$$
+与\autoref{eq:3.41}比较显示处勒让德函数可以被写成
+\begin{equation}\label{eq:3.42}
+    P_\nu(x)=_2F_1(-\nu,\nu+1;1;\frac{1-x}{2})
+\end{equation}
+这里我们回到了一般的变量$x=\cos\theta$。超几何函数的性质广为人知（见\textit{莫尔斯和费什巴赫（Morse and Feshbach）}，第5章，\textit{丹纳里和克兹维基（Dennery and Krzywicki）}，第IV.16-18节，\textit{惠特克和沃森（Whittaker and Watson）}，第XIV章）。勒让德函数$P_\nu(x)$在$x=1$和$|x|<1$处是正常的，但$x=-1$处为奇点，除非$\nu$是整数。依赖于$\nu$的值，它在$|x|<1$的范围内有确定数目的零点。因为多项式$P_l(x)$在$|x|<1$上有$l$个零点，我们期望对于实数$\nu$，随着$\nu$的增大，零点个数也增多。更进一步，零点在区间上的分布趋于均匀或不均匀。特别地，当$\nu$增大时，最前面几个零点越来越靠近$x=1$。
+
+\autoref{fig:3.5}的边值问题的基本解为
+$$A r^\nu P_\nu(\cos\theta)$$
+为了原点处的电势有限，要求$\nu>0$。因为对于所有的$r$，电势在$\theta=\beta$处为零，必须
+\begin{equation}\label{eq:3.43}
+    P_\nu(\cos\beta)=0
+\end{equation}
+这是关于$\nu$的本征值条件。从刚刚提到的$P_\nu$的零点来看，显然\autoref{eq:3.43}具有有限数目的解，$\nu=\nu_k(k=1,2,\dots)$，按升序排列。对于$\nu=\nu_1$，$x=\cos\beta$是$P_{\nu_1}(x)$的第一个零点。对于$\nu=\nu_2$，$x=\cos\beta$是$P_{\nu_2}(x)$的第二个零点，等等。区域$0\leq\theta\le\beta$内角向对称电势问题的完整解为
+\footnote{函数$P_{\nu_k}(\cos\theta)$在区间$\cos\beta\leq x\leq1$上的正交性可以用和$P_l(\cos\theta)$类似的方法证明——见\autoref{eq:3.17}-\autoref{eq:3.19}。完备性同样可以被证明。}
+\begin{equation}\label{eq:3.44}
+    \Phi(r,\theta)=\sum_{k=1}^\infty A_k r^{\nu_k}P_{\nu_k}(\cos\theta)
+\end{equation}
+
+采用\autoref{sec:2.11}的思想，我们在意的是$r=0$附近电势和场的普遍行为，而不是在大$r$处特定边界条件下的完整解。因此我们用\autoref{eq:3.44}的第一项近似$r=0$附近的电势行为并写下
+\begin{equation}\label{eq:3.45}
+    \Phi(r,\theta)\simeq Ar^{\nu}P_\nu(\cos\theta)
+\end{equation}
+现在$\nu$是\autoref{eq:3.43}中\textit{最小的根}。电场分量和锥形导体上的面电荷密度为
+\begin{equation}\label{eq:3.46}
+    \begin{rcases*}
+        E_r=-\frac{\partial \Phi}{\partial r}\simeq - \nu A r^{\nu-1}P_\nu(\cos\theta)\\
+        E_\theta=-\frac{1}{r}\frac{\partial \Phi}{\partial \theta}\simeq Ar^{\nu-1}\sin\theta P'_\nu(\cos\theta)\\
+        \sigma(r)=-\frac{1}{4\pi}E_\theta|_{\theta=\beta}\simeq -\frac{A}{4\pi}r^{\nu-1}\sin\beta P'_\nu(\cos\beta)\\
+    \end{rcases*}
+\end{equation}
+这里$P_\nu$上的撇号代表关于其变量求导。当$r\to 0$时，电场和电荷密度都按$r^{\nu-1}$变化。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.6.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{$P_\nu(\cos\beta)$的最前面几个零点对应的次数$\nu$随$\beta$的变化。$0<\beta<90^\circ$对应于锥孔，而$90^\circ<\beta<180^\circ$对应于锥形点。$r=0$附近电场和面电荷密度正比于$r^{\nu-1}$。虚线为近似表达式\autoref{eq:3.48a}和\autoref{eq:3.48b}。}
+    \label{fig:3.6}
+\end{figure}
+
+$P_\nu(\cos\beta)$的最前面几个零点对应的次数$\nu$关于$\beta$的函数图像被绘制在\autoref{fig:3.6}中。显然对于$\beta\ll1$，有$\nu\gg1$。这个范围内关于$\nu$的近似表达式可以从贝塞尔（Bessel）函数近似中得出，
+\footnote{贝塞尔函数在\autoref{sec:3.7}中有讨论。}
+\begin{equation}\label{eq:3.47}
+    P_\nu(\cos\theta)\simeq J_0((2\nu+1)\sin\frac{\theta}{2})
+\end{equation}
+对大$\nu$和$\theta<1$有效。$J_0(x)$的第一个零点为$x=2.405$。这给出
+\begin{subequations}\label{eq:3.48}
+    \begin{equation}\label{eq:3.48a}
+        \nu\simeq\frac{2.405}{\beta}-\frac{1}{2}
+    \end{equation}
+    因为$|\mathbf{E}|$和$\sigma$都按$r^{\nu-1}$变化，所以显然当$\beta\to0$时，深锥孔中电场很小，电荷很少。对于$\beta=\pi/2$，锥形导体变成平面。按照预期$\nu=1$并且$\sigma\propto 1$。对于$\beta>\pi/2$，几何上其变成锥形点。从而$\nu<1$，场在$r=0$发散。对于$\beta\to\pi$，有$\nu\to0$，但趋近速度缓慢。对于小$(\pi-\beta)$的一个近似是
+    \begin{equation}\label{eq:3.48b}
+        \nu\simeq[2\ln(\frac{2}{\pi-\beta})]^{-1}
+    \end{equation}
+\end{subequations}
+这显示出对于$(\pi-\beta)\simeq 10^\circ$，有$\nu\simeq 0.2$，并且甚至对于$(\pi-\beta)\simeq 1^\circ$，有$\nu\simeq 0.1$。在任何一种情况下，对于尖锐的锥形点，点附近的场强都按$r^{-1+\epsilon}$变化，其中$\epsilon\ll1$。点周围存在大场强。这种点在避雷针中的有效性在\autoref{sec:2.11}中有过讨论。
+
+R. H. 霍尔（R. N. Hall [\textit{J. Appl. Phys.} \textbf{20,} 925 (1949)] )对这一普遍类型电势问题的拓展讨论包含了一系列\autoref{eq:3.43}的根$\nu_k$关于$\beta$的函数图像。
+
+\section{连带勒让德函数和球谐函数$Y_{lm}(\theta,\phi)$}\label{sec:3.5}
+
+到目前为止我们处理了具有角向对称性的电势问题，其解具有\autoref{eq:3.33}的形式。除非$\theta$被限制，正如\autoref{sec:3.4}中那样，解只包含普通的勒让德多项式。然而，普遍的电势问题在角向也有变化，导致\autoref{eq:3.5}和\autoref{eq:3.9}中$m\neq0$。从而我们需要推广$P_l(\cos\theta)$，即$l$和$m$两者都任意的\autoref{eq:3.9}的解。用本质上和普通勒让德函数相同的方式可以发现，为了在区间$-1\leq x\leq1$上有有限解，参数$l$\textit{必须为零或正整数}，并且\textit{整数$m$}只能取$-l,-(l-1),\dots,0,\dots,l-1,l$中的值。具有这些性质的解被称为连带勒让德函数$P_l^m(x)$。对于正$m$由如下方程定义\footnote{$P_l^m(x)$相位的选择和\textit{马格努斯等（Magnus et al.）}以及\textit{E. U. 康顿和G. H. 肖特利（E. U. Condon and G. H. Shortley）}在\textit{Theory of Atomic Spectra}, Campbridge University Press (1953).的一致。关于显示表达和递推方程，见\textit{马格努斯等（Magnus et al.）}，4.3节。}：
+\begin{equation}\label{eq:3.49}
+    P_l^m(x)=(-1)^m(1-x^2)^{m/2}\frac{d^m}{dx^m}P_l(x)
+\end{equation}
+如果用罗德里格斯方程表示$P_l(x)$，可以得到一个对于正负$m$都适用的定义式：
+\begin{equation}\label{eq:3.50}
+    P_l^m(x)=\frac{(-1)^m}{2^ll!}(1-x^2)^{m/2}\frac{d^{l+m}}{dx^{l+m}}(x^2-1)^l
+\end{equation}
+$P_l^{-m}(x)$和$P_l^m(x)$是成正比的，因为微分方程\autoref{eq:3.9}只依赖于$m^2$而$m$是整数。可以发现
+\begin{equation}\label{eq:3.51}
+    P_l^{-m}(x)=(-1)^m\frac{(l-m)!}{(l+m)!}P_l^m(x)
+\end{equation}
+
+对于固定的$m$函数$P_l^m(x)$关于指标$l$在区间$-1\leq x\leq 1$上构成了一组正交基。通过和勒让德函数一样的方法可以得到正交关系：
+\begin{equation}\label{eq:3.52}
+    \int_{-1}^{1}P_{l'}^m(x)P_l^m(x)dx=\frac{2}{2l+1}\frac{(l+m)!}{(l-m)!}\delta_{l'l}
+\end{equation}
+
+拉普拉斯方程的解被分解为三个变量$r$，$\theta$和$\phi$的函数的乘积。把角度变量合起来构造单位球内的正交函数组是方便的。我们把这些函数称为\textit{球谐函数}，尽管这个术语通常留着用来描述推广勒让德方程\autoref{eq:3.9}的解。我们的球谐函数在更老一点的书中有时被称作“调和函数”。函数$Q_m(\phi)=e^{im\phi}$在区间$0\leq\phi<2\pi$上关于指标$m$构成了一组完备的正交函数组。函数$P_l^m(\cos\theta)$在区间$-1\leq\cos\theta\leq1$上关于指标$l$对每个$m$构成了类似的函数组。因此它们的乘积$P_l^mQ_m$在单位球面上关于两个指标$l$和$m$构成了一组完备的正交函数组。从\autoref{eq:3.52}的归一化条件可以清楚发现合适的归一函数，由$Y_{lm}(\theta,\phi)$标记，为
+\begin{equation}\label{eq:3.53}
+    Y_{lm}(\theta,\phi)=\sqrt{\frac{(2l+1)}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(\cos\theta)e^{im\phi}
+\end{equation}
+从\autoref{eq:3.51}中可以看出
+\begin{equation}\label{eq:3.54}
+    Y_{l,-m}(\theta,\phi)=(-1)^mY_{lm}^*(\theta,\phi)
+\end{equation}
+归一和正交条件为
+\begin{equation}\label{eq:3.55}
+    \int_{0}^{2\pi}d\phi \int_{0}^{\pi}\sin\theta d\theta Y_{l'm'}^*(\theta,\phi)Y_{lm}(\theta,\phi)=\delta_{l'l}\delta_{m'm}
+\end{equation}
+等价于\autoref{eq:2.35}的完整关系为
+\begin{equation}\label{eq:3.56}
+    \sum_{l=0}^\infty\sum_{m=-l}^l Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)=\delta(\theta-\theta')\delta(\cos\phi-\cos\phi')
+\end{equation}
+对于几个小$l$值和$m\geq0$，下表展示了$Y_{lm}$的显示形式。对于负$m$可以利用\autoref{eq:3.54}。
+$$\begin{aligned}
+    \mbox{球谐函数}&Y_{lm}(\theta,\phi)\\
+    l&=0 \quad Y_{00}=\frac{1}{\sqrt{4\pi}}\\
+    l&=1 \quad 
+    \begin{cases}
+        Y_{11}=-\sqrt{\frac{3}{8\pi}}\sin\theta e^{i\phi}\\
+        Y_{10}=\sqrt{\frac{3}{4\pi}}\cos\theta\\
+    \end{cases}\\
+    l&=2 \quad
+    \begin{cases}
+        Y_{22}=\frac{1}{4}\sqrt{\frac{15}{2\pi}}\sin^2\theta e^{2i\phi}\\
+        Y_{21}=-\sqrt{\frac{15}{8\pi}}\sin\theta\cos\theta e^{i\phi}\\
+        Y_{20}=\sqrt{\frac{5}{4\pi}}(\frac{3}{2}\cos^2\theta-\frac{1}{2})\\
+    \end{cases}\\
+    l&=3 \quad
+    \begin{cases}
+        Y_{33}=-\frac{1}{4}\sqrt{\frac{35}{4\pi}}\sin^3\theta e^{3i\phi}\\
+        Y_{32}=\frac{1}{4}\sqrt{\frac{105}{2\pi}}\sin^2\theta\cos\theta e^{2i\phi}\\
+        Y_{31}=-\frac{1}{4}\sqrt{\frac{21}{4\pi}}\sin\theta(5\cos^2\theta-1) e^{i\phi}\\
+        Y_{30}=\sqrt{\frac{7}{4\pi}}(\frac{5}{2}\cos^3\theta-\frac{3}{2}\cos\theta)\\
+    \end{cases}\\
+\end{aligned}$$
+注意到对于$m=0$，
+\begin{equation}\label{eq:3.57}
+    Y_{l0}=\sqrt{\frac{2l+1}{4\pi}}P_l(\cos\theta)
+\end{equation}
+
+任意函数$g(\theta,\phi)$可以按球谐函数展开：
+\begin{equation}\label{eq:3.58}
+    g(\theta,\phi)=\sum_{l=0}^\infty\sum_{m=-l}^l A_{lm}Y_{lm}(\theta,\phi)
+\end{equation}
+其中系数为
+$$A_{lm}=\int d\Omega Y_{lm}^*(\theta,\phi)g(\theta,\phi)$$
+下一节中，一点让我们感兴趣的地方是当$\theta=0$展开式的形式。利用\autoref{eq:3.57}的定义，我们找到：
+\begin{equation}\label{eq:3.59}
+    [g(\theta,\phi)]_{\theta=0}=\sum_{l=0}^\infty \sqrt{\frac{2l+1}{4\pi}}A_{l0}
+\end{equation}
+其中
+\begin{equation}\label{eq:3.60}
+    A_{l0}=\sqrt{\frac{2l+1}{4\pi}}\int d\Omega P_l(\cos\theta)g(\theta,\phi)
+\end{equation}
+所有$m\neq 0$的级数项在$\theta=0$时都为零。
+
+球坐标下边值问题的普遍解可以写成球谐函数和$r$幂次项，\autoref{eq:3.33}的推广形式：
+\begin{equation}\label{eq:3.61}
+    \Phi(r,\theta,\phi)=\sum_{l=0}^\infty\sum_{m=-l}^l[A_{lm}r^l+B_{lm}r^{-(l+1)}]Y_{lm}(\theta,\phi)
+\end{equation}
+如果电势在球面上确定，系数可以通过计算表面上的\autoref{eq:3.61}并利用\autoref{eq:3.58}得到。
+
+\section{球谐函数的加法定理}\label{sec:3.6}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.7.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.7}
+\end{figure}
+
+球谐函数的\textit{加法定理}是一个很有意思且用处很大的数学结果。两个坐标矢量$\mathbf{x}$和$\mathbf{x'}$，分别具有球坐标$(r,\theta,\phi)$和$(r',\theta',\phi')$，其夹角为$\gamma$，如\autoref{fig:3.7}所示。加法定理用关于角度$\theta,\phi$和$\theta',\phi'$的球谐函数的乘积表示关于角度$\gamma$的$l$次勒让德多项式：
+\begin{equation}\label{eq:3.62}
+    P_l(\cos\gamma)=\frac{4\pi}{2l+1}\sum_{m=-l}^l Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+其中$\cos\gamma=\cos\theta\cos\theta'+\sin\theta\sin\theta'\cos(\phi-\phi')$。为了证明这个定理，我们先在空间中固定$\mathbf{x'}$。从而$P_l(\cos\gamma)$是角度$\theta,\phi$的函数，角度$\theta',\phi'$为参数。它可以按照\autoref{eq:3.58}的级数被展开：
+\begin{equation}\label{eq:3.63}
+    P_l(\cos\gamma)=\sum_{l'=0}^\infty\sum_{m'=-l'}^{l'} A_{l'm}(\theta',\phi')Y_{l'm}(\theta,\phi)
+\end{equation}
+与\autoref{eq:3.62}比较，发现只出现了$l'=l$的项。为了明白为什么，注意到如果选择坐标轴使得$\mathbf{x'}$沿$z$轴，$\gamma$变为通常的极角，并且$P_l(\cos\gamma)$满足方程：
+\begin{equation}\label{eq:3.64}
+    \nabla'^2P_l(\cos\gamma)+\frac{l(l+1)}{r^2}P_l(\cos\gamma)=0
+\end{equation}
+其中$\nabla'^2$是这些新轴下的拉普拉斯算符。如果轴被旋转到\autoref{fig:3.7}中的位置，$\nabla'^2=\nabla^2$且$r$不变。
+\footnote{旋转下$\nabla'^2=\nabla^2$的证明的最简来源是，$\nabla^2\psi=\nabla\cdot\nabla\psi$是标量积算符，而所有的标量积都是旋转不变的。}
+结果就是$P_l(\cos\gamma)$仍然满足\autoref{eq:3.64}的形式；即它是$l$次的球谐函数。这意味着它只是$l$次球谐函数$Y_{lm}$的线性组合：
+\begin{equation}\label{eq:3.65}
+    P_l(\cos\gamma)=\sum_{m=-l}^l A_m(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+系数$A_m(\theta',\phi')$由下式给出
+\begin{equation}\label{eq:3.66}
+    A_m(\theta',\phi')=\int Y_{lm}^*(\theta,\phi)P_l(\cos\gamma)d\Omega
+\end{equation}
+为了计算这个积分，我们注意到按照\autoref{eq:3.60}，它可以被看成是$m'=0$时，函数$\sqrt{4\pi/(2l+1)}Y_{lm}^*(\theta,\phi)$按$Y_{lm'}(\gamma,\beta)$，在\autoref{eq:3.64}带撇坐标轴下的展开式的系数。从\autoref{eq:3.59}中发现，因为只存在一个$l$值，\autoref{eq:3.66}的系数为
+\begin{equation}\label{eq:3.67}
+    A_m(\theta',\phi')=\frac{4\pi}{2l+1}\{Y_{lm}^*[\theta(\gamma,\beta),\phi(\gamma,\beta)]\}_{\gamma=0}
+\end{equation}
+在$\gamma\to0$的极限下，角度$(\theta,\phi)$作为$(\gamma,\beta)$的函数，变为$(\theta',\phi')$。因此加法定理\autoref{eq:3.62}证明完毕。有时这个定理被写成$P_l^m(\cos\theta)$而不是$Y_{lm}$的形式。从而其具有形式：
+\begin{equation}\label{eq:3.68}
+    \begin{aligned}
+        P_l(\cos\gamma)=&P_l(\cos\theta)P_l(\cos\theta')\\
+        &+2\sum_{m=1}^l P_l^m(\cos\theta)P_l^m(\cos\theta')\cos[m(\phi-\phi')]
+    \end{aligned}
+\end{equation}
+
+如果角度$\gamma$趋于零，存在关于$Y_{lm}$平方的“求和规律”：
+\begin{equation}\label{eq:3.69}
+    \sum_{m=-l}^l|Y_{lm}(\theta,\phi)|^2=\frac{2l+1}{4\pi}
+\end{equation}
+
+求和定理可以用来把位于$\mathbf{x'}$处的单位电荷在$\mathbf{x}$处产生的电势的展开\autoref{eq:3.38}写成最显式的形式。把\autoref{eq:3.62}的$P_l(\cos\gamma)$代入\autoref{eq:3.38}，我们得到
+\begin{equation}\label{eq:3.70}
+    \frac{1}{|\mathbf{x}-\mathbf{x'}|}=4\pi \sum_{l=0}^\infty\sum_{m=-l}^l\frac{1}{2l+1}\frac{r_<^l}{r_>^{l+1}}Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+\autoref{eq:3.70}用$\mathbf{x}$和$\mathbf{x'}$的坐标给出了电势的完整乘积形式。这在关于电荷的积分等等中很有用，一个变量是积分变量，另一个是观察点的坐标。代价是有一个二重求和，而不只是单次求和。
+
+\section{柱坐标下的拉普拉斯方程；贝塞尔函数}\label{sec:3.7}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.8.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.8}
+\end{figure}
+
+在柱坐标$(\rho,\phi,z)$中，如\autoref{fig:3.8}所示，拉普拉斯方程具有形式：
+\begin{equation}\label{eq:3.71}
+    \frac{\partial^2\Phi}{\partial\rho^2}+\frac{1}{\rho}\frac{\partial\Phi}{\partial\rho}+\frac{1}{\rho^2}\frac{\partial^2\Phi}{\partial\phi^2}+\frac{\partial^2\Phi}{\partial z^2}=0
+\end{equation}
+用以下变量做替换，分立变量：
+\begin{equation}\label{eq:3.72}
+    \Phi(\rho,\phi,z)=R(\rho)Q(\phi)Z(z)
+\end{equation}
+用一般的方法，可以导出三个常微分方程：
+\begin{equation}\label{eq:3.73}
+    \frac{d^2Z}{dz^2}-k^2Z=0
+\end{equation}
+\begin{equation}\label{eq:3.74}
+    \frac{d^2Q}{d\phi^2}+\nu^2Q=0
+\end{equation}
+\begin{equation}\label{eq:3.75}
+    \frac{d^2R}{d\rho^2}+\frac{1}{\rho}\frac{dR}{d\rho}+(k^2-\frac{\nu^2}{\rho^2})R=0
+\end{equation}
+前两个方程的解是基本的：
+\begin{equation}\label{eq:3.76}
+    \begin{aligned}
+        Z(z)=&e^{\pm kz}\\
+        Q(\phi)=&e^{i\nu\phi}\\
+    \end{aligned}
+\end{equation}
+当整个角度范围都被允许时，为了使电势是单值函数，$\nu$必须是整数。但是如果在$z$方向没有边界条件的要求，$k$参数可以是任意的。目前我们假设$k$是正实数。
+
+径向方程可以通过变量代换$x=k\rho$写成标准形式。它从而变成
+\begin{equation}\label{eq:3.77}
+    \frac{d^2R}{dx^2}+\frac{1}{x}\frac{dR}{dx}+(1-\frac{\nu^2}{x^2})R=0
+\end{equation}
+这就是贝塞尔方程，其解被称作$\nu$次的\textit{贝塞尔函数}。如果假设解具有幂级数的形式
+\begin{equation}\label{eq:3.78}
+    R(x)=x^\alpha\sum_{j=0}^\infty a_jx^j
+\end{equation}
+从而可以发现
+\begin{equation}\label{eq:3.79}
+    \alpha=\pm\nu
+\end{equation}
+和
+\begin{equation}\label{eq:3.80}
+    a_{2j}=-\frac{1}{4j(j+\alpha)}a_{2j-2}
+\end{equation}
+对于$j=1,2,3,\dots$成立。所有$x^j$的奇次幂的系数都为零。递推方程可以通过迭代得到
+\begin{equation}\label{eq:3.81}
+    a_{2j}=\frac{(-1)^j\Gamma(\alpha+1)}{2^{2j}j!\Gamma(j+\alpha+1)}a_0
+\end{equation}
+通常选择常数$a_0=[2^\alpha\Gamma(\alpha+1)]^{-1}$。从而两个解为
+\begin{equation}\label{eq:3.82}
+    J_\nu(x)=(\frac{x}{2})^\nu\sum_{j=0}^\infty\frac{(-1)^j}{j!\Gamma(j+\nu+1)}(\frac{x}{2})^{2j}
+\end{equation}
+\begin{equation}\label{eq:3.83}
+    J_{-\nu}(x)=(\frac{x}{2})^{-\nu}\sum_{j=0}^\infty\frac{(-1)^j}{j!\Gamma(j-\nu+1)}(\frac{x}{2})^{2j}
+\end{equation}
+这些解被称为$\pm\nu$次的第一类贝塞尔函数。级数对所有有限的$x$都收敛。如果\textit{$\nu$不是整数}，这两个解$J_{\pm\nu}(x)$构成了关于二阶贝塞尔方程的一对线性无关的解。然而，如果$\nu$是整数，解是线性相关的。事实上，对于$\nu=m$，$m$为整数，可以从级数形式中看出
+\begin{equation}\label{eq:3.84}
+    J_{-m}(x)=(-1)^mJ_m(x)
+\end{equation}
+结果是当$\nu$是整数时，有必要找到另一个线性无关的解。通常即使$\nu$不是整数，也用$J_\nu(x)$和$N_\nu(x)$替代$J_{\pm\nu}(x)$的一对解，其中$N_\nu(x)$为纽曼函数（或第二类贝塞尔函数）：
+\begin{equation}\label{eq:3.85}
+    N_\nu(x)=\frac{J_\nu(x)\cos\nu\pi-J_{-\nu}(x)}{\sin\nu\pi}
+\end{equation}
+对于非整数的$\nu$，$N_\nu(x)$显然与$J_\nu(x)$线性无关。在$\nu\to\mbox{整数}$的极限中，可以发现$N_\nu(x)$仍和$J_\nu(x)$线性无关。正如所预料的，它包含$\log x$。其级数表达在参考书中有给出。
+
+第三类贝塞尔函数，被称为\textit{汉克尔函数}，由$J_\nu(x)$和$N_\nu(x)$的线性组合定义：
+\begin{equation}\label{eq:3.86}
+    \begin{rcases*}
+        H_\nu^{(1)}(x)=J_\nu(x)+iN_\nu(x)\\
+        H_\nu^{(2)}(x)=J_\nu(x)-iN_\nu(x)\\
+    \end{rcases*}
+\end{equation}
+汉克尔函数构成了贝塞尔方程的解的一组基，正如$J_\nu(x)$和$N_\nu(x)$一样。
+
+函数$J_\nu$，$N_\nu$，$H_\nu^{(1)}$，$H_\nu^{(2)}$都满足递推方程
+\begin{equation}\label{eq:3.87}
+    \Omega_{\nu-1}(x)+\Omega_{\nu+1}(x)=\frac{2\nu}{x}\Omega_\nu(x)
+\end{equation}
+\begin{equation}\label{eq:3.88}
+    \Omega_{\nu-1}(x)-\Omega_{\nu+1}(x)=2\frac{d\Omega_\nu}{dx}
+\end{equation}
+其中$\Omega_\nu(x)$为任意一个$\nu$次的柱函数。这些可以通过\autoref{eq:3.82}的级数表达直接证明。
+
+作为参考，这里给出对于小变量和大变量的不同贝塞尔函数的极限形式。为了简单，我们只写出主导项：
+\begin{equation}\label{eq:3.89}
+    x\ll1 \quad J_\nu(x)\to\frac{1}{\Gamma(\nu+1)}(\frac{x}{2})^\nu
+\end{equation}
+\begin{equation}\label{eq:3.90}
+    x\ll1 \quad N_\nu(x)\to
+    \begin{cases}
+        \frac{2}{\pi}[\ln(\frac{x}{2})+0.5772\dots],\quad \nu=0\\
+        -\frac{\Gamma(\nu)}{\pi}(\frac{2}{x})^\nu\\
+    \end{cases}
+\end{equation}
+这些方程假设了$\nu$为实数且非负。
+\begin{equation}\label{eq:3.91}
+    \begin{aligned}
+        x\gg1,\nu \quad J_\nu(x)&\to \sqrt{\frac{2}{\pi x}}\cos(x-\frac{\nu\pi}{2}-\frac{\pi}{4})\\
+        N_\nu(x)&\to \sqrt{\frac{2}{\pi x}}\sin(x-\frac{\nu\pi}{2}-\frac{\pi}{4})\\
+    \end{aligned}
+\end{equation}
+从小$x$到大$x$下的渐近形式的转变发生在$x\sim \nu$的区域内。
+
+从\autoref{eq:3.91}的渐近形式可以明确每一种贝塞尔函数具有有限个零点。我们主要关心$J_\nu(x)$的零点：
+\begin{equation}\label{eq:3.92}
+    J_\nu(x_{\nu n})=0\quad(n=1,2,3,\dots)
+\end{equation}
+$x_{\nu n}$是$J_\nu(x)$的第$n$个零点。对于$\nu$的前几个整数值，最小的三个零点为：
+$$\begin{aligned}
+    \nu=0,\quad x_{0n}&=2.405,5.520,8.654,\dots\\
+    \nu=1,\quad x_{1n}&=3.832,7.016,10.173,\dots\\
+    \nu=2,\quad x_{2n}&=5.136,8.417,11.620,\dots\\
+\end{aligned}$$
+对于更大的根，有渐近方程
+$$x_{\nu n}\simeq n\pi+(\nu-\frac{1}{2})\frac{\pi}{2}$$
+能给出足够精确的结果（至少三位有效数字）。零点表在\textit{雅克、埃姆德和洛施（Jahnke, Emde, and Lösch）}（p. 194）和\textit{阿布拉莫维茨和斯泰贡（Abramowitz and Stegun）}（p. 409）中有给出。
+
+利用贝塞尔函数，找到拉普拉斯方程径向部分的解后，我们现在可以研究什么情况下贝塞尔函数构成了一组正交完备基。我们只考虑第一类贝塞尔函数，并发现$\sqrt{\rho}J_\nu(x_{\nu n}\rho/a)$对于固定的$\nu\geq0, n=1,2,\dots$，在区间$0\leq \rho\leq a$上构成了一组正交基。证明开始于$J_\nu(x_{\nu n}\rho/a)$满足的微分方程：
+\begin{equation}\label{eq:3.93}
+    \frac{1}{\rho}\frac{d}{d\rho}[\rho\frac{dJ_\nu(x_{\nu n}\frac{\rho}{a})}{d\rho}]+(\frac{x_{\nu n}^2}{a^2}-\frac{\nu^2}{\rho^2})J_\nu(x_{\nu n}\frac{\rho}{a})=0
+\end{equation}
+如果我们乘上$\rho J_\nu(x_{\nu n'}\rho/a)$并在$0$到$a$上积分，我们得到
+$$\int_0^a J_\nu(x_{\nu n'}\frac{\rho}{a})\frac{d}{d\rho}[\rho\frac{dJ_\nu(x_{\nu n}\frac{\rho}{a})}{d\rho}]d\rho+\int_0^a(\frac{x_{\nu n}^2}{a^2}-\frac{\nu^2}{\rho^2})\rho J_\nu(x_{\nu n'}\frac{\rho}{a})J_\nu(x_{\nu n}\frac{\rho}{a})d\rho=0$$
+分部积分，结合$(\rho J_\nu J'_\nu)$在$\rho=0$（当$\nu\geq0$时）和$\rho=a$处为零，得到结果：
+$$-\int_0^a \rho \frac{dJ_\nu(x_{\nu n'}\frac{\rho}{a})}{d\rho}\frac{dJ_\nu(x_{\nu n}\frac{\rho}{a})}{d\rho}d\rho+\int_0^a (\frac{x_{\nu n}^2}{a^2}-\frac{\nu^2}{\rho^2})\rho J_\nu(x_{\nu n'}\frac{\rho}{a})J_\nu(x_{\nu n}\frac{\rho}{a})d\rho=0$$
+如果我们把$n$和$n'$交换写下相同的表达式，两者相减，得到正交条件：
+\begin{equation}\label{eq:3.94}
+    (x_{\nu n}^2-x_{\nu n'}^2)\int_0^a \rho J_\nu(x_{\nu n'}\frac{\rho}{a})J_\nu(x_{\nu n}\frac{\rho}{a})d\rho=0
+\end{equation}
+灵活使用微分方程，\autoref{eq:3.87}的递推方程，以及\autoref{eq:3.88}，得出归一积分：
+\begin{equation}\label{eq:3.95}
+    \int_0^a \rho J_\nu(x_{\nu n'}\frac{\rho}{a})J_\nu(x_{\nu n}\frac{\rho}{a})d\rho=\frac{a^2}{a}[J_{\nu+1}(x_{\nu n})]^2\delta_{n'n}
+\end{equation}
+假设贝塞尔函数是完备的，我们可以把任意关于$\rho$，定义在区间$0\leq \rho \leq a$上的函数展开称傅里叶-贝塞尔级数：
+\begin{equation}\label{eq:3.96}
+    f(\rho)=\sum_{n=1}^\infty A_{\nu n}J_\nu(x_{\nu n}\frac{\rho}{a})
+\end{equation}
+其中
+\begin{equation}\label{eq:3.97}
+    A_{\nu n}=\frac{2}{a^2J_{\nu+1}^2(x_{\nu n})}\int_0^a \rho f(\rho)J_\nu(\frac{x_{\nu n}\rho}{a})d\rho
+\end{equation}
+导出\autoref{eq:3.96}包含了$\nu\geq0$的限制。实际上可以证明它对所有$\nu\geq -1$都成立。
+
+展开\autoref{eq:3.96}和\autoref{eq:3.97}是传统的傅里叶-贝塞尔级数，适合于在$\rho=a$处为零的函数（例如，柱面上的均匀的狄利克雷边界条件；见后续章节）。但注意另一种展开式也是可以的。它关于函数$\sqrt{\rho}J_\nu(y_{\nu n}\rho/a)$，其中$y_{\nu n}$是$[dJ_\nu(x)]/dx=0$的第$n$个根。原因在于，为了证明函数的正交性，只需要$[\rho J_\nu(k\rho)(d/d\rho)J_\nu(k'\rho)-\rho J_\nu(k'\rho)(d/d\rho)J_\nu(k\rho)]$在端点$\rho=0$和$\rho=a$处为零。这个要求可以由$\lambda=x_{\nu n}/a$或$\lambda=y_{\nu n}/a$满足，分别对应$J_\nu(x_{\nu n})=0$和$J'_\nu(y_{\nu n})=0$，或者更普遍地，端点处$\rho(d/d\rho)J_\nu(k\rho)+\lambda J_\nu(k\rho)=0$，其中$\lambda$是与$k$无关的常量。以$\sqrt{\rho}J_\nu(y_{\nu n}\rho/a)$为基的展开对于在$\rho=a$处斜率为零的函数特别有用。（见问题3.11。）
+
+傅里叶-贝塞尔级数只是一种包含贝塞尔函数的展开式。一些其他的可能的展开式包括：
+\begin{itemize}
+    \item 纽曼级数：$\sum_{n=0}^\infty a_nJ_{\nu+n}(z)$
+    \item 卡普汀（Kapteyn）级数：$\sum_{n=0}^\infty a_nJ_{\nu+n}((\nu+n)z)$
+    \item 司洛米尔契（Schlömilch）级数：$\sum_{n=1}^\infty a_nJ_\nu(nx)$
+\end{itemize}
+读者可以参考\textit{沃森（Watson）}（第XVI-XIX章）以获得关于这些级数的更详细讨论。卡普汀级数出现在行星的开普勒（Kepler）运动和高速运动的电荷中（见问题14.14和14.15）。
+
+在结束贝塞尔函数的性质之前，我们注意到如果在拉普拉斯方程的分离式中，\autoref{eq:3.73}中的分离常数$k^2$取为$-k^2$，那么$Z(z)$将会为$\sin kz$或$\cos kz$，关于$R(\rho)$的方程会变为：
+\begin{equation}\label{eq:3.98}
+    \frac{d^2 R}{d\rho^2}+\frac{1}{\rho}\frac{dR}{d\rho}-(k^2+\frac{\nu^2}{\rho^2})R=0
+\end{equation}
+利用$k\rho=x$，这变成
+\begin{equation}\label{eq:3.99}
+    \frac{d^2 R}{dx^2}+\frac{1}{x}\frac{dR}{dx}-(1+\frac{\nu^2}{x^2})R=0
+\end{equation}
+这个方程的解被称为\textit{修正贝塞尔函数}。显然它们只是关于纯虚数变量的贝塞尔函数。线性无关解的一般选择记为$I_\nu(x)$和$K_\nu(x)$。它们由下式定义
+\begin{equation}\label{eq:3.100}
+    I_\nu(x)=i^{-\nu}J_\nu(ix)
+\end{equation}
+\begin{equation}\label{eq:3.101}
+    K_\nu(x)=\frac{\pi}{2}i^{\nu+1}H_\nu^{(1)}(ix)
+\end{equation}
+并且是实$x$和$\nu$的函数。它们对于小$x$和大$x$的极限形式为，假设实$\nu\geq0$：
+\begin{equation}\label{eq:3.102}
+    x\ll 1 \quad I_\nu(x)\to\frac{1}{\Gamma(\nu+1)}(\frac{x}{2})^\nu
+\end{equation}
+\begin{equation}\label{eq:3.103}
+    x\ll 1 \quad K_\nu(x)\to
+    \begin{cases}
+        -[\ln(\frac{x}{2})+0.5772\dots], \quad \nu=0\\
+        \frac{\Gamma(\nu)}{2}(\frac{2}{x})^\nu, \quad \nu\neq0\\
+    \end{cases}
+\end{equation}
+\begin{equation}\label{eq:3.104}
+    \begin{aligned}
+        x\gg 1,\nu \quad I_\nu(x)&\to\frac{1}{\sqrt{2\pi x}}e^x[1+O(\frac{1}{x})]\\
+        K_\nu(x)&\to\sqrt{\frac{\pi}{2x}}e^{-x}[1+O(\frac{1}{x})]\\
+    \end{aligned}
+\end{equation}
+
+\section{柱坐标下的边值问题}\label{sec:3.8}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.9.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{}
+    \label{fig:3.9}
+\end{figure}
+
+柱坐标下的拉普拉斯方程的结果为$\Phi=R(\rho)Q(\phi)Z(z)$，其中分离变量后的因子在前面章节中给出。现在考虑一个特定的边值问题，如\autoref{fig:3.9}所示。圆柱体具有半径$a$和高度$L$，顶面和底面分别位于$z=L$和$z=0$处。圆柱体侧面和底面的电势为零，而顶面具有电势$\Phi=V(\rho,\phi)$。我们想要找到圆柱体内任意一点处的电势。为了使$\Phi$单值且在$z=0$处为零，
+$$\begin{aligned}
+    Q(\phi)&=A\sin m\phi+B\cos m\phi\\
+    Z(z)&=\sinh kz\\
+\end{aligned}$$
+其中$\nu=m$是整数，$k$是待定常数。径向因子为
+$$R(\rho)=C J_m (k\rho)+D N_m(k\rho)$$
+如果电势在$\rho=0$是有限的，那么$D=0$。电势在$\rho=a$处为零的要求意味着$k$只能取以下特殊值：
+$$k=\frac{x_{mn}}{a}\quad (n=1,2,3,\dots)$$
+其中$x_{mn}$是$J_m(x_{mn})=0$的所有根。
+
+结合所有这些条件，我们得到解的普遍形式为
+\begin{subequations}\label{eq:3.105}
+    \begin{equation}\label{eq:3.105a}
+        \Phi(\rho,\phi,z)=\sum_{m=0}^\infty\sum_{n=1}^\infty J_m(k{mn}\rho)\sinh (k_{mn}z)(A_{mn}\sin m\phi+B_{mn}\cos m\phi)
+    \end{equation}
+    在$z=L$处，给定电势为$V(\rho,\phi)$。因此我们有
+    $$V(\rho,\phi)=\sum_{m,n}\sinh(k_{mn}L)J_m(k_{mn}\rho)(A_{mn}\sin m\phi+B_{mn}\cos m\phi)$$
+    这是一个关于$\phi$的傅里叶级数，关于$\rho$的傅里叶-贝塞尔级数。从\autoref{eq:2.37}和\autoref{eq:3.97}中知道系数为
+    \begin{equation}\label{eq:3.105b}
+        \begin{aligned}
+            &A_{mn}=\frac{2\cosech(k_{mn}L)}{\pi a^2 J^2_{m+1}(k_{mn}a)}\int_0^{2\pi} d\phi \int_0^a d\rho \rho V(\rho,\phi)J_m(k_{mn}\rho)\sin m\phi\\
+        \mbox{和}&\\
+            &B_{mn}=\frac{2\cosech(k_{mn}L)}{\pi a^2 J^2_{m+1}(k_{mn}a)}\int_0^{2\pi} d\phi \int_0^a d\rho \rho V(\rho,\phi)J_m(k_{mn}\rho)\cos m\phi\\
+        \end{aligned}
+    \end{equation}
+\end{subequations}
+前提是对于$m=0$，我们在级数中使用$\frac{1}{2}B_{0m}$。
+
+展开\autoref{eq:3.105a}的特殊形式由$z=0$时，对任意的$\rho$，以及$\rho=a$时，对任意的$z$电势为零的要求导致。对于不同的边界条件，这个展开式具有不同形式。一个例子是电势在两端为零，在侧面上等于$V(\phi,z)$，它作为问题3.9留给读者练习。
+
+傅里叶-贝塞尔级数\autoref{eq:3.105}对有限区间$0\leq \rho\leq a$成立。如果$a\to\infty$，级数变为积分，和三角函数的傅里叶级数变为傅里叶积分是一样的。因此，例如，如果在无电荷空间的$z\geq 0$处，电势有限且在$z\to\infty$时消失，$z\geq0$处的普遍形式的解一定为
+\begin{equation}\label{eq:3.106}
+    \Phi(\rho,\phi,z)=\sum_{m=0}^\infty\int_0^\infty dk e^{-kz}J_m(k\rho)J_m(k\rho)[A_m(k)\sin m\phi+B_m(k)\cos m\phi]
+\end{equation}
+如果在整个$z=0$平面上电势确定为$V(\rho,\phi)$，那么系数由下式决定
+$$V(\rho,\phi)=\sum_{m=0}^\infty\int_0^\infty dk J_m(k\rho)[A_m(k)\sin m\phi+B_m(k)\cos m\phi]$$
+关于$\phi$的变化就是傅里叶级数。结果是系数$A_m(k)$和$B_m(k)$由积分关系分别确定：
+\begin{equation}\label{eq:3.107}
+    \frac{1}{\pi}\int_0^{2\pi} V(\rho,\phi)\left\{
+        \begin{aligned}
+            \sin m\phi\\
+            \cos m\phi\\
+        \end{aligned}\right\}
+        d\phi=\int_0^\infty J_m(k'\rho)\left\{
+        \begin{aligned}
+            A_m(k')\\
+            B_m(k')\\
+        \end{aligned}\right\}
+        dk'
+\end{equation}
+这些径向积分方程的第一类可以被简单解决，因为它们是\textit{汉克尔变换}。对于我们的目的，有积分关系，
+\begin{equation}\label{eq:3.108}
+    \int_0^\infty x J_m(kx)J_m(k'x)dx=\frac{1}{k}\delta(k'-k)
+\end{equation}
+可以利用它来转换方程\autoref{eq:3.107}。在两边乘上$\rho J_m(k\rho)$，然后对$\rho$积分，利用\autoref{eq:3.108}，系数由整个$z=0$平面上的积分确定：
+\begin{equation}\label{eq:3.109}
+    \begin{rcases*}
+        A_m(k)\\
+        B_m(k)\\
+    \end{rcases*}
+    =\frac{k}{\pi}\int_0^\infty d\rho \rho \int_0^{2\pi} d\phi V(\rho,\phi)J_m(k\rho)
+    \begin{cases}
+        \sin m\phi\\
+        \cos m\phi\\
+    \end{cases}
+\end{equation}
+和通常一样，对于$m=0$，在\autoref{eq:3.106}中必须使用$\frac{1}{2}B_0(k)$。
+
+正好我们在研究以贝塞尔函数为基的展开，我们观察到固定$\nu$，${\rm Re}(\nu)>-1$的$J_{\nu}(kx)$在区间$0<x<\infty$上构成了一个完备正交（关于$k$正交）函数组。对于每个$m$值（固定$\phi$和$z$），关于$k$的展开\autoref{eq:3.106}是以下展开的一个特殊情况，
+\begin{equation}\label{eq:3.110}
+    A(x)=\int_0^\infty \widetilde{A}(k)J_\nu(kx)dk,\mbox{其中}\widetilde{A}(k)=k\int_0^\infty xA(x)J_\nu(kx)dx
+\end{equation}
+这些展开的一个重要例子是球坐标系下球贝塞尔函数$j_l(kr),l=0,1,2,\dots$。对于目前的目标我们仅仅注意到定义，
+\begin{equation}\label{eq:3.111}
+    j_l(z)=\sqrt{\frac{\pi}{2z}}J_{l+1/2}(z)
+\end{equation}
+（关于球贝塞尔函数的细节可以在\autoref{cha:9}中找到。）正交关系\autoref{eq:3.108}显然变成
+\begin{equation}\label{eq:3.112}
+    \int_0^\infty r^2 j_l(kr)j_l(k'r)dr=\frac{\pi}{2k^2}\delta(k-k')
+\end{equation}
+完备关系有相同的形式，只需要替换$r\to k$，$k\to r$，$k'\to r'$。对确定的$l$，傅里叶-球贝塞尔展开从而为
+\begin{equation}\label{eq:3.113}
+    A(r)=\int_0^\infty \widetilde{A}(k)j_l(kr)dk,\mbox{其中}\widetilde{A}(k)=\frac{2k^2}{\pi}\int_0^\infty r^2 A(r)j_l(kr)dr
+\end{equation}
+这些展开式可以用于导体介质中的电流衰减或者时变磁场扩散，其中角向对称性把问题简化到一个或几个$l$值。见问题5.35或5.36。
+
+\section{球坐标下格林函数的展开}\label{sec:3.9}
+
+为了处理同时包含边界条件和电荷分布的电荷问题（例如，泊松方程的解），有必要确定满足特定边界条件的格林函数$G(\mathbf{x},\mathbf{x}')$。通常这些边界条件是在某些可分离变量的坐标系中的表面上确定的（例如，球或柱边界）。从而用适合于这些待研究坐标系的函数的乘积来表达格林函数是方便的。我们首先阐述球坐标下的展开。
+
+对于没有边界面的情况，除了无穷远处，我们已经有格林函数的展开式了，即\autoref{eq:3.70}：
+$$\frac{1}{|\mathbf{x}-\mathbf{x'}|}=4\pi \sum_{l=0}^\infty\sum_{m=-l}^l\frac{1}{2l+1}\frac{r_<^l}{r_>^{l+1}}Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)$$
+假设我们想要获得一个类似的格林函数展开式，适用于位于$r=a$处的球面边界的“外部”问题。结果可以通过电像法的格林函数\autoref{eq:2.16}很快找到。对\autoref{eq:2.16}的两项都利用展开\autoref{eq:3.70}，我们得到：
+\begin{equation}\label{eq:3.114}
+    G(\mathbf{x},\mathbf{x}')=4\pi\sum_{l,m}\frac{1}{2l+1}[\frac{r_<^l}{r_>^{l+1}}-\frac{1}{a}(\frac{a^2}{rr'})^{l+1}]Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+为了清晰看出\autoref{eq:3.114}的结构并证明其满足边界条件，对于$r<r'$和$r>r'$，我们把径向因子分开：
+\begin{equation}\label{eq:3.115}
+    [\frac{r_<^l}{r_>^{l+1}}-\frac{1}{a}(\frac{a^2}{rr'})^{l+1}]=
+    \begin{cases}
+        \frac{1}{r'^{l+1}}[r^l-\frac{a^{2l+1}}{r^{l+1}}],\quad r<r'\\
+        [r'^l-\frac{a^{2l+1}}{r'^{l+1}}]\frac{1}{r^{l+1}},\quad r>r'\\
+    \end{cases}
+\end{equation}
+首先，我们注意到当任意的$r$或$r'$等于$a$时，径向因子按照要求为零。类似地，当$r$或$r'\to\infty$，径向因子也为零。这在$r$和$r'$是对称的。对于固定的$r'$，看成是$r$的函数，径向因子只是拉普拉斯方程径向部分\autoref{eq:3.7}的解$r^l$和$r^{-(l+1)}$的线性组合。对于$r<r'$和$r>r'$允许不同的线性组合。其原因在于，后面我们会明显看到，格林函数是具有$\delta$函数作为非齐次项的泊松方程的一个解。
+
+现在我们已经看到分离变量下的格林函数的普遍结构了，我们从第一性原理中系统构建这种展开式。狄利克雷电势问题的格林函数满足方程
+\begin{equation}\label{eq:3.116}
+    \nabla_x^2 G(\mathbf{x},\mathbf{x'})=-4\pi\delta(\mathbf{x}-\mathbf{x'})
+\end{equation}
+对于任意位于边界面$S$上的$\mathbf{x}$和$\mathbf{x'}$都满足边界条件$G(\mathbf{x},\mathbf{x'})=0$。对于球面边界面我们想要一个具有\autoref{eq:3.114}普遍形式的展开。我们利用$\delta$函数可以被写成如下展开的事实
+\footnote{为了用坐标$(\xi_1,\xi_2,\xi_3)$表达$\delta(\mathbf{x}-\mathbf{x'})=\delta(x_1-x_1')\delta(x_2-x_2')\delta(x_3-x_3')$，坐标$(\xi_1,\xi_2,\xi_3)$通过贾柯比矩阵$J(x_i,\xi_i)$联系到坐标$(x_1,x_2,x_3)$，我们注意到有意义的量是$\delta(\mathbf{x}-\mathbf{x'})d^3x$。从而
+$$\delta(\mathbf{x}-\mathbf{x'})=\frac{1}{|J(x_i,\xi_i)|}\delta(\xi_1-\xi_1')\delta(\xi_2-\xi_2')\delta(\xi_3-\xi_3')$$
+见问题1.2。}
+$$\delta(\mathbf{x}-\mathbf{x'})=\frac{1}{r^2}\delta(r-r')\delta(\phi-\phi')\delta(\cos\theta-\cos\theta')$$
+并且完备关系\autoref{eq:3.56}可以用来表示角向的$\delta$函数:
+\begin{equation}\label{eq:3.117}
+    \delta(\mathbf{x}-\mathbf{x'})=\frac{1}{r^2}\delta(r-r')\sum_{l=0}^\infty\sum_{m=-l}^l Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+从而格林函数，作为$\mathbf{x}$的函数，可以被展开成
+\begin{equation}\label{eq:3.118}
+    G(\mathbf{x},\mathbf{x'})=\sum_{l=0}^\infty\sum_{-l}^l A_{lm}(r|r',\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+把\autoref{eq:3.117}和\autoref{eq:3.118}代入\autoref{eq:3.116}得到结果
+\begin{equation}\label{eq:3.119}
+    A_{lm}(r|r',\theta',\phi')=g_l(r,r')Y_{lm}^*(\theta',\phi')
+\end{equation}
+其中
+\begin{equation}\label{eq:3.120}
+    \frac{1}{r}\frac{d^2}{dr^2}(rg_l(r,r'))+\frac{l(l+1)}{r^2}g_l(r,r')=-\frac{4\pi}{r^2}\delta(r-r')
+\end{equation}
+径向格林函数在$r\neq r'$时满足\autoref{eq:3.7}的齐次径向方程。因此它可以被写成
+$$g_l(r,r')=
+\begin{cases}
+   Ar^l+Br^{-(l+1)}\quad \mbox{对于}r<r'\\
+   A'r^l+B'r^{-(l+1)}\quad \mbox{对于}r>r'\\
+\end{cases}$$
+系数$A$，$B$，$A'$，$B'$是$r'$的函数，由边界条件决定，即\autoref{eq:3.120}中$\delta(r-r')$隐含的要求，以及$g_l(r,r')$中$r$和$r'$的对称性。假设边界面为半径为$r=a$和$r=b$的同心球面。边界面上的$\mathbf{x}$处$G(\mathbf{x},\mathbf{x'})$为零暗示对于$r=a$和$r=b$，$g_l(r,r')$为零。结果就是$g_l(r,r')$变为
+\begin{equation}\label{eq:3.121}
+    g_l(r,r')=
+    \begin{cases}
+        A(r^l-\frac{a^{2l+1}}{r^{l+1}}),\quad r<r'\\
+        B'(\frac{1}{r^{l+1}}-\frac{r^l}{b^{2l+1}}),\quad r>r'\\
+    \end{cases}
+\end{equation}
+关于$r$和$r'$的对称性要求系数$A(r')$和$B'(r')$满足某种要求使得$g_l(r,r')$可以被写成
+\begin{equation}\label{eq:3.122}
+    g_l(r,r')=C(r_<^l-\frac{a^{2l+1}}{r<^{l+1}})(\frac{1}{r_>^{l+1}}-\frac{r_>^l}{b^{2l+1}})
+\end{equation}
+其中$r_<$（$r_>$）是$r$和$r'$中较小的（较大的）值。为了确定常数$C$我们必须考虑\autoref{eq:3.120}中$\delta$函数的作用。如果我们在\autoref{eq:3.120}两边乘上$r$并在区间$r=r'-\epsilon$到$r=r'+\epsilon$上积分，其中$\epsilon$非常小，我们得到
+\begin{equation}\label{eq:3.123}
+    \{\frac{d}{dr}[rg_l(r,r')]\}_{r'+\epsilon}-\{\frac{d}{dr}[rg_l(r,r')]\}_{r'-\epsilon}=-\frac{4\pi}{r'}
+\end{equation}
+因此导数在$r=r'$处不连续，正如\autoref{fig:3.10}所示。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.10.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{径向格林函数导数上的不连续。}
+    \label{fig:3.10}
+\end{figure}
+
+对于$r=r'+\epsilon$，$r_>=r,r_<=r'$。因此
+$$\begin{aligned}
+    \{\frac{d}{dr}[rg_l(r,r')]\}_{r'+\epsilon}&=C(r'^l-\frac{a^{2l+1}}{r'^{l+1}})[\frac{d}{dr}(\frac{1}{r^l}-\frac{r^{l+1}}{b^{2l+1}})]_{r=r'}\\
+    &=-\frac{C}{r'}[1-(\frac{a}{r'})^{2l+1}][l+(l+1)(\frac{r'}{b})^{2l+1}]\\
+\end{aligned}$$
+类似地
+$$\{\frac{d}{dr}[rg_l(r,r')]\}_{r'-\epsilon}=\frac{C}{r'}[l+1+l(\frac{a}{r'})^{2l+1}][1-(\frac{r'}{b})^{2l+1}]$$
+把这些导数代入\autoref{eq:3.123}中，我们得到：
+\begin{equation}\label{eq:3.124}
+    C=\frac{4\pi}{(2l+1)[1-(\frac{a}{b})^{2l+1}]}
+\end{equation}
+结合\autoref{eq:3.124}，\autoref{eq:3.122}，\autoref{eq:3.119}和\autoref{eq:3.118}得到针对由$r=a$和$r=b$围成的球壳的格林函数：
+\begin{equation}\label{eq:3.125}
+    G(\mathbf{x},\mathbf{x'})=4\pi\sum_{l=0}^\infty\sum_{m=-l}^l \frac{Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)}{(2l+1)[1-(\frac{a}{b})^{2l+1}]}(r_<^l-\frac{a^{2l+1}}{r_<^{l+1}})(\frac{1}{r_>^{l+1}}-\frac{r_>^l}{b^{2l+1}})
+\end{equation}
+对于$a\to0,b\to\infty$和$b\to\infty$的情况，我们分别回到\autoref{eq:3.70}和\autoref{eq:3.114}的展开式。对于半径为$b$的球面的“内部”问题，我们只需要让$a\to0$。虽然对于单个球面用电像法得到展开式是最简单的，对于球壳\autoref{eq:3.125}的普遍结果很难通过电像法得到，因为它涉及到无穷电像。
+
+\section{利用球格林函数展开求解电势问题}\label{sec:3.10}
+
+在边界面上确定电势的泊松方程的通解为（见\autoref{sec:1.10}）：
+\begin{equation}\label{eq:3.126}
+    \Phi(\mathbf{x})=\frac{1}{4\pi\epsilon_0}\int_V \rho(\mathbf{x'})G(\mathbf{x},\mathbf{x'})d^3x'-\frac{1}{4\pi}\oint_S \Phi(\mathbf{x'})\frac{\partial G}{\partial n'}da'
+\end{equation}
+作为例子，让我们考虑半径为$b$的球体\textit{内部}的电势。首先我们建立\autoref{eq:3.126}中面积分和\autoref{sec:3.5}中的方法，以及\autoref{eq:3.61}和\autoref{eq:3.58}之间的等价性。令\autoref{eq:3.125}中$a=0$，$r'=b$处的常微分为：
+\begin{equation}\label{eq:3.127}
+    \frac{\partial G}{\partial n'}=\frac{\partial G}{\partial r'}|_{r'=b}=-\frac{4\pi}{b^2}\sum_{l,m}(\frac{r}{b})^l Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+从而根据\autoref{eq:3.126}，边界表面上$\Phi=V(\theta',\phi')$，$r=b$内部的拉普拉斯方程的解为：
+\begin{equation}\label{eq:3.128}
+    \Phi(\mathbf{x})=\sum_{l,m}[\int V(\theta',\phi')Y_{lm}^*(\theta',\phi')d\Omega'](\frac{r}{b})^l Y_{lm}(\theta,\phi)
+\end{equation}
+对于我们考虑的情况，这和\autoref{eq:3.58}下的\autoref{eq:3.61}是一样的形式。这是关于球体的\textit{第三种}解的形式，被称为泊松积分\autoref{eq:2.19}。这个解和格林函数展开解的等价性隐含在两者是都由普遍表达式\autoref{3.126}和电像格林函数导出。\autoref{eq:2.19}和级数解\autoref{eq:3.61}之间的等价性的显性证明留在问题中。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.11.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{半径为$a$，总电量为$Q$的带点圆环位于一个半径为$b$的接地导体球中。}
+    \label{fig:3.11}
+\end{figure}
+
+我们现在转到体积内有电荷分布的问题的解，所以\autoref{eq:3.126}中的体积积分存在。只考虑边界面上电势为零的问题是足够的。通过线性组合拉普拉斯方程的解，可以得到普遍情况下的解。第一个例子是一个半径为$b$的空心接地球中有一个同心的半径为$a$的，总电量为$Q$的带电圆环。电荷环位于$x-y$平面，正如\autoref{fig:3.11}所示。环上的电荷密度可以借助关于角度和半径的$\delta$函数写成
+\begin{equation}\label{eq:3.129}
+    \rho(\mathbf{x'})=\frac{Q}{2\pi a^2}\delta(r'-a)\delta(\cos\theta')
+\end{equation}
+在关于格林函数的体积分\autoref{eq:3.125}中，由于角向对称性，只有$m=0$的项。然后利用\autoref{eq:3.57}，记住\autoref{eq:3.125}中$a\to0$，我们发现
+\begin{equation}\label{eq:3.130}
+    \begin{aligned}
+        \Phi(\mathbf{x})=&\frac{Q}{4\pi\epsilon_0}\int \rho(\mathbf{x'})G(\mathbf{x},\mathbf{x'})d^3x'\\
+        =&\frac{Q}{4\pi\epsilon_0}\sum_{l=0}^\infty P_l(0)r_<^l(\frac{1}{r_>^{l+1}}-\frac{r_>^l}{b^{2l+1}})P_l(\cos\theta)
+    \end{aligned}
+\end{equation}
+现在，$r_<$（$r_>$）是$r$和$a$两者之中较小（较大）的值。利用$P_{2n+1}(0)=0$和$P_{2n}(0)=[(-1)^n(2n-1)!!]/2^n n!$的事实，\autoref{eq:3.130}可以被写成
+\begin{equation}\label{eq:3.131}
+    \Phi(\mathbf{x})=\frac{Q}{4\pi\epsilon_0}\sum_{n=0}^\infty\frac{(-1)^n(2n-1)!!}{2^n n!}r_<^{2n}(\frac{1}{r_>^{2n+1}}-\frac{r_>^{2n}}{b^{4n+1}})P_{2n}(\cos\theta)
+\end{equation}
+在$b\to\infty$的极限下，可以看出\autoref{eq:3.130}或\autoref{eq:3.131}回到\autoref{sec:3.3}末关于自由空间中带电圆环的表达式。目前的结果也可以利用那个结果和球体的电像法得到。
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./pic/3.12.png}
+    \captionsetup{justification=raggedright, singlelinecheck=false}
+    \caption{长度为$2b$，总电量为$Q$的均匀带电线段位于一个半径为$b$的接地导体球中。}
+    \label{fig:3.12}
+\end{figure}
+
+电荷密度的第二个例子，绘制在\autoref{fig:3.12}中，是在一个空心接地球中，有总电量为$Q$的一条均匀带电线段，其位于$z$轴上，连接球的南北极。又一次借助$\delta$函数，体电荷密度可以被写成：
+\begin{equation}\label{eq:3.132}
+    \rho(\mathbf{x'})=\frac{Q}{2b}\frac{1}{2\pi r'^2}[\delta(\cos\theta'-1)+\delta(\cos\theta'+1)]
+\end{equation}
+关于$\cos\theta$的两个$\delta$函数对应于图中线电荷位于$x-y$平面的上下两半部分。分母中的因子$2\pi r'^2$保证电荷密度具有恒定的\textit{线}密度$Q/2b$。利用\autoref{eq:3.126}的密度，我们得到
+\begin{equation}\label{eq:3.133}
+    \Phi(\mathbf{x})=\frac{Q}{8\pi\epsilon_0 b}\sum_{l=0}^\infty [P_l(1)+P_l(-1)]P_l(\cos\theta)\int_0^b r_<^l(\frac{1}{r_>^{l+1}}-\frac{r_>^l}{b^{2l+1}})dr'
+\end{equation}
+积分必须被分成两个区间，$0\leq r'< r$和$r\leq r'\leq b$。从而我们找到
+\begin{equation}\label{eq:3.134}
+    \begin{aligned}
+        \int_0^b=&(\frac{1}{r^{l+1}}-\frac{r^l}{b^{2l+1}})\int_0^r r'^l dr'+r^l \int_r^b (\frac{1}{r'^{l+1}}-\frac{r'^l}{b^{2l+1}})dr'\\
+        =&\frac{(2l+1)}{l(l+1)}[1-(\frac{r}{b})^l]\\
+    \end{aligned}
+\end{equation}
+对于$l=0$这个积分是未定的。应用洛必达（L'Hospital）法则，只对$l=0$我们得到，
+\begin{equation}\label{eq:3.135}
+    \int_0^b=\lim_{l\to0}\frac{\frac{d}{dl}[1-(\frac{r}{b})^l]}{\frac{d}{dl}(l)}=\lim_{l\to0}[-\frac{d}{dl}e^{l*\ln(r/b)}]=\ln(\frac{b}{r})
+\end{equation}
+这可以通过对$l=0$的\autoref{eq:3.133}直接积分证明。利用$P_l(-1)=(-1)^l$的事实，电势\autoref{eq:3.133}可以变为如下形式：
+\begin{equation}\label{eq:3.136}
+    \Phi(\mathbf{x})=\frac{Q}{4\pi\epsilon_0 b}\{\ln(\frac{b}{r})+\sum_{j=1}^\infty \frac{(4j+1)}{2j(2j+1)}[1-(\frac{r}{b})^{2j}]P_{2j}(\cos\theta)\}
+\end{equation}
+$l=0$时存在的对数项提醒我们电势在$z$轴上发散。这是由级数\autoref{eq:3.136}导致的，它在$\cos\theta=\pm1$上发散，除了$r=b$处。对数变量为$(b/r)$而不是$(b/r\sin\theta)$的奇异性在问题3.8中有指出。
+
+接地球表面上的面电荷密度可以通过对\autoref{eq:3.136}求导迅速得到：
+\begin{equation}\label{eq:3.137}
+    \sigma(\theta)=\epsilon_0 \frac{\partial \Phi}{\partial r}|_{r=b}=-\frac{Q}{4\pi b^2}[1+\sum_{j=1}^\infty \frac{(4j+1)}{(2j+1)}P_{2j}(\cos\theta)]
+\end{equation}
+第一项显示球面上的总感应电荷是$-Q$，其他项在球面上的积分都是零。
+
+\section{柱坐标下格林函数的展开}\label{sec:3.11}
+
+柱坐标下单位点电荷的电势的展开给出了另一个关于格林函数展开的有用例子。我们用足够普遍的方法给出前几步，这样可以迅速调整来寻找柱边界面下的电势问题的格林函数。开始于格林函数满足的方程：
+\begin{equation}\label{eq:3.138}
+    \nabla^2_x G(\mathbf{x},\mathbf{x'})=-\frac{4\pi}{\rho}\delta(\rho-\rho')\delta(\phi-\phi')\delta(z-z')
+\end{equation}
+其中$\delta$函数用柱坐标表示。$\phi$和$z$的$\delta$函数可以用正交函数组表达：
+\begin{equation}\label{eq:3.139}
+    \begin{rcases*}
+        \delta(z-z')=\frac{1}{2\pi}\int_{-\infty}^\infty dk e^{ik(z-z')}=\frac{1}{\pi}\int_0^\infty dk \cos[k(z-z')]\\
+        \delta(\phi-\phi')=\frac{1}{2\pi}\sum_{m=-\infty}^\infty e^{im(\phi-\phi')}
+    \end{rcases*}
+\end{equation}
+我们把格林函数展开成类似的样子：
+\begin{equation}\label{eq:3.140}
+    G(\mathbf{x},\mathbf{x'})=\frac{1}{2\pi^2}\sum_{m=-\infty}^\infty \int_0^\infty dk e^{im(\phi-\phi')}\cos[k(z-z')]g_m(k,\rho,\rho')
+\end{equation}
+代入\autoref{eq:3.138}，得到径向格林函数$g_m(k,\rho,\rho')$满足的方程：
+\begin{equation}\label{eq:3.141}
+    \frac{1}{\rho}\frac{d}{d\rho}(\rho\frac{dg_m}{d\rho}-(k^2+\frac{m^2}{\rho^2})g_m=-\frac{4\pi}{\rho}\delta(\rho-\rho')
+\end{equation}
+对于$\rho\neq\rho'$，这就是关于调和贝塞尔函数$I_m(k\rho)$和$K_m(k\rho)$的\autoref{eq:3.98}。假设$\psi_1(k\rho)$是$I_m$和$K_m$的某种线性组合，满足$\rho<\rho'$时的正确边界条件，而$\psi_2(k\rho)$是一个与其线性无关的组合，满足$\rho>\rho'$时的正确边界条件。那么格林函数关于$\rho$和$\rho'$的对称性要求
+\begin{equation}\label{eq:3.142}
+    g_m(k,\rho,\rho')=\psi_1(k\rho_<)\psi_2(k\rho_>)
+\end{equation}
+乘积$\psi_1\psi_2$的归一化由\autoref{eq:3.141}中$\delta$函数导致的导数的不连续性给出：
+\begin{equation}\label{eq:3.143}
+    \frac{dg_m}{d\rho}|_+-\frac{dg_m}{d\rho}|_-=-\frac{4\pi}{\rho'}
+\end{equation}
+其中$|_{\pm}$表示在$\rho=\rho'\pm\epsilon$处取值。从\autoref{eq:3.142}中显然看出
+\begin{equation}\label{eq:3.144}
+    [\frac{dg_m}{d\rho}|_+-\frac{dg_m}{d\rho}|_-]=k(\psi_1\psi_2'-\psi_1'\psi_2)=kW[\psi_1,\psi_2]
+\end{equation}
+其中撇号意味着关于变量求导，而$W[\psi_1,\psi_2]$是$\psi_1$和$\psi_2$的朗斯基行列式（Wronskian）。方程\autoref{eq:3.141}是斯特姆-刘维尔（Sturm-Liouville）方程的一种
+\begin{equation}\label{eq:3.145}
+    \frac{d}{dx}[p(x)\frac{dy}{dx}]+g(x)y=0
+\end{equation}
+并且众所周知这种方程两个线性无关解的朗斯基行列式正比于$[1/p(x)]$。此保证了对于$\rho'$的所有值都有满足\autoref{eq:3.143}的解。显然我们必须要求乘积$\psi_1\psi_2$的归一化使得其朗斯基行列式有值
+\begin{equation}\label{eq:3.146}
+    W[\psi_1(x),\psi_2(x)]=-\frac{4\pi}{x}
+\end{equation}
+
+如果没有边界面，$g_m(k,\rho,\rho')$必须在$\rho=0$处有限，在$\rho\to\infty$时为零。结果就是$\psi_1(k\rho)=I_m(k\rho)$，$\psi_2(k\rho)=K_m(k\rho)$。常数$A$由朗斯基行列式条件\autoref{eq:3.146}决定。因为对于所有的$x$朗斯基行列式都正比于$(1/x)$，所以在什么地方求值没有关系。利用对小$x$的极限形式\autoref{eq:3.102}和\autoref{eq:3.103}（或对于大$x$的\autoref{eq:3.104}），我们发现
+\begin{equation}\label{eq:3.147}
+    W[I_m(x),K_m(x)]=-\frac{1}{x}
+\end{equation}
+因此$A=4\pi$。$1/|\mathbf{x}-\mathbf{x'}|$的展开因此变成：
+\begin{equation}\label{eq:3.148}
+    \frac{1}{|\mathbf{x}-\mathbf{x'}|}=\frac{2}{\pi}\sum_{m=-\infty}^\infty \int_0^\infty dk e^{im(\phi-\phi')}\cos[k(z-z')]I_m(k\rho_<)K_m(k\rho_>)
+\end{equation}
+也可以写成全是实函数的形式：
+\begin{equation}\label{eq:3.149}
+    \begin{aligned}
+        \frac{1}{|\mathbf{x}-\mathbf{x'}|}&=\frac{4}{\pi}\int_0^\infty dk\cos[k(z-z')]\\
+        &\times \{\frac{1}{2}I_0(k\rho_<)K_0(k\rho_>+\sum_{m=1}^\infty \cos[m(\phi-\phi')]I_m(k\rho_<)K_m(k\rho_>)\}\\
+    \end{aligned}
+\end{equation}
+
+从这个展开式中能得到一系列有用的数学结果。如果我们让$\mathbf{x'}\to0$，只剩下了$m=0$的项，我们得到积分表达：
+\begin{equation}\label{eq:3.150}
+    \frac{1}{\sqrt{\rho^2+z^2}}=\frac{2}{\pi}\int_0^\infty \cos kz K_0(k\rho) dk
+\end{equation}
+如果我们把\autoref{eq:3.150}中的$\rho^2$用$R^2=\rho^2+\rho'^2-2\rho\rho'\cos(\phi-\phi')$替换，我们在左手边得到$z'=0$时距离$|\mathbf{x}-\mathbf{x'}|$的反比，即$z'=0$时的\autoref{eq:3.149}。比较\autoref{eq:3.149}和\autoref{eq:3.150}的右手边（对\textit{所有}的$z$值都成立）得到下式：
+\begin{equation}\label{eq:3.151}
+    K_0(k\sqrt{\rho^2+\rho'^2-2\rho\rho'\cos(\phi-\phi')})=I_0(k\rho_<)K_0(k\rho_>)+2\sum_{m=1}^{\infty}\cos[m(\phi-\phi')]I_m(k\rho_<)K_m(k\rho_>)
+\end{equation}
+在最后这个结果中我们可以取极限$k\to0$，得到关于（二维）极坐标格林函数的展开式：
+\begin{equation}\label{eq:3.152}
+    \ln(\frac{1}{\rho^2+\rho'^2-2\rho\rho'\cos(\phi-\phi')})=2\ln(\frac{1}{\rho_>})+2\sum_{m=1}^\infty \frac{1}{m}(\frac{\rho_<}{\rho_>})^m\cos[m(\phi-\phi')]
+\end{equation}
+这个表达式可以通过导出\autoref{eq:3.148}的方法，系统性地构建关于二维泊松方程的格林函数来证明。见问题2.17。
+
+\section{格林函数的本征函数展开}\label{sec:3.12}
+
+另一个获得格林函数展开式的技术是利用一些相关问题的本征函数。这种方法与\autoref{sec:3.9}和\autoref{sec:3.11}的方法紧密联系。
+
+为了明确本征函数的意思，我们考虑一个具有以下形式的椭圆型微分方程
+\begin{equation}\label{eq:3.153}
+    \nabla^2 \psi(\mathbf{x})+[f(\mathbf{x})+\lambda]\psi(\mathbf{x})=0
+\end{equation}
+如果要求解$\psi(\mathbf{x})$要满足感兴趣体积$V$的边界$S$上的同质边界条件，那么\autoref{eq:3.153}通常不会有性质良好（例如，有限且连续）的解，除了当$\lambda$取某些特定值时。这些$\lambda$值，记为$\lambda_n$，称为\textit{本征值}（或\textit{特征值}），而解$\psi_n(\mathbf{x})$称为\textit{本征函数}。
+\footnote{熟悉波动力学的读者会认识到\autoref{eq:3.153}和势阱内的粒子满足的薛定谔（Schrödinger）方程是等价的。}
+本征微分方程被写成：
+\begin{equation}\label{eq:3.154}
+    \nabla^2 \psi_n(\mathbf{x})+[f(\mathbf{x})+\lambda_n]\psi_n(\mathbf{x})=0
+\end{equation}
+用和证明勒让德或贝塞尔函数正交性相似的方法，可以发现本征函数是正交的：
+\begin{equation}\label{eq:3.155}
+    \int_V \psi_m^*(\mathbf{x})\psi_n(\mathbf{x}) d^3x=\delta_{mn}
+\end{equation}
+其中假设了本征函数是归一化的。本征值$\lambda_n$的谱可能是分立的集合，或者连续的，或者两者兼有。后面我们假设所有本征函数构成了一个完备的基。
+
+现在假设我们希望找到以下方程的格林函数：
+\begin{equation}\label{eq:3.156}
+    \nabla^2_x G(\mathbf{x},\mathbf{x'})+[f(\mathbf{x})+\lambda]G(\mathbf{x},\mathbf{x'})=-4\pi\delta(\mathbf{x}-\mathbf{x'})
+\end{equation}
+其中$\lambda$不等于\autoref{eq:3.154}本征值$\lambda_n$中的任何一个。更进一步，假设格林函数具有和\autoref{eq:3.154}本征函数一样的边界条件。从而格林函数可以被展开成本征函数的级数，形式如下：
+\begin{equation}\label{eq:3.157}
+    G(\mathbf{x},\mathbf{x'})=\sum_n a_n(\mathbf{x'})\psi_n(\mathbf{x})
+\end{equation}
+代入格林函数满足的微分方程，得到结果：
+\begin{equation}\label{eq:3.158}
+    \sum_m a_m(\mathbf{x'})(\lambda-\lambda_m)\psi_m(\mathbf{x})=-4\pi\delta(\mathbf{x}-\mathbf{x'})
+\end{equation}
+如果我们在两边乘上$\psi_n^*(\mathbf{x})$并在体积$V$内积分，正交条件\autoref{eq:3.155}使左手边只剩一项，因此得到：
+\begin{equation}\label{eq:3.159}
+    a_n(\mathbf{x'})=4\pi\frac{\psi_n^*(\mathbf{x'})}{\lambda_n-\lambda}
+\end{equation}
+结果就是格林函数的本征函数展开为：
+\begin{equation}\label{eq:3.160}
+    G(\mathbf{x},\mathbf{x'})=4\pi \sum_n \frac{\psi_n^*(\mathbf{x'})\psi_n(\mathbf{x})}{\lambda_n-\lambda}
+\end{equation}
+对于连续的本征值谱，求和被积分替代。
+
+把前面的分析具体应用到泊松方程上，我们令\autoref{eq:3.156}中$f(\mathbf{x})=0$，$\lambda=0$。首先，作为基本的简单例子，我们让\autoref{eq:3.154}为全空间的波动方程：
+\begin{equation}\label{eq:3.161}
+    (\nabla^2+k^2)\psi_{\mathbf{k}}(\mathbf{x})=0
+\end{equation}
+具有连续的本征值$k^2$，和本征函数：
+\begin{equation}\label{eq:3.162}
+    \psi_{\mathbf{k}}(\mathbf{x})=\frac{1}{(2\pi)^{3/2}}e^{i\mathbf{k}\cdot\mathbf{x}}
+\end{equation}
+这些本征函数满足$\delta$函数的归一化条件：
+\begin{equation}\label{eq:3.163}
+    \int \psi_{\mathbf{k'}}^*(\mathbf{x})\psi_{\mathbf{k}}(\mathbf{x}) d^3x=\delta(\mathbf{k}-\mathbf{k'})
+\end{equation}
+然后，按照\autoref{eq:3.160}，无限空间内的格林函数具有展开式：
+\begin{equation}\label{eq:3.164}
+    \frac{1}{|\mathbf{x}-\mathbf{x'}|}=\frac{1}{2\pi^2}\int d^3k \frac{e^{i\mathbf{k}\cdot(\mathbf{x}-\mathbf{x'})}}{k^2} 
+\end{equation}
+这就是$1/|\mathbf{x}-\mathbf{x'}|$的三维傅里叶积分表达。
+
+第二个例子，考虑一个长方体盒子内部的狄利克雷问题的格林函数，盒子由六个平面定义，$x=0$，$x=a$，$y=0$，$y=b$，$z=0$，$z=c$。展开式的基是波动方程的本征函数：
+\begin{equation}\label{eq:3.165}
+    (\nabla^2+k_{lmn}^2)\psi_{lmn}(x,y,z)=0
+\end{equation}
+其中在所有边界面上都为零的本征函数是
+\begin{equation}\label{eq:3.166}
+    \begin{aligned}
+        \psi_{lmn}(x,y,z)&=\sqrt{\frac{8}{abc}}\sin(\frac{l \pi x}{a})\sin(\frac{m \pi y}{b})\sin(\frac{n \pi z}{c}) \\
+        \mbox{以及}&\\
+        k_{lmn}^2&=\pi^2(\frac{l^2}{a^2}+\frac{m^2}{b^2}+\frac{n^2}{c^2})
+    \end{aligned}
+\end{equation}
+因此格林函数的展开为：
+\begin{equation}\label{eq:3.167}
+    G(\mathbf{x},\mathbf{x'})=\frac{32}{\pi abc}\times\sum_{l,m,n=1}^\infty \frac{\sin(\frac{l\pi x}{a})\sin(\frac{l\pi x'}{a})\sin(\frac{m\pi y}{b})\sin(\frac{m\pi y'}{b})\sin(\frac{n\pi z}{c})\sin(\frac{n\pi z'}{c})}{\frac{l^2}{a^2}+\frac{m^2}{b^2}+\frac{n^2}{c^2}}
+\end{equation}
+
+为了把展开\autoref{eq:3.167}和在\autoref{sec:3.9}和\autoref{sec:3.11}中得到的展开式，即球坐标下的\autoref{eq:3.125}和柱坐标下的\autoref{eq:3.148}联系起来，我们写下关于长方体盒子的类似展开。如果在这些情况中，$x$和$y$坐标用$(\theta,\phi)$或$(\phi,z)$的方法处理，而$z$单独特殊处理，我们得到格林函数：
+\begin{equation}\label{eq:3.168}
+    G(\mathbf{x},\mathbf{x'})=\frac{16\pi}{ab}\sum_{l,m=1}^\infty \sin(\frac{l\pi x}{a})\sin(\frac{l\pi x'}{a})\sin(\frac{m\pi y}{b})\sin(\frac{m\pi y'}{b})\times\frac{\sinh(K_{lm}z_<)\sinh[K_{lm}(c-z_>)]}{K_{lm}\sinh(K_{lm} c)}
+\end{equation}
+其中$K_{lm}=\pi(l^2/a^2+m^2/b^2)^{1/2}$。如果\autoref{eq:3.167}和\autoref{eq:3.168}要相等，必须是\autoref{eq:3.167}中对$n$的求和就是\autoref{eq:3.168}中关于$z$的一维格林函数在区间$(0,c)$上的傅里叶级数表达：
+\begin{equation}\label{eq:3.169}
+    \frac{\sinh(K_{lm}z_<)\sinh[K_{lm}(c-z_>)]}{K_{lm}\sinh(K_{lm} c)}=\frac{2}{c}\sum_{n=1}^\infty \frac{\sin(\frac{n\pi z'}{c})}{K_{lm}^2+(\frac{n\pi}{c})^2}\sin(\frac{n\pi z}{c})
+\end{equation}
+\autoref{eq:3.169}是正确的傅里叶表达的证明留给读者作为练习。
+
+关于这个技术的更多例子可以在章末的问题中找到。
+
+\section{混合边界条件；具有圆孔的导电平面}\label{sec:3.13}
+
+
+\chapter*{附录：单位和维度}\label{cha:A}
+\renewcommand\thesection{\arabic{section}}
+\section*{1 单位和维度，基本单位和导出单位}\label{sec:A.1}
+\section*{2 电磁单位和方程}\label{sec:A.2}
+\section*{3 不同的电磁单位制}\label{sec:A.3}
+\section*{4 SI单位制和高斯单位制下方程和物理量的转换}\label{sec:A.4}
+
+\bibliography{ref}
+\end{document}
